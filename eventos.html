@@ -16,16 +16,17 @@
 		<script src="./cordova.js"></script>
 		
 		<script>
-		 
-		$(document).ready(function() {
+		
+		var nuevo_dia=current_day_of_month;
+		var nuevo_mes=current_month;
+		var nuevo_anio=current_year;
+		
+		var nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+		
+		//$(document).ready(function() {
+		document.addEventListener("deviceready", function() {
 			
 			$("#actual_day").html(current_day_of_month+" de "+monthNames[current_month]);
-			
-			var nuevo_dia=current_day_of_month;
-			var nuevo_mes=current_month;
-			var nuevo_anio=current_year;
-			
-			var nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
 			
 			get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
 			load_week(current_week);
@@ -47,7 +48,7 @@
 					$("#sdia").addClass("activo");
 					$("#diario").show('blind');
 					
-					get_data_api(current_date, '', 'events', 'contenedor_eventos');
+					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
 										
 				});				
 			});
@@ -56,14 +57,20 @@
 				$("#actual_day").hide('slide', { direction: 'left' }, function() {
 					$("#actual_day").html("DÍA ANTERIOR");
 					$("#actual_day").show('slide', { direction: 'right' });	
-
-					var d = new Date(); 
-					d.setDate(d.getDate()-1);
-					
-					nuevo_dia=d.getDate();
-					nuevo_mes=d.getMonth();
-					nuevo_anio=d.getFullYear();
-										
+			
+					nuevo_dia--;
+					//Comprobar
+					if(nuevo_dia<1)
+					{
+						nuevo_mes--;
+						nuevo_dia=31;
+					}
+					if(nuevo_mes<0)
+					{
+						nuevo_anio--;
+						nuevo_mes=11;
+					}
+						
 					$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
 					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
 					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
@@ -76,12 +83,18 @@
 					$("#actual_day").html("DÍA SIGUIENTE");
 					$("#actual_day").show('slide', { direction: 'left' });	
 					
-					var d = new Date(); 
-					d.setDate(d.getDate()+1);
-					
-					nuevo_dia=d.getDate();
-					nuevo_mes=d.getMonth();
-					nuevo_anio=d.getFullYear();
+					nuevo_dia++;
+					//Comprobar
+					if(nuevo_dia>31)
+					{
+						nuevo_dia=1;
+						nuevo_mes++;
+					}
+					if(nuevo_mes>11)
+					{	
+						nuevo_mes=0;
+						nuevo_anio++;
+					}
 					
 					$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
 					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
@@ -96,12 +109,18 @@
 					$("#actual_week").html("SEMANA ANTERIOR");
 					$("#actual_week").show('slide', { direction: 'right' });	
 					
-					var d = new Date(); 
-					d.setDate(d.getDate()-7);
-					
-					nuevo_dia=d.getDate();
-					nuevo_mes=d.getMonth();
-					nuevo_anio=d.getFullYear();
+					nuevo_dia-=7;
+					//Comprobar
+					if(nuevo_dia<1)
+					{
+						nuevo_mes--;
+						nuevo_dia=31;
+					}
+					if(nuevo_mes<0)
+					{
+						nuevo_anio--;
+						nuevo_mes=11;
+					}
 					
 					var nueva_semana=current_week-1;
 					
@@ -118,12 +137,18 @@
 					$("#actual_week").html("SEMANA ANTERIOR");
 					$("#actual_week").show('slide', { direction: 'left' });	
 					
-					var d = new Date(); 
-					d.setDate(d.getDate()+7);
-					
-					nuevo_dia=d.getDate();
-					nuevo_mes=d.getMonth();
-					nuevo_anio=d.getFullYear();
+					nuevo_dia+=7;
+					//Comprobar
+					if(nuevo_dia>31)
+					{
+						nuevo_dia=1;
+						nuevo_mes++;
+					}
+					if(nuevo_mes>11)
+					{	
+						nuevo_mes=0;
+						nuevo_anio++;
+					}
 					
 					var nueva_semana=current_week+1;
 					
@@ -150,8 +175,8 @@
 							'<div class="timeline_days" id="actual_week">'+
 								'<ul>'+									
 									'<li><div class="">l<br>14</div></li>'+
-									'<li><div class="event today">m<br>15</div></li>'+
-									'<li><div class="">m<br>16</div></li>'+
+									'<li><div class="event">m<br>15</div></li>'+
+									'<li><div class="today">m<br>16</div></li>'+
 									'<li><div class="event">j<br>17</div></li>'+
 									'<li><div class="">v<br>18</div></li>'+
 									'<li><div class="event">s<br>19</div></li>'+

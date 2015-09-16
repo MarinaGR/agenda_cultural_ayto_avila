@@ -18,7 +18,8 @@
 		<script src="./cordova.js"></script>
 		
 		<script>
-		$(document).ready(function() {
+		//$(document).ready(function() {
+		document.addEventListener("deviceready", function() {
 			$("#mapa_puntos").height($(window).outerHeight()-$(".contenedor_ads").height()-$("#menu").outerHeight()+"px");
 			setTimeout(function() {
 				

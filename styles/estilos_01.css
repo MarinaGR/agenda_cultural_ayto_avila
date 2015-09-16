@@ -135,6 +135,18 @@ iframe.iframe_program {
     display: inline-block;
     cursor:pointer;
 }
+.boton_02 {
+    background-color: #C00F32;
+    color: #fff;
+    font-size: 0.9em;
+    padding: 15px 15px 15px 10px;
+    display: inline-block;
+    cursor: pointer;
+    margin: auto;
+    display: block;
+    width: 150px;
+    text-align: center;
+}
 
 .eventos , .lugares, .ofertas, .programa {
     /*float: left;*/

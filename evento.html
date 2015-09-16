@@ -19,7 +19,8 @@
 		
 		<script>
 		var identificador=get_var_url("id");
-		$(document).ready(function() {
+		//$(document).ready(function() {
+		document.addEventListener("deviceready", function()  {
 			get_data_api("", identificador, 'event', 'contenedor_eventos');
 		});
 		

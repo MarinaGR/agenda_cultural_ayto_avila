@@ -1,5 +1,6 @@
 //var api_url='http://www.avilaturismo.com/api.php';
 var api_url='./server/api.php';
+var api_url='http://www.hoopale.com/AGENDACULTURAL_PRUEBAS/api.php';
 var kml_url='http://www.avilaturismo.com/app/resources/avila.kml';
 //var extern_url='http://www.avilaturismo.com/app/';
 var extern_url='./server/resources/';
@@ -124,7 +125,19 @@ function onOnline()
 }
 function onOffline()
 {
-	//$(".contenedor").prepend("Necesita una conexión a internet para poder ver correctamente todos los contenidos de la aplicación");
+	//$(".contenedor").prepend("Necesita conexión a internet para poder ver correctamente todos los contenidos de la aplicación");
+}
+
+function detect_system_device() 
+{
+	if(device.platform!='android' && device.platform!='Android') 
+	{
+		
+	}
+	else
+	{
+		
+	}
 }
 
 function show_offer(identificador) {
@@ -168,27 +181,35 @@ function get_program(container) {
 		dataType: 'json',
 		crossDomain: true, 
 		success: function(data) {
-					var cadena="<iframe src='"+data.url_program+"'></iframe>";
+					var cadena='<div class="boton_01" onclick="window.open('+data.url_program+', \'_system\', \'location=yes\'); ">Ver programa</div>';
 					$("#"+container).append(cadena);
 				},
 		error: function(jqXHR, textStatus, errorThrown){
 					//alert('Error: '+textStatus+" - "+errorThrown);	
 					if(jqXHR.status == 404) {
-						$("#"+container).append("No hay informaci&oacute;n");
+						//$("#"+container).html("No hay informaci&oacute;n");
 					}
 					else
 					{
-						$("#"+container).append("Necesita tener conexi&oacute;n a internet para acceder a esta secci&oacute;n.");
+						//$("#"+container).html("Necesita conexi&oacute;n a internet para acceder a esta secci&oacute;n.");
 					}
 				},
 		async:false,
 	});
 	
 	var url="http://cosasdeunpueblo.siestasestoy.com/wp-content/uploads/2014/10/fiestas_santa_teresa_2014.pdf";
-	//window.open(url, "_system", "location=yes"); // For iOS
 	
-	var cadena="<iframe src='https://docs.google.com/viewer?url="+url+"&embedded=true' class='iframe_program' style='height:"+$("#contenedor").height()+"px;'></iframe>";
-	$("#"+container).html(cadena);
+	var cadena='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> PROGRAMA</div>';
+	cadena+="<iframe src='https://docs.google.com/viewer?url="+url+"&embedded=true' class='iframe_program' id='programa' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'></iframe>";
+		
+	$("#"+container).append(cadena);
+	
+	/*setTimeout(function() {
+		
+		$("#programa").attr("src","https://docs.google.com/viewer?url="+url+"&embedded=true");
+		
+	}, 500);*/
+	
 	
 }
 
@@ -277,7 +298,7 @@ function get_data_api(date, identificador, operation, container) {
 							campo_fecha=fecha_ini+" a "+fecha_fin;
 						}
 						
-						cadena= '<div class="e_imagen" style="background-image:url('+extern_url+d.imagenDestacada+')"> </div>'+
+						cadena= '<div class="e_imagen" style="background-image:url('+d.imagenDestacada+')"> </div>'+
 								'<div class="e_titulo_02">'+d.titulo+'</div>'+
 								'<div class="e_hora_02"><i class="fa fa-calendar fa-fw fa-lg"> </i> '+campo_fecha+'</div>'+
 								'<div class="e_hora_02"><i class="fa fa-clock-o fa-fw fa-lg"> </i> '+d.hora+' h.</div>'+
@@ -318,7 +339,7 @@ function get_data_api(date, identificador, operation, container) {
 		}
 		else
 		{
-			$("#"+container).html("Necesita tener conexi&oacute;n a internet para acceder a esta secci&oacute;n.");
+			$("#"+container).html("Necesita conexi&oacute;n a internet para acceder a esta secci&oacute;n.");
 		}
 	}
 }
@@ -1113,7 +1134,7 @@ function ajax_recover_extern_data(operation, container, params) {
 							campo_fecha=fecha_ini+" a "+fecha_fin;
 						}
 						
-						cadena= '<div class="e_imagen" style="background-image:url('+extern_url+d.imagenDestacada+')"> </div>'+
+						cadena= '<div class="e_imagen" style="background-image:url('+d.imagenDestacada+')"> </div>'+
 								'<div class="e_titulo_02">'+d.titulo+'</div>'+
 								'<div class="e_hora_02"><i class="fa fa-calendar fa-fw fa-lg"> </i> '+campo_fecha+'</div>'+
 								'<div class="e_hora_02"><i class="fa fa-clock-o fa-fw fa-lg"> </i> '+d.hora+' h.</div>'+
