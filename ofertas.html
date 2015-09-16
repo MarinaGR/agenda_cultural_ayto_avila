@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<title>Fiestas - Ayuntamiento de Ávila</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, maximum-scale=2.0, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+		<meta name="robots" content="NOINDEX,NOFOLLOW,NOARCHIVE,NOODP,NOSNIPPET">
+		
+		<link href="./styles/estilos_01.css" rel="stylesheet" type="text/css">
+		
+		<script src="./js/jquery.js"></script>
+		<script src="./js/jqueryui.js"></script>
+		<script src="./js/jquery.ui.touch-punch.min.js"></script>
+		<script src="./js/funciones.js"></script>
+		<script src="./cordova.js"></script>
+		
+		<script>
+		$(document).ready(function() {
+			$(".cupon_02").click(function() {
+				hide_offer(); 
+			});
+		});
+		
+		$(window).load(function() {
+			$('#cortina').hide('fade', function() {
+			
+				$('#contenedor').show();
+				
+			}, 500);
+		});
+		</script>		
+	</head>
+
+	<body class="ov_body_01" onload="onBodyLoad()">
+		<div id="cortina"> </div>
+		<div id="cortina2"> </div>
+		
+		<!-- Ads -->
+		<div class="contenedor_ads">
+			<iframe id="iframe_ads" class="iframe_ads" src=""> </iframe>	
+		</div>
+		<!-- Ads -->
+		
+		<div id="contenedor" class="contenedor">
+				
+			<div class="contenido">					
+						
+				<h2>CUPONES</h2>
+				<p>Busca tu cupón y muéstralo en el establecimiento para conseguir la oferta.</p>
+				
+				<div class="cupon_01" onclick="show_offer('id')">
+					
+				</div>
+				
+				<div class="cupon_01">
+					
+				</div>
+				
+				<div class="cupon_01">
+					
+				</div>
+				
+				<div class="cupon_01">
+					
+				</div>
+				
+				<div class="cupon_02">
+					
+				</div>
+				
+			</div>
+	
+		</div>
+		
+		<div id="menu">			
+			<span onclick="go_to_page('menu')"><i class="fa fa-arrow-circle-left fa-2x"> </i></span>
+			<span onclick="go_to_page('menu')"><i class="fa fa-bars fa-2x"> </i></span>
+			<span>Ayuntamiento de Ávila</span>
+		</div>	
+						
+	</body>
+	
+</html>

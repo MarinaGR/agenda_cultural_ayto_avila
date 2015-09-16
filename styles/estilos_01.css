@@ -1,0 +1,686 @@
+@import url("./css/font-awesome.min.css");
+
+@font-face{font-family: "1";src: url("./fonts/Oxygen-Light.ttf") format("truetype");}
+@font-face{font-family: "2";src: url("./fonts/MavenPro-Regular.ttf") format("truetype");}
+@font-face{font-family: "3";src: url("./fonts/ArchivoNarrow-Regular.otf") format("opentype");}
+
+body {font-size:1.1em;margin:0;padding:0;font-family:"2"}
+img {max-width: 100%;height:auto;}
+a {color: #C00F32;}
+
+input:focus {outline:0px;}
+body div:focus {outline:0px;}
+body div:active {outline:0px;}
+
+#cortina {
+	position: fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	color: #FFFFFF;
+	z-index: 999;
+	background-color:#C00F32;
+}
+#cortina::before {
+	content: "Cargando...";
+	padding:25px 5px;
+	text-align:center;
+	color:#EEE;
+	font-size:0.8em;
+	display:block;
+}
+#cortina2 {
+	display:none;
+	position: fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	color: #FFFFFF;
+	z-index: 999;
+	background-color:#C00F32;
+}
+/* ADS */
+.contenedor_ads {
+	width: 100%;
+	height: 80px;
+	background-color: #F9F9F9;
+    border-bottom: 1px solid #EEEEEE;
+}
+.contenedor_ads::before {
+    content: "Agenda Cultural Ávila";
+    font-size: 1.1em;
+    line-height: 65px;
+    text-align: center;
+    position: absolute;
+    color: #C00F32;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 0;
+	font-weight:bold;
+}
+iframe {
+	max-width:100%;
+}
+iframe.iframe_ads {
+	width: 100%;
+	height: 100%;
+	border: 0;
+	position:relative;
+	z-index:10;
+}
+
+iframe.iframe_program {
+	width:100%;
+	border:0;
+}
+/* FIN ADS */
+
+/* MENU */
+#menu {
+	width: 100%;
+	height: 33px;
+	padding: 5px 0;
+	color: #FFF;
+	background-color:#C00F32;
+	position:fixed;
+	bottom: 0;
+	font-size: 0.9em;
+	text-align:center;
+}
+#menu span {
+	display: inline-block;
+	height: 32px;
+	line-height: 1em;
+	margin: 0 20px;
+    max-width: 120px;
+}
+#menu span:hover {
+	cursor:pointer;
+	color: #EEEEEE;
+}
+#menu span:last-child {
+	cursor: default;
+	color: #FFF;
+}
+/* FIN MENU */
+
+.contenedor {
+	max-width: 768px;
+	margin: auto;
+	background: #FFF url(../images/logos/logo_fondo.png) no-repeat bottom center;
+	padding-top: 20px;
+	padding-bottom: 45px; /*tamaño menu pie*/
+}
+
+.contenido {
+	padding: 10px 2%;
+}
+
+.portada {
+	background: #C00F32 url(../images/general/portada.png) no-repeat center;
+	width:100%;
+	height: 100vh;
+	background-size:contain;
+	cursor:pointer;
+}
+
+.boton_01 {
+	background-color: #C00F32;
+	color: #fff;
+	font-size: 0.9em;
+    padding: 5px 15px 5px 5px;
+    display: inline-block;
+    cursor:pointer;
+}
+
+.eventos , .lugares, .ofertas, .programa {
+    /*float: left;*/
+	font-size:1.6em;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+	min-height: 50px;
+	margin: 10px 0;
+	padding: 10px 25px;
+    cursor: default;
+	color: #2A030B;
+	font-weight:bold;
+    background: #C00F32 url(../resources/images/ir.png) no-repeat bottom right;
+	cursor:pointer;
+}
+
+.lista_eventos  {
+    /*float: left;*/
+	font-size:1.2em;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+	min-height: 50px;
+	margin: 0 0 10px 0;
+	padding: 10px 25px;
+    cursor: default;
+	color: #FFF;
+	line-height: 1.2em;
+    background: #333;
+}
+
+/*lista_eventos_01*/
+ul.lista_eventos_01 {
+	list-style: none;
+	margin: 0;
+	padding:0;
+}
+.lista_eventos_01 li {
+	padding: 10px 0;
+}
+.lista_eventos_01 li ul {
+	list-style: none;
+	margin: 0;
+	padding:0;
+}
+.lista_eventos_01 li ul li {
+	position:relative;
+	padding: 10px 20px;
+	color: #333;
+	background-color: rgba(250,250,250,0.75);
+	border-bottom: 1px solid #EEE;
+}
+.lista_eventos_01 li ul li:hover {
+	cursor:pointer;
+}
+.lista_eventos_01 li  ul li::before{
+	content: "\f144";
+	font-size: 1.3em;
+	position: absolute;
+	right: 10px; 
+	bottom: 10px;
+	font-family:FontAwesome;
+	color:#C00F32;
+}
+.lista_eventos_01 .e_fecha {
+	font-size: 1.5em;
+	font-weight: bold;
+	font-family: "3", Arial;
+	border-bottom: 3px solid #C00F32;
+}
+.lista_eventos_01 .e_hora {
+	
+}
+.lista_eventos_01 .e_titulo {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.lista_eventos_01 .e_lugar {
+
+}
+/*lista_eventos_02*/
+ul.lista_eventos_02 {
+	list-style: none;
+	margin: 0;
+	padding:0;
+	font-size: 0.9em;
+	text-align:center;
+}
+.lista_eventos_02 li {
+	padding: 10px 0;
+}
+.lista_eventos_02 li  {
+	position:relative;
+	padding: 10px 20px;
+	color: #FFF;
+	background-color: transparent;
+	border-bottom: 1px solid #EEE;
+}
+.lista_eventos_02 li::before{
+	content: "\f144";
+	font-size: 1.3em;
+	position: absolute;
+	right: 10px; 
+	bottom: 10px;
+	font-family:FontAwesome;
+	color:#FFF;
+}
+.lista_eventos_02 .e_fecha {
+	font-size: 1.5em;
+	font-weight: bold;
+	font-family: "3", Arial;
+	border-bottom: 3px solid #C00F32;
+}
+.lista_eventos_02 .e_data {
+	font-size:0.8em;
+}
+.lista_eventos_02 .e_titulo {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.e_imagen {
+	height: 360px;
+	width: 100%;
+	margin-bottom: 25px;
+	border: 1px solid #EEEEEE;
+	border-radius: 5px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.e_titulo_02 {
+	font-family: "3";
+    font-size: 1.6em;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.e_precio_02, .e_lugar_02, .e_hora_02 {
+    height: 30px;
+    padding: 5px 0;
+}
+.e_descripcion {
+    padding: 20px 0;
+}
+
+.cupon_01 {
+	float: left;
+	margin: 10px 2% 10px 0;
+	border: 1px solid #EEEEEE;
+	border-radius: 5px;
+	width: 31%;
+	height: 180px;
+}
+.cupon_02 {
+	margin: 2%;
+    width: 96%;
+    min-height: 50px;
+    height: 95%;
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+}
+
+.cupon_02::before {
+	content: "Pulsa sobre el cupón para cerrar";
+    display: block;
+    width: 96%;
+    height: 25px;
+    line-height: 25px;
+    background: #333;
+    color: #EEE;
+    text-align: center;
+    right: 0;
+    left:0;
+    margin:auto;
+    position: absolute;
+    padding: 5px 2%;
+    font-size:0.9em;
+}
+
+.eventos span, .lugares span, .ofertas span, .programa span{
+    font-size: 1.3em;
+    color: #FFFFFF;
+}
+
+.e_geolocation_map {
+	width: 100%;
+    height: 350px;
+    display: none;
+	background-color:#EEE;
+}
+.e_geolocation_map::before {
+	content:"Cargando...";
+	font-size:0.75em;
+	padding: 5px;
+}
+
+.mapa_puntos {
+	width: 100%;
+}
+
+#semanal {
+	display:none;
+}
+
+.hoy {
+	text-align: center;
+    font-size: 3em;
+    color: #333;
+    height: 50px;
+    font-weight: bold;
+}
+
+.selector_fecha {	
+	width: 200px;
+	margin:auto;
+	display:block;
+}
+.selector {
+    display: inline-block;
+    color: #333;
+    padding: 15px;
+    background-color: #EEE;
+    margin: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid #DDD;
+    border-bottom: 0;
+    font-weight: bold;
+}
+.selector_fecha .activo {
+	background-color: #C00F32;	
+	color: #FFF;
+}
+.selector_fecha:hover {
+	cursor:pointer;
+}
+
+/* TIMELINE */
+
+.timeline, .timeline_daily {
+    padding: 35px 0px 10px 0px;
+    margin: 0px;
+    overflow: hidden;
+    color: #FFF;
+    font-family: "1", Lucida Sans Unicode, Tahoma, Arial;
+    font-size: 8pt;
+	background: #EEEEEE;
+	border-top: 5px solid #C00F32;
+	position:relative;
+	text-shadow:none !important;
+}
+.timeline_daily {
+	padding: 15px 0px 0px 0px;
+}
+
+.timeline_container {
+	overflow: hidden;
+	min-width:320px;
+	margin: auto;
+}
+
+.timeline_arrows {
+    overflow: hidden;
+    padding: 3px 0 0 0; 
+    zoom: 1;
+}
+
+.timeline_arrows div {
+/*    float: left;*/
+	position:absolute;
+}
+
+.timeline_date {
+    color: #666666;
+    line-height: 1.6em;
+	font-size:1.5em;
+	position:absolute;
+	top: 5px;
+	left:0;
+	width: 100%;
+    text-align: center;
+}
+
+.timeline_lastyear,
+.timeline_lastmonth,
+.timeline_nextmonth,
+.timeline_nextyear {
+    cursor: pointer;
+    width: 15px;
+    height: 20px;
+	margin: 3px 0 0 0;
+}
+
+.timeline_lastyear {
+/*    border-right: 1px solid #000;*/
+	position:absolute;
+	top: 0px;
+	visibility: collapse;
+}
+
+.timeline_lastyear:hover {
+    background-position: 0px -20px;
+}
+
+.timeline_lastmonth{
+	width:26px;
+	height:68px;
+	margin: 3px 0 0 0;
+	
+	background-color: #333;
+    font-size: 3.5em;
+    font-weight: bold;
+    font-family: "1";
+    text-align: center;
+    line-height: 2.5em;
+	
+	width:36px;
+	height:105px;
+	top: 0px;
+	/*border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;*/
+}
+.timeline_nextmonth {
+	width:26px;
+	height:68px;
+	position:absolute;
+	right:0px;
+	
+	background-color: #333;
+    font-size: 3em;
+    font-weight: bold;
+    font-family: "1";
+    text-align: center;
+    line-height: 3em;
+	
+	width:36px;
+	height:105px;
+	top: 0px;
+	/*border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;*/
+}
+.timeline_lastmonth:hover,
+.timeline_nextmonth:hover {
+    background-position: 0px -52px;
+}
+
+.timeline_nextyear {
+    background-position: -30px 0px;
+/*    border-left: 1px solid #000;*/
+	position:absolute;
+	top: 0px;
+	left: 120px;
+	visibility: collapse;
+}
+
+.timeline_nextyear:hover {
+    background-position: -30px -20px;
+}
+
+.timeline_days, .timeline_oneday {
+    overflow : hidden;
+    display: block;
+	margin: 0 15%;
+	height: 90px;
+}
+
+.timeline_days ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.timeline_days li {
+    float: left;
+    margin-right: 1%;
+    padding: 3px 0.5%;
+	font-size: 18px;
+	width:12%;
+    border: none;
+}
+
+.timeline_days li div, .timeline_daily .act_day  {
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 20px;
+    width:100%;
+	line-height:30px;
+	margin: 0 0 20px 0;
+	position: relative;
+}
+
+.timeline_days div {
+    background: #bbb;
+    padding: 4px 0px 4px 0px !important;
+}
+
+
+.timeline_oneday #actual_day {
+    color: #333;
+    font-family: "1", Arial;
+    font-weight: bold;
+    font-size: 3.8em;
+    text-align: center;
+    line-height: 1.8em;
+}
+
+.timeline_days .today {
+    background: #232323;
+	color: #fff;
+    padding: 3px 0px 5px 0px !important;
+} 
+
+.timeline_days li div.today:after {
+    position: absolute;
+    background-color: transparent;
+    border-bottom: 15px solid #232323;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    width: 0;
+    height: 0;
+    z-index: 9999;
+    bottom: -20px;
+    left:0;
+    right:0;
+    margin:auto;
+    content: '';
+}
+
+.timeline .todayArrow {
+	position: relative;
+    /*border-bottom: 15px solid #333;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    width: 0;
+    height: 0;
+    z-index: 9999;
+    top: 5px;*/
+} 
+
+.timeline_days .today {
+	color: #fff;
+    padding: 5px 0px 3px 0px !important;
+}
+
+.timeline_days .event {
+    color: #fff;
+    cursor: pointer;
+	background: #c00f32;
+}
+
+.timeline_bubble .event_title{
+    cursor: pointer;
+    color: #FFF;
+    padding: 3px 0px 3px 0px;
+    margin: 0px 5px 0px 5px;
+    border-bottom: 1px solid #a91835;
+}
+
+.timeline_bubble .event_title:hover{
+    color: #E4E4E4;
+}
+
+.timeline_bubble .event_title:hover + next{
+    display: block;
+}
+
+.timeline_bubble .event_data {
+    overflow: hidden;
+    display: none;
+    color: #fff;
+    font-weight: normal;
+    margin: 3px 0px 0px 0px;
+}
+.timeline_bubble a{
+    color: #E4E4E4;
+}
+/* END TIMELINE */
+
+/* JQUERY MOBILE */
+.ui-controlgroup-horizontal .ui-controlgroup-controls {
+    float:none;
+    width: 200px !important;
+    margin:auto;
+    display: block;
+    vertical-align: middle;
+}
+/* END JQUERY MOBILE */
+
+/*MEDIA*/
+@media only screen and (max-width: 768px), only screen and (max-device-width: 768px) {
+	.contenedor_ads {
+		/*height: 60px;*/
+	}
+}
+
+@media only screen and (max-width: 680px), only screen and (max-device-width: 680px) {
+	.cupon_01 {
+		margin: 10px 2% 10px 0;
+		width: 45%;
+		height: 160px;
+	}
+}
+
+
+@media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
+	.eventos, .lugares, .ofertas, .programa {
+		font-size:1.4em;
+	}
+	.e_imagen {
+		height: 280px;
+	}
+	.cupon_01 {
+		margin: 10px 2% 10px 0;
+		width: 47%;
+		height: 140px;
+	}
+	.lista_eventos {
+		font-size: 1em;
+	}
+	.timeline_oneday {
+		font-size: 0.75em;
+		margin: 0 10%;
+		padding-top: 15px;
+		box-sizing: border-box;
+	}
+}
+
+
+@media only screen and (max-width: 320px), only screen and (max-device-width: 320px) {
+	.eventos, .lugares, .ofertas, .programa {
+		font-size:1.2em;
+	}
+	.e_imagen {
+		height: 220px;
+	}
+	.cupon_01 {
+		margin: 10px 2% 10px 0;
+		width: 100%;
+		height: 180px;
+	}
+	.timeline_oneday {
+		font-size: 0.6em;
+	}
+}

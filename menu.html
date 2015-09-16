@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<title>Fiestas - Ayuntamiento de Ávila</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, maximum-scale=2.0, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+		<meta name="robots" content="NOINDEX,NOFOLLOW,NOARCHIVE,NOODP,NOSNIPPET">
+		
+		<link href="./styles/estilos_01.css" rel="stylesheet" type="text/css">
+		<link href="./styles/swiper.min.css" rel="stylesheet" type="text/css">
+		
+		<script src="./js/jquery.js"></script>
+		<script src="./js/jqueryui.js"></script>
+		<script src="./js/jquery.ui.touch-punch.min.js"></script>
+		<script src="./js/funciones.js"></script>
+		<script src="./cordova.js"></script>
+		
+		<script>
+		$(document).ready(function() {
+			var swiper = new Swiper('.swiper-container', {
+				paginationClickable: false,
+				slidesPerView: 1,
+				spaceBetween: 10,
+				loop:true,
+				centeredSlides: true,
+				speed: 500,
+				autoplay: 3000,
+				autoplayDisableOnInteraction: true
+			});
+		});
+		
+		$(window).load(function() {
+			
+		});
+		</script>		
+	</head>
+
+	<body class="ov_body_01" onload="onBodyLoad()">
+		<!--<div id="cortina"> </div>-->
+
+		<div class="contenedor" >
+			
+			<!-- Ads 
+			<div class="contenedor_ads">
+				<iframe id="iframe_ads" class="iframe_ads" src=""> </iframe>	
+			</div>
+			Ads -->
+			
+			<div class="hoy" id="fecha_hoy">10/09/2015</div>
+			
+			<div class="swiper-container lista_eventos">
+				<!-- SLIDER -->
+				<div class="swiper-wrapper lista_eventos_02">
+			
+					<div class="swiper-slide" onclick="go_to_page('evento','evento_01')">
+						<div class="e_titulo">NOMBRE DEL EVENTO 1</div>
+						<div class="e_data">
+							<i class="fa fa-clock-o fa-fw"> </i> 18:30h 
+							<i class="fa fa-map-marker fa-fw"> </i> Plaza Santa Teresa
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="e_titulo">Nombre del evento 2</div>
+						<div class="e_data">
+							<i class="fa fa-clock-o fa-fw"> </i> 11:00h
+						</div>
+					</div>
+					<div class="swiper-slide">
+					- No hay eventos -
+					</div>
+				</div>
+				
+			</div>
+			
+			<script src="./js/swiper.min.js"></script>
+			
+			<!--<div class="lista_eventos">
+				<ul class="lista_eventos_02">
+					
+					<li onclick="go_to_page('evento','id')">
+						<div class="e_titulo">NOMBRE DEL EVENTO 1</div>
+						<div class="e_data">
+							<i class="fa fa-clock-o fa-fw"> </i> 18:30h 
+							<i class="fa fa-map-marker fa-fw"> </i> Plaza Santa Teresa
+						</div>
+					</li>
+					<li>
+						<div class="e_titulo">Nombre del evento 2</div>
+						<div class="e_data">
+							<i class="fa fa-clock-o fa-fw"> </i> 11:00h
+						</div>
+					</li>
+						
+				</ul>
+				- No hay eventos -
+			</div>-->
+			
+			<div class="eventos" onclick="go_to_page('eventos')">
+				¿QUÉ HACER?<br>
+				<span>AGENDA</span>
+			</div>
+			
+			<div class="programa" onclick="go_to_page('programa')">
+				FIESTAS<br>
+				<span>VER PROGRAMA</span>
+			</div>
+			
+			<div class="lugares" onclick="go_to_page('mapa_puntos')">
+				¿QUÉ VER?<br>
+				<span>LUGARES DE INTERÉS</span>
+			</div>
+			
+			<div class="ofertas"onclick="go_to_page('ofertas')">
+				CUPONES<br>
+				<span>OFERTAS</span>
+			</div>
+		
+		</div>		
+	</body>
+	
+</html>

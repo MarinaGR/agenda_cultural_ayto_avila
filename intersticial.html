@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<title>Fiestas - Ayuntamiento de Ávila</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, maximum-scale=2.0, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+		<meta name="robots" content="NOINDEX,NOFOLLOW,NOARCHIVE,NOODP,NOSNIPPET">
+		
+		<link href="./styles/estilos_01.css" rel="stylesheet" type="text/css">
+		
+		<script src="./js/jquery.js"></script>
+		<script src="./js/jqueryui.js"></script>
+		<script src="./js/jquery.ui.touch-punch.min.js"></script>
+		<script src="./js/funciones.js"></script>
+		<script src="./cordova.js"></script>
+		
+		<script>
+		$(document).ready(function() {
+
+		});
+		
+		$(window).load(function() {
+			$('#cortina').hide('fade', function() {
+			
+				$('#contenedor').show();
+				
+			}, 500);
+		});
+		</script>		
+	</head>
+
+	<body class="ov_body_01" onload="onBodyLoad()">
+		<div id="cortina"> </div>
+		
+		<div id="contenedor" class="contenedor">
+				
+			<iframe id="iframe_ads" class="iframe_ads" src=""> </iframe>	
+	
+		</div>
+		
+		<div id="cierre_anuncio">			
+			<i class="fa fa-arrow-circle-left fa-2x"> </i>
+		</div>	
+						
+	</body>
+	
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<title>Fiestas - Ayuntamiento de Ávila</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, maximum-scale=2.0, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+		<meta name="robots" content="NOINDEX,NOFOLLOW,NOARCHIVE,NOODP,NOSNIPPET">
+		
+		<link href="./styles/estilos_01.css" rel="stylesheet" type="text/css">
+		
+		<script src="./js/jquery.js"></script>
+		<script src="./js/jqueryui.js"></script>
+		<script src="./js/jquery.ui.touch-punch.min.js"></script>
+		<script src="./js/funciones.js"></script>
+		<script src="./cordova.js"></script>
+		
+		<script>
+		 
+		$(document).ready(function() {
+			
+			$("#actual_day").html(current_day_of_month+" de "+monthNames[current_month]);
+			
+			var nuevo_dia=current_day_of_month;
+			var nuevo_mes=current_month;
+			var nuevo_anio=current_year;
+			
+			var nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+			
+			get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
+			load_week(current_week);
+			
+			$("#ssemana").click(function() {
+				$("#diario").hide('blind', function() {
+					$("#sdia").removeClass("activo");
+					$("#ssemana").addClass("activo");
+					$("#semanal").show('blind');
+					
+					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
+														
+				});
+			});
+			
+			$("#sdia").click(function() {
+				$("#semanal").hide('blind', function() {
+					$("#ssemana").removeClass("activo");
+					$("#sdia").addClass("activo");
+					$("#diario").show('blind');
+					
+					get_data_api(current_date, '', 'events', 'contenedor_eventos');
+										
+				});				
+			});
+			
+			$("#last_day").click(function() {
+				$("#actual_day").hide('slide', { direction: 'left' }, function() {
+					$("#actual_day").html("DÍA ANTERIOR");
+					$("#actual_day").show('slide', { direction: 'right' });	
+
+					var d = new Date(); 
+					d.setDate(d.getDate()-1);
+					
+					nuevo_dia=d.getDate();
+					nuevo_mes=d.getMonth();
+					nuevo_anio=d.getFullYear();
+										
+					$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
+					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
+					
+				});
+			});
+			
+			$("#next_day").click(function() {
+				$("#actual_day").hide('slide', { direction: 'right' }, function() {
+					$("#actual_day").html("DÍA SIGUIENTE");
+					$("#actual_day").show('slide', { direction: 'left' });	
+					
+					var d = new Date(); 
+					d.setDate(d.getDate()+1);
+					
+					nuevo_dia=d.getDate();
+					nuevo_mes=d.getMonth();
+					nuevo_anio=d.getFullYear();
+					
+					$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
+					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
+					
+				});
+			});
+			
+			$("#last_week").click(function() {
+				$("#actual_week").hide('slide', { direction: 'left' }, function() {
+					$("#actual_date").html("SEMANA ANTERIOR");
+					$("#actual_week").html("SEMANA ANTERIOR");
+					$("#actual_week").show('slide', { direction: 'right' });	
+					
+					var d = new Date(); 
+					d.setDate(d.getDate()-7);
+					
+					nuevo_dia=d.getDate();
+					nuevo_mes=d.getMonth();
+					nuevo_anio=d.getFullYear();
+					
+					var nueva_semana=current_week-1;
+					
+					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
+					load_week(nueva_semana);
+
+				});
+			});
+			
+			$("#next_week").click(function() {
+				$("#actual_week").hide('slide', { direction: 'right' }, function() {
+					$("#actual_date").html("SEMANA SIGUIENTE");
+					$("#actual_week").html("SEMANA ANTERIOR");
+					$("#actual_week").show('slide', { direction: 'left' });	
+					
+					var d = new Date(); 
+					d.setDate(d.getDate()+7);
+					
+					nuevo_dia=d.getDate();
+					nuevo_mes=d.getMonth();
+					nuevo_anio=d.getFullYear();
+					
+					var nueva_semana=current_week+1;
+					
+					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
+					load_week(nueva_semana);
+				});
+			});
+			
+		});
+		
+		function load_week(week) {
+			console.log(week);
+			cadena='<div class="timeline_container">'+				
+						'<div class="timeline_arrows">'+
+							'<div class="timeline_lastmonth" id="last_week" title="Mes Previo">-</div>'+
+							'<div class="timeline_date" id="actual_date">'+
+								'Agosto 2015'+
+							'</div>'+
+							'<div class="timeline_nextmonth" id="next_week" title="Mes Siguiente">+</div>'+
+						'</div>'+
+						
+						'<div class="timeline_container">'+
+							'<div class="timeline_days" id="actual_week">'+
+								'<ul>'+									
+									'<li><div class="">l<br>14</div></li>'+
+									'<li><div class="event today">m<br>15</div></li>'+
+									'<li><div class="">m<br>16</div></li>'+
+									'<li><div class="event">j<br>17</div></li>'+
+									'<li><div class="">v<br>18</div></li>'+
+									'<li><div class="event">s<br>19</div></li>'+
+									'<li><div class="event">d<br>20</div></li>'+									
+								'</ul>'+
+							'</div>'+
+							'<div class="todayArrow"> </div>'+
+						'</div>'+
+					'</div>';
+					
+			$("#semanal").html(cadena);
+		}
+		
+		$(window).load(function() {
+			$('#cortina').hide('fade', function() {
+			
+				$('#contenedor').show();
+				
+			}, 500);
+		});
+		</script>		
+	</head>
+
+	<body class="ov_body_01" onload="onBodyLoad()">
+		<div id="cortina"> </div>
+		
+		<!-- Ads -->
+		<div class="contenedor_ads">
+			<iframe id="iframe_ads" class="iframe_ads" src=""> </iframe>	
+		</div>
+		<!-- Ads -->
+		
+		<div id="contenedor" class="contenedor">
+			
+			<div class="selector_fecha">
+				<div class="selector activo" id="sdia" onclick="">Diario</div>
+				<div class="selector" id="ssemana" onclick="">Semanal</div>
+			</div>
+			
+			<div class="fecha_seleccionada" id="fecha_seleccionada">
+
+				<div id="diario" class="timeline_daily"> 
+					<div class="timeline_container"> 
+				
+						<div class="timeline_arrows">
+							<div class="timeline_lastmonth" id="last_day" title="Día Previo">-</div>
+							<div class="timeline_nextmonth" id="next_day" title="Día Siguiente">+</div>
+						</div>
+						
+						<div class="timeline_oneday">
+							<div class="event today" id="actual_day">
+								
+							</div>
+						</div>
+						<div class="todayArrow"> </div>
+					
+					</div>
+				</div>
+				
+				<div id="semanal" class="timeline">
+	            	<!--<div class="timeline_container"> 
+				
+						<div class="timeline_arrows">
+							<div class="timeline_lastmonth" id="last_week" title="Mes Previo">-</div>
+							<div class="timeline_date" id="actual_date">
+								Agosto 2015
+							</div>
+							<div class="timeline_nextmonth" id="next_week" title="Mes Siguiente">+</div>
+						</div>
+						
+						<div class="timeline_container">
+							<div class="timeline_days" id="actua_week">
+								<ul>									
+									<li><div class="">l<br>14</div></li>
+									<li><div class="event today">m<br>15</div></li>
+									<li><div class="">m<br>16</div></li>
+									<li><div class="event">j<br>17</div></li>
+									<li><div class="">v<br>18</div></li>
+									<li><div class="event">s<br>19</div></li>
+									<li><div class="event">d<br>20</div></li>									
+								</ul>
+							</div>
+							<div class="todayArrow"> </div>
+						</div>
+					</div>-->
+				</div>
+
+			</div>
+		
+			<div class="contenido" id="contenedor_eventos">
+
+				<!--<ul class="lista_eventos_01">
+					<li>
+						<div class="e_fecha">MARTES 15 DE AGOSTO</div>
+						<ul class="fecha_evento">
+							<li onclick="go_to_page('evento','evento_01')">
+								<div class="e_titulo">NOMBRE DEL EVENTO 1</div>
+								<div class="e_hora">
+									<i class="fa fa-clock-o fa-fw"> </i> 18:30h
+								</div>
+								<div class="e_lugar">
+									<i class="fa fa-map-marker fa-fw"> </i> Plaza Santa Teresa
+								</div>
+							</li>
+							<li>
+								<div class="e_titulo">Nombre del evento 2</div>
+								<div class="e_hora">
+									<i class="fa fa-clock-o fa-fw"> </i> 11:00h
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div class="e_fecha">JUEVES 17 DE AGOSTO</div>
+						<ul class="fecha_evento">
+							<li>
+								<div class="e_titulo">EVENTO 1</div>
+								<div class="e_hora">
+									<i class="fa fa-clock-o fa-fw"> </i> 18:30h
+								</div>
+								<div class="e_lugar">
+									<i class="fa fa-map-marker fa-fw"> </i> Plaza Santa Teresa
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>-->
+				
+			</div>
+
+		</div>	
+		
+		<div id="menu">			
+			<span onclick="go_to_page('menu')"><i class="fa fa-arrow-circle-left fa-2x"> </i></span>
+			<span onclick="go_to_page('menu')"><i class="fa fa-bars fa-2x"> </i></span>
+			<span>Ayuntamiento de Ávila</span>
+		</div>	
+			
+	</body>
+	
+</html>
