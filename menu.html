@@ -18,6 +18,12 @@
 		
 		<script>
 		$(document).ready(function() {
+			
+			var fecha_actual=addZero(current_day_of_month)+"-"+addZero(current_month)+"-"+current_year;
+			$("#fecha_hoy").html(format_date2(fecha_actual));
+		
+			get_data_api(fecha_actual, '', 'events_slide', 'swiper_container');
+			
 			var swiper = new Swiper('.swiper-container', {
 				paginationClickable: false,
 				slidesPerView: 1,
@@ -47,11 +53,11 @@
 			</div>
 			Ads -->
 			
-			<div class="hoy" id="fecha_hoy">10/09/2015</div>
+			<div class="hoy" id="fecha_hoy">15/09/2015</div>
 			
 			<div class="swiper-container lista_eventos">
 				<!-- SLIDER -->
-				<div class="swiper-wrapper lista_eventos_02">
+				<div class="swiper-wrapper lista_eventos_02" id="swiper_container">
 			
 					<div class="swiper-slide" onclick="go_to_page('evento','evento_01')">
 						<div class="e_titulo">NOMBRE DEL EVENTO 1</div>

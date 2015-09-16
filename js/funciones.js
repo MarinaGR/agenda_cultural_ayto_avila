@@ -1,6 +1,6 @@
 //var api_url='http://www.avilaturismo.com/api.php';
 var api_url='./server/api.php';
-var api_url='http://www.hoopale.com/AGENDACULTURAL_PRUEBAS/api.php';
+//var api_url='http://www.hoopale.com/AGENDACULTURAL_PRUEBAS/api.php';
 var kml_url='http://www.avilaturismo.com/app/resources/avila.kml';
 //var extern_url='http://www.avilaturismo.com/app/';
 var extern_url='./server/resources/';
@@ -11,6 +11,7 @@ var local_url='./resources/json/';
 var categ_list=new Object();
 
 var intersticial=true;
+var publi_banner_top=false;
 
 var daysNamesMini=new Array('Do','Lu','Ma','Mi','Ju','Vi','Sa');
 var monthNames=new Array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
@@ -53,7 +54,10 @@ function onBodyLoad()
 	
 	$(".contenedor").css("min-height", alto_minimo+"px");
 	
-	$("#iframe_ads").attr('src', publi_url);    
+	if(publi_banner_top)
+		$("#iframe_ads").attr('src', publi_url);
+	else
+		$(".contenedor_ads").html('<img src="./images/logos/aytoAv.png" alt="Ayuntamiento de Ávila" />');  
 	
 	//Cargamos las categorias en local storage
 	categ_list=JSON.parse(getLocalStorage("categ_list"));		
@@ -153,7 +157,13 @@ function hide_offer() {
 
 function format_date(fecha) {
 	var fecha_split=fecha.split("-");
-	var fecha_formateada=fecha_split[0]+" de "+monthNames[parseInt(fecha_split[1])]+" de "+fecha_split[2];
+	var fecha_formateada=fecha_split[0]+" de "+monthNames[parseInt(fecha_split[1])-1]+" de "+fecha_split[2];
+	
+	return fecha_formateada;	
+}
+function format_date2(fecha) {
+	var fecha_split=fecha.split("-");
+	var fecha_formateada=fecha_split[0]+"/"+addZero(parseInt(fecha_split[1])+1)+"/"+fecha_split[2];
 	
 	return fecha_formateada;	
 }
@@ -197,19 +207,18 @@ function get_program(container) {
 		async:false,
 	});
 	
-	var url="http://cosasdeunpueblo.siestasestoy.com/wp-content/uploads/2014/10/fiestas_santa_teresa_2014.pdf";
+	var url="http://www.avila.es/images/Documentos%20PDF%20para%20descargar/CULTURA%20Y%20EVENTOS/AvilaFiestas2015.pdf";
 	
 	var cadena='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> PROGRAMA</div>';
 	cadena+="<iframe src='https://docs.google.com/viewer?url="+url+"&embedded=true' class='iframe_program' id='programa' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'></iframe>";
 		
 	$("#"+container).append(cadena);
-	
+		
 	/*setTimeout(function() {
 		
 		$("#programa").attr("src","https://docs.google.com/viewer?url="+url+"&embedded=true");
 		
 	}, 500);*/
-	
 	
 }
 
@@ -301,7 +310,7 @@ function get_data_api(date, identificador, operation, container) {
 						cadena= '<div class="e_imagen" style="background-image:url('+d.imagenDestacada+')"> </div>'+
 								'<div class="e_titulo_02">'+d.titulo+'</div>'+
 								'<div class="e_hora_02"><i class="fa fa-calendar fa-fw fa-lg"> </i> '+campo_fecha+'</div>'+
-								'<div class="e_hora_02"><i class="fa fa-clock-o fa-fw fa-lg"> </i> '+d.hora+' h.</div>'+
+								'<div class="e_hora_02"><i class="fa fa-clock-o fa-fw fa-lg"> </i> '+d.hora+'h.</div>'+
 								'<div class="e_lugar_02">'+
 									'<i class="fa fa-map-marker fa-fw fa-lg"> </i> '+d.lugar+
 								'</div>'+
@@ -315,7 +324,34 @@ function get_data_api(date, identificador, operation, container) {
 
 						$("#"+container).html(cadena);
 						
-						break;			
+						break;		
+						
+				case "events_slide":
+						var cadena="";
+						
+						if(data.status=="KO")
+						{
+							cadena='<div class="swiper-slide">'+
+										'- '+data.error+' -'+
+									'</div>';	
+						}
+						else
+						{				
+							$.each(data.result, function(index, d) {   						
+						
+								cadena+='<div class="swiper-slide" onclick="go_to_page(\'evento\','+d.id+')">'+
+											'<div class="e_titulo">'+d.titulo+'</div>'+
+											'<div class="e_data">'+
+												'<i class="fa fa-clock-o fa-fw"> </i> '+d.hora+'h. '+
+												'<i class="fa fa-map-marker fa-fw"> </i> '+d.lugar+
+											'</div>'+
+										'</div>';									
+							});
+						}
+							
+						$("#"+container).html(cadena);
+					
+						break;	
 		}
 		
 		$("a").on("click", function(e) {

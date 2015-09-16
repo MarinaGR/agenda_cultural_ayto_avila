@@ -45,10 +45,12 @@ body div:active {outline:0px;}
 .contenedor_ads {
 	width: 100%;
 	height: 80px;
+	text-align: center;
+    line-height: 120px;
 	background-color: #F9F9F9;
     border-bottom: 1px solid #EEEEEE;
 }
-.contenedor_ads::before {
+/*.contenedor_ads::before {
     content: "Agenda Cultural Ávila";
     font-size: 1.1em;
     line-height: 65px;
@@ -60,7 +62,7 @@ body div:active {outline:0px;}
     margin: auto;
     z-index: 0;
 	font-weight:bold;
-}
+}*/
 iframe {
 	max-width:100%;
 }
@@ -471,6 +473,7 @@ ul.lista_eventos_02 {
 	width:36px;
 	height:105px;
 	top: 0px;
+    z-index: 100;
 	/*border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;*/
 }
@@ -490,6 +493,7 @@ ul.lista_eventos_02 {
 	width:36px;
 	height:105px;
 	top: 0px;
+	z-index: 100;
 	/*border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;*/
 }
