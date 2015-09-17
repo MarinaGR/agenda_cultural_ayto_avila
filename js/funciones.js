@@ -55,10 +55,18 @@ function onBodyLoad()
 	
 	$(".contenedor").css("min-height", alto_minimo+"px");
 	
+	if(typeof device!="undefined")
+	{
+		if(device.platform!='android' && device.platform!='Android') 
+		{
+			$(".contenedor_ads").css("padding-top","20px");
+		}
+	}
+	
 	if(publi_banner_top)
 		$("#iframe_ads").attr('src', publi_url);
 	else
-		$(".contenedor_ads").html('<img src="./images/logos/aytoAv.png" alt="Ayuntamiento de Ávila" />');  
+		$(".contenedor_ads").html('<img src="./images/logos/AVturismo.png" alt="Ávila" />');
 	
 	//Cargamos las categorias en local storage
 	categ_list=JSON.parse(getLocalStorage("categ_list"));		
