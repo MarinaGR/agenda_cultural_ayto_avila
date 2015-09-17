@@ -73,11 +73,16 @@ iframe.iframe_ads {
 	position:relative;
 	z-index:10;
 }
-
+.contenedor_program {
+	width:100%;
+}
 iframe.iframe_program {
 	width:100%;
+	height:100%;
 	border:0;
+	background-color: #F9F9F9;
 }
+
 /* FIN ADS */
 
 /* MENU */
@@ -146,7 +151,7 @@ iframe.iframe_program {
     cursor: pointer;
     margin: auto;
     display: block;
-    width: 150px;
+    width: 250px;
     text-align: center;
 }
 
@@ -291,6 +296,17 @@ ul.lista_eventos_02 {
     height: 30px;
     padding: 5px 0;
 }
+.e_tlf_03, .e_web_03, .e_horario_03, .e_precio_03, .e_lugar_03 {
+    margin: 20px 0;
+}
+
+.e_tlf_03 span, .e_web_03 span, .e_horario_03 span, .e_precio_03 span, .e_lugar_03 span {
+	color: #C00F32;
+	font-weight: bold;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
 .e_descripcion {
     padding: 20px 0;
 }

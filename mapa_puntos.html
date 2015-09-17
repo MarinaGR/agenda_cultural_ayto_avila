@@ -20,8 +20,12 @@
 		<script>
 		//$(document).ready(function() {
 		document.addEventListener("deviceready", function() {
+			
 			$("#mapa_puntos").height($(window).outerHeight()-$(".contenedor_ads").height()-$("#menu").outerHeight()+"px");
-			setTimeout(function() {
+			
+			get_data_api('', '', 'map_places', 'mapa_puntos');
+			
+			/*setTimeout(function() {
 				
 				$("#mapa_puntos").gmap3({
 					address:"Plaza de Santa Teresa, 05003 Ávila, España",
@@ -35,7 +39,7 @@
 					}		
 				});
 			
-			});
+			});*/
 		});
 		
 		$(window).load(function() {

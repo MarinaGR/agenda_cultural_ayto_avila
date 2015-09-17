@@ -23,8 +23,8 @@
 		
 		var nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
 		
-		//$(document).ready(function() {
-		document.addEventListener("deviceready", function() {
+		$(document).ready(function() {
+		//document.addEventListener("deviceready", function() {
 			
 			$("#actual_day").html(current_day_of_month+" de "+monthNames[current_month]);
 			
@@ -103,7 +103,9 @@
 				});
 			});
 			
+			
 			$("#last_week").click(function() {
+				
 				$("#actual_week").hide('slide', { direction: 'left' }, function() {
 					$("#actual_date").html("SEMANA ANTERIOR");
 					$("#actual_week").html("SEMANA ANTERIOR");

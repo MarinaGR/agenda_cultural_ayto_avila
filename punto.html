@@ -22,7 +22,7 @@
 		
 		//$(document).ready(function() {
 		document.addEventListener("deviceready", function() {
-			get_data_api("", identificador, 'event', 'contenedor_eventos');
+			get_data_api("", identificador, 'place', 'contenedor_punto');
 		});
 		
 		$(window).load(function() {
@@ -46,7 +46,7 @@
 		
 		<div id="contenedor" class="contenedor">
 			
-			<div id="contenedor_eventos" class="contenido">
+			<div id="contenedor_punto" class="contenido">
 
 				<div class="e_imagen"> </div>
 				<div class="e_titulo_02">EVENTO 1</div>
@@ -73,7 +73,7 @@
 		</div>	
 		
 		<div id="menu">			
-			<span onclick="go_to_page('eventos')"><i class="fa fa-arrow-circle-left fa-2x"> </i></span>
+			<span onclick="go_to_page('mapa_puntos')"><i class="fa fa-arrow-circle-left fa-2x"> </i></span>
 			<span onclick="go_to_page('menu')"><i class="fa fa-bars fa-2x"> </i></span>
 			<span>Ayuntamiento de Ávila</span>
 		</div>	

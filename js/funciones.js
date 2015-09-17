@@ -1,12 +1,13 @@
 //var api_url='http://www.avilaturismo.com/api.php';
 var api_url='./server/api.php';
-//var api_url='http://www.hoopale.com/AGENDACULTURAL_PRUEBAS/api.php';
+var api_url='http://www.hoopale.com/AGENDACULTURAL_PRUEBAS/api.php';
 var kml_url='http://www.avilaturismo.com/app/resources/avila.kml';
 //var extern_url='http://www.avilaturismo.com/app/';
 var extern_url='./server/resources/';
 var local_url='./resources/json/';
 
-//var DATOS, DIRECTION, GEOLOCATION, CONTENEDOR;
+//var DATOS, DIRECTION, GEOLOCATION;
+var CONTENEDOR;
 
 var categ_list=new Object();
 
@@ -209,8 +210,8 @@ function get_program(container) {
 	
 	var url="http://www.avila.es/images/Documentos%20PDF%20para%20descargar/CULTURA%20Y%20EVENTOS/AvilaFiestas2015.pdf";
 	
-	var cadena='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> PROGRAMA</div>';
-	cadena+="<iframe src='https://docs.google.com/viewer?url="+url+"&embedded=true' class='iframe_program' id='programa' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'></iframe>";
+	var cadena='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> DESCARGAR PROGRAMA</div>';
+	cadena+="<div class='contenedor_program' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'><iframe src='https://docs.google.com/viewer?url="+url+"&embedded=true' class='iframe_program' id='programa' ></iframe></div>";
 		
 	$("#"+container).append(cadena);
 		
@@ -256,7 +257,7 @@ function get_data_api(date, identificador, operation, container) {
 							cadena='<ul class="lista_eventos_01">'+
 										'<li>'+
 											'<div class="e_fecha">'+format_date(date)+'</div>'+
-											'<p>'+data.error+'</p>'+
+											'<p>- '+data.error+' -</p>'+
 										'</li>'+
 									'</ul>';											
 						}
@@ -307,8 +308,12 @@ function get_data_api(date, identificador, operation, container) {
 							campo_fecha=fecha_ini+" a "+fecha_fin;
 						}
 						
-						cadena= '<div class="e_imagen" style="background-image:url('+d.imagenDestacada+')"> </div>'+
-								'<div class="e_titulo_02">'+d.titulo+'</div>'+
+						if(d.imagenDestacada!="")
+						{
+							cadena+='<div class="e_imagen" style="background-image:url('+d.imagenDestacada+')"> </div>';
+						}
+						
+						cadena+= '<div class="e_titulo_02">'+d.titulo+'</div>'+
 								'<div class="e_hora_02"><i class="fa fa-calendar fa-fw fa-lg"> </i> '+campo_fecha+'</div>'+
 								'<div class="e_hora_02"><i class="fa fa-clock-o fa-fw fa-lg"> </i> '+d.hora+'h.</div>'+
 								'<div class="e_lugar_02">'+
@@ -326,6 +331,45 @@ function get_data_api(date, identificador, operation, container) {
 						
 						break;		
 						
+				
+				case "place":
+				
+						var cadena="";
+						
+						var d=data.result;
+												
+						if(d.imagenDestacada!="")
+						{
+							cadena+='<div class="e_imagen" style="background-image:url('+d.imagenDestacada+')"> </div>';
+						}
+						
+						cadena+='<div class="e_titulo_02">'+d.nombre+'</div>';
+						
+						if(d.tlf)
+							cadena+='<div class="e_tlf_03"><span><i class="fa fa-phone fa-fw fa-lg"> </i> TELÉFONO</span><br>'+d.tlf+'</div>';
+							
+						if(d.web)
+							cadena+='<div class="e_web_03"><span><i class="fa fa-globe fa-fw fa-lg"> </i> WEB</span><br>'+d.web+'</div>';
+							
+						if(d.horario)
+							cadena+='<div class="e_horario_03"><span><i class="fa fa-clock-o fa-fw fa-lg"> </i> HORARIO</span><br>'+d.horario+'h.</div>';
+													
+						if(d.entrada)
+							cadena+='<div class="e_precio_03"><span><i class="fa fa-ticket fa-fw fa-lg"> </i> ENTRADA</span><br>'+d.entrada+'</div>';
+						
+						cadena+='<div class="e_lugar_03">'+
+									'<span><i class="fa fa-map-marker fa-fw fa-lg"> </i> DIRECCIÓN</span><br>'+d.lugar+
+								'</div>';
+								
+						cadena+='<div class="boton_01" onclick="load_geolocate_map(\''+d.lugar+'\',\''+d.geolocalizacion+'\',\'location_map\');">'+
+								'<i class="fa fa-location-arrow fa-fw fa-lg"> </i> ¿Cómo llegar?</div>'+								
+								'<div class="e_geolocation_map" id="location_map"> </div>'+								
+								'<div class="e_descripcion">'+d.descripcion+'</div>';
+								
+						$("#"+container).html(cadena);
+						
+						break;
+						 
 				case "events_slide":
 						var cadena="";
 						
@@ -352,6 +396,103 @@ function get_data_api(date, identificador, operation, container) {
 						$("#"+container).html(cadena);
 					
 						break;	
+					
+			case "map_places":
+						//Center Avila position
+						var lat1 = 40.653663;
+					  	var lon1 = -4.693832;
+					  	var latlong = lat1+","+lon1;
+						
+						//GMAP3
+						var myLocation=new google.maps.LatLng(lat1, lon1);	
+						var todos_puntos=new Array();
+				
+						var resultados=0;
+						var enlace_punto="";
+						$.each(data.result, function(i, d) {
+							
+							enlace_punto="<p><a href='punto.html?id="+d.id+"' >"+d.nombre+"</a></p>";
+									
+							var coord=d.geolocalizacion.split(/[(,)]/);
+							var lat=coord[0];
+							var lon=coord[1]; 			
+							todos_puntos.push(
+								{
+									latLng:new Array(lat, lon),
+									data: enlace_punto,
+									options:{
+									  icon: "./images/general/gen_map.png"
+									},
+									events:
+									{
+							          click:function(marker, event, context)
+											{
+												var map = $(this).gmap3("get"),
+													infowindow = $(this).gmap3({get:{name:"infowindow"}});
+												if (infowindow)
+												{
+													infowindow.open(map, marker);
+													infowindow.setContent(context.data);
+												} 
+												else {
+													$(this).gmap3({
+														infowindow:{
+															anchor:marker, 
+															options:{content: context.data}
+														}
+													});
+												}
+											}
+							        }
+								}
+							);	
+										
+						});						
+
+						if(resultados==0)
+						{
+							$("#"+container).html("<p>- No hay resultados -</p>"); 
+						}	
+						
+						$("#"+container).gmap3({
+							  map:{
+								options:{
+								  center: myLocation,
+								  zoom: 14,
+								  mapTypeId: google.maps.MapTypeId.ROADMAP
+								}
+							  },
+							  marker:{
+								values: todos_puntos,
+								events:{ // events trigged by markers 
+									click: function(marker, event, context)
+											{
+												var map = $(this).gmap3("get"),
+													infowindow = $(this).gmap3({get:{name:"infowindow"}});
+												if (infowindow)
+												{
+													infowindow.open(map, marker);
+													infowindow.setContent(context.data);
+												} 
+												else {
+													$(this).gmap3({
+														infowindow:{
+															anchor:marker, 
+															options:{content: context.data}
+														}
+													});
+												}
+											}
+								},
+								callback: function() {
+									 $("#geoloc_map_text_02").html("");
+								}
+							  }
+							});
+
+						
+						break;
+	
 		}
 		
 		$("a").on("click", function(e) {
@@ -728,89 +869,7 @@ function ajax_recover_data(type, folder, values, container, params) {
 						});
 									
 					break;
-					
-					
-			case "category_list": 			
-					var cadena="";
 
-					/*Ya no haría falta al estar guardandolo en localstorage, hay que sacar este case de aquí, porque no es necesario cargar el archivo category_list.json
-					$.each(data.result.items, function(index, d) {   
-					
-						cadena+='<div onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/filter_list.html?id='+d.id+'\'" >';
-							
-							cadena+='<div id="ov_box_13_1_f" class="ov_box_13" ><img src="../../styles/images/icons/right_arrow.png" alt="menu" class="ov_image_14"/></div>';
-							
-							switch(getLocalStorage("current_language"))
-							{
-								default:
-								case "es":  var informacion=d.es;	
-											break;
-											
-								case "en":  var informacion=d.en;	
-											break;
-							}
-					
-							cadena+='<div id="ov_box_14_1_f" class="ov_box_14"><div id="ov_text_24_1_f" class="ov_text_24">'+informacion+'</div></div>';
-						
-						cadena+='</div>';
-							
-					});*/
-					
-					cadena+='<div onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/municipios_list.html\'" >';
-					cadena+='<div id="ov_box_13_1_f" class="ov_box_13" ><img src="../../styles/images/icons/right_arrow.png" alt="menu" class="ov_image_14"/></div>';
-					cadena+='<div id="ov_box_14_1_f" class="ov_box_14"><div id="ov_text_24_1_f" class="ov_text_24">'+TEXTOS[29]+'</div></div>';
-					cadena+='</div>';
-					
-					cadena+='<div class="ov_clear_floats_01">&nbsp;</div>';
-					/*cadena+='<div class="ov_vertical_space_01">&nbsp;</div>';
-					
-					cadena+='<div onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/services_list.html\'" >';
-					cadena+='<div id="ov_box_13_1_f" class="ov_box_13" ><img src="../../styles/images/icons/right_arrow.png" alt="menu" class="ov_image_14"/></div>';
-					cadena+='<div id="ov_box_14_1_f" class="ov_box_14"><div id="ov_text_24_1_f" class="ov_text_24">'+TEXTOS[50]+'</div></div>';
-					cadena+='</div>';*/
-					
-					cadena+='<div class="ov_clear_floats_01">&nbsp;</div>';
-					cadena+='<div class="ov_vertical_space_02">&nbsp;</div>';					
-					
-
-					categ_list=JSON.parse(getLocalStorage("categ_list"));
-					
-					$.each(categ_list, function(index, d) {
-						cadena+='<div onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/filter_list.html?id='+index+'\'" >';
-							
-							cadena+='<div id="ov_box_13_1_f" class="ov_box_13" ><img src="../../styles/images/icons/right_arrow.png" alt="menu" class="ov_image_14"/></div>';
-							
-							switch(getLocalStorage("current_language"))
-							{
-								default:
-								case "es":  var informacion=d[0].es;	
-											break;
-											
-								case "en":  var informacion=d[0].en;	
-											break;
-							}
-							cadena+='<div id="ov_box_14_1_f" class="ov_box_14"><div id="ov_text_24_1_f" class="ov_text_24">'+informacion+'</div></div>';
-						
-						cadena+='</div>';
-							
-					});
-					
-					cadena+='<div class="ov_clear_floats_01">&nbsp;</div>';
-					
-					$("#"+container).html(cadena);
-									
-					break;
-					
-			
-			case "near_points_list": 			
-					
-					var latlong = get_current_pos_user(data, "", "", container, false, false);
-									
-					break;
-					
-			
-
-					
 			case "points": 			
 					var cadena="";
 					
@@ -1245,92 +1304,6 @@ function show_geoloc(redraw)
 	}
 }
 
-function draw_geoloc(position)
-{
-	var lat = position.coords.latitude;
-  	var lon = position.coords.longitude;
-	
-	//var lat=40.455;
-	//var lon=-4.465;
-
-	var canvas = document.getElementById("canvas");						
-	var contexto = canvas.getContext("2d");
-	contexto.fillStyle = "#BE0000";		
-	contexto.strokeStyle = "#BE0000";		
-	contexto.font = '12px "Tahoma"';		
-
-	var width=canvas.width;
-	var height=canvas.height;
-							
-	var altura=(coord_image[0][1]-coord_image[1][1]);
-	var anchura=(coord_image[0][2]-coord_image[2][2]);
-	
-	var lat_canvas=parseFloat(((coord_image[0][1]-lat)*width)/altura);
-	var lon_canvas=parseFloat(((coord_image[0][2]-lon)*height)/anchura);
-								
-	lat_canvas=Math.round(lat_canvas * 100)/100;
-	lon_canvas=Math.round(lon_canvas * 100)/100;
-	
-
-	contexto.beginPath();
-	contexto.arc(lon_canvas,lat_canvas, 6, 0, 2 * Math.PI, true);
-	contexto.fill();
-	contexto.closePath();
-	
-	$("#cargando").hide();
-	
-	$("#datos_geo_position").html("<div class='data_route'>"+
-									  "<h3>"+TEXTOS[45]+"</h3>"+
-									  "<p><b>"+TEXTOS[46]+"</b></p>"+
-									  "<b>"+TEXTOS[47]+": </b>:" +lat+"<br>"+
-									  "<b>"+TEXTOS[48]+": </b>: "+lon+"<br>"+
-								  "</div><br>");
-								  
-	if(lat>=coord_image[0][1] || lat<=coord_image[1][1] || lon<=coord_image[0][2] || lon>=coord_image[2][2])
-	{
-		$("#datos_geo_position").html("<div class='data_route'>"+
-										  "<h3>"+TEXTOS[45]+"</h3>"+
-										  "<p>"+TEXTOS[49]+"</p>"+
-										  "<b>"+TEXTOS[47]+": </b>:" +lat+"<br>"+
-										  "<b>"+TEXTOS[48]+": </b>: "+lon+"<br>"+
-									  "</div><br>");
-	}
-		
-}
-function draw_geoloc_02(position)
-{
-	var lat = position.coords.latitude;
-  	var lon = position.coords.longitude;
-	
-	//var lat=40.455;
-	//var lon=-4.465;
-
-	var canvas = document.getElementById("canvas");						
-	var contexto = canvas.getContext("2d");
-	contexto.fillStyle = "#BE0000";		
-	contexto.strokeStyle = "#BE0000";		
-	contexto.font = '12px "Tahoma"';		
-
-	var width=canvas.width;
-	var height=canvas.height;
-							
-	var altura=(coord_image[0][1]-coord_image[1][1]);
-	var anchura=(coord_image[0][2]-coord_image[2][2]);
-							
-	var lat_canvas=parseFloat(((coord_image[0][1]-lat)*img_global.height)/altura)+imageX;
-	var lon_canvas=parseFloat(((coord_image[0][2]-lon)*img_global.width)/anchura)+imageY;
-								
-	lat_canvas=Math.round(lat_canvas * 100)/100;
-	lon_canvas=Math.round(lon_canvas * 100)/100;
-	
-	contexto.beginPath();
-	contexto.arc(lon_canvas,lat_canvas, 6, 0, 2 * Math.PI, true);
-	contexto.fill();
-	contexto.closePath();
-	
-	$("#cargando").hide();
-		
-}
 function error_geoloc_02(error)
 {
 	if(error.code == 1) {
@@ -1612,668 +1585,6 @@ function return_all_points()
 		
 		$("#"+CONTENEDOR).html(cadena);
 				
-}
-
-function show_near_geoloc(id_filtro)
-{
-	FILTRO=id_filtro;
-	if(!FILTRO)
-	{
-		FILTRO="";
-	}
-	
-	if (navigator.geolocation)
-	{		
-		navigator.geolocation.getCurrentPosition(draw_near_geoloc,draw_map_points,{enableHighAccuracy:true, maximumAge:30000, timeout:30000});
-		
-		$("#geoloc_map_text").html("<p>"+TEXTOS[4]+"</p>");
-		
-	}
-	else
-	{
-		$("#geoloc_map_text").html("<p>"+TEXTOS[22]+"</p>");
-	}
-}
-	   
-/* Converts numeric degrees to radians */
-Number.prototype.toRad = function() {
-   return this*Math.PI/180;
-}
-function draw_near_geoloc(position)
-{	
-	//User position
-	var lat1 = position.coords.latitude;
-  	var lon1 = position.coords.longitude;
-  	var latlong = lat1+","+lon1;
-  	
-  	var radio=RADIO_DESDE_USER_MAPA_LOCATION;
-  	var radioTierra=6371; //km
-	
-	//Recoger todos los puntos de interés
-	var near_points=new Array();
-	var id_cat="";
-	
-	//Recoger todos los servicios
-	var near_services=new Array();
-	var id_cat_ser="";
-	
-	//Puntos de interés
-	$.getJSON(local_url+"point_list.json", function(data) {
-		
-		
-		if(typeof categ_list[FILTRO]!="undefined")
-		{
-			switch(getLocalStorage("current_language"))
-			{
-				default:
-				case "es":  id_cat=categ_list[FILTRO][0].es;
-							break;
-									
-				case "en":  id_cat=categ_list[FILTRO][0].en;
-							break;
-			}
-		}
-
-		$("#geoloc_map_text").html("<h3>"+id_cat+"</h3><p>"+TEXTOS[23]+" "+radio+" "+TEXTOS[24]);
-		
-		$("#geoloc_map_text").append("<span id='geoloc_map_text_02' ><img src='../../styles/images/icons/loader.gif' style='margin:0 5px;width:25px' /></span>");
-		
-		var q = FILTRO,
-			regex = new RegExp(q, "i");
-			
-		$.each(data.result.items, function(index, d) {   
-
-			var geolocalizacion=d.geolocalizacion.split(/[(,)]/);
-			var lat2=parseFloat(geolocalizacion[1]);
-			var lon2=parseFloat(geolocalizacion[2]);
-			
-			var dLat = (lat2-lat1).toRad();
-			var dLon = (lon2-lon1).toRad();
-			
-			var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-					Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
-					Math.sin(dLon/2) * Math.sin(dLon/2);
-			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-			var di = radioTierra * c;
-			
-			$.each(d.categoria, function(i, cat) {
-				if(cat.id.search(regex) != -1) 
-				{			
-					if($.inArray(d, near_points)==-1)	
-					{			
-						if(di<=radio)
-							near_points.push(d);
-					}	
-				}
-			});
-							
-		});
-		
-		
-		//Servicios
-		$.getJSON(local_url+"services_list.json", function(data2) {
-			
-			if(typeof cat_services_list[FILTRO]!="undefined")
-			{
-				switch(getLocalStorage("current_language"))
-				{
-					default:
-					case "es":  id_cat_ser=cat_services_list[FILTRO][0].es;
-								break;
-										
-					case "en":  id_cat_ser=cat_services_list[FILTRO][0].en;
-								break;
-				}
-			}
-
-			$("#geoloc_map_text").html("<h3>"+id_cat_ser+"</h3><p>"+TEXTOS[23]+" "+radio+" "+TEXTOS[24]);
-			
-			$("#geoloc_map_text").append("<span id='geoloc_map_text_02' ><img src='../../styles/images/icons/loader.gif' style='margin:0 5px;width:25px' /></span>");
-			
-			var q = FILTRO,
-				regex = new RegExp(q, "i");
-				
-			$.each(data2.result.items, function(index, d) {   
-				
-				$.each(d.categoria, function(i, cat) {
-					if(cat.id.search(regex) != -1) 
-					{			
-						if($.inArray(d, near_services)==-1)	
-						{			
-							near_services.push(d);
-						}	
-					}
-				});			
-				
-			});
-			
-			
-			
-			//GMAP3
-			var myLocation=new google.maps.LatLng(lat1, lon1);	
-			var todos_puntos=new Array();
-			todos_puntos.push({latLng:myLocation,data:TEXTOS[25]});		
-			
-			var resultados=near_points.length+near_services.length;
-			var enlace_punto="";
-			$.each(near_points, function(i, near_d) {
-					switch(getLocalStorage("current_language"))
-					{
-						default:
-						case "es":  var informacion=near_d.es;	
-									break;
-									
-						case "en":  var informacion=near_d.en;	
-									break;
-					}
-					
-					enlace_punto="<p><img src='../../styles/images/icons/nearest.png' alt='interes' style='vertical-align: middle;margin: 2px;' /> <a href='points.html?id="+near_d.id+"' >"+informacion.nombre+"</a></p>";
-						
-				var coord=near_d.geolocalizacion.split(/[(,)]/);
-				var lat=coord[1];
-				var lon=coord[2]; 			
-				todos_puntos.push(
-					{
-						latLng:new Array(lat, lon),
-						data: enlace_punto,
-						options:{
-						  icon: "../../styles/images/icons/my_point_interest.png"
-						},
-						events:
-						{
-				          click:function(marker, event, context)
-								{
-									var map = $(this).gmap3("get"),
-										infowindow = $(this).gmap3({get:{name:"infowindow"}});
-									if (infowindow)
-									{
-										infowindow.open(map, marker);
-										infowindow.setContent(context.data);
-									} 
-									else {
-										$(this).gmap3({
-											infowindow:{
-												anchor:marker, 
-												options:{content: context.data}
-											}
-										});
-									}
-								}
-				        }
-					}
-				);	
-							
-			});
-			
-			$.each(near_services, function(i, near_d) {
-					switch(getLocalStorage("current_language"))
-					{
-						default:
-						case "es":  var informacion=near_d.es;	
-									break;
-									
-						case "en":  var informacion=near_d.en;	
-									break;
-					}
-					
-					enlace_punto="<p><img src='../../styles/images/icons/servicios2.png' alt='servicios' style='vertical-align: middle;margin: 2px;' /> <a href='filter_by_municipio.html?id="+near_d.municipio+"&tab=services' >"+informacion.nombre+"</a></p>";
-						
-				//var coord=near_d.geolocalizacion.split(/[(,)]/);
-				//var lat=coord[1];
-				//var lon=coord[2]; 			
-				todos_puntos.push(
-					{
-						//latLng:new Array(lat, lon),
-						address: near_d.direccion,
-						data: enlace_punto,
-						options:{
-						  icon: "../../styles/images/icons/my_point_services.png"
-						},
-						events:
-						{
-				          click:function(marker, event, context)
-								{
-									var map = $(this).gmap3("get"),
-										infowindow = $(this).gmap3({get:{name:"infowindow"}});
-									if (infowindow)
-									{
-										infowindow.open(map, marker);
-										infowindow.setContent(context.data);
-									} 
-									else {
-										$(this).gmap3({
-											infowindow:{
-												anchor:marker, 
-												options:{content: context.data}
-											}
-										});
-									}
-								}
-				        }
-					}
-				);	
-							
-			});
-				
-			if(resultados==0)
-			{
-				if(id_cat=="" && id_cat_ser!="")
-				{
-					$("#geoloc_map_text").html("<h3>"+id_cat_ser+"</h3><p>"+TEXTOS[5]+"</p>"); 
-				}
-				else if(id_cat!="" && id_cat_ser=="")
-				{
-					$("#geoloc_map_text").html("<h3>"+id_cat+"</h3><p>"+TEXTOS[5]+"</p>"); 
-				}
-				else
-				{
-					$("#geoloc_map_text").html("<p>"+TEXTOS[5]+"</p>"); 
-				}
-				
-			}	
-			
-			$("#my_location_map").gmap3({
-				kmllayer:{
-					options:{
-					  url: kml_url+"?dummy="+(new Date()).getTime(),
-					  opts:{
-						suppressInfoWindows: true,
-						preserveViewport: true,
-						clickable: false,
-						zIndex: 1
-					  }
-					}
-				  },  
-				  map:{
-					options:{
-					  center: myLocation,
-					  zoom: 15,
-					  mapTypeId: google.maps.MapTypeId.ROADMAP
-					}
-				  },
-				  overlay:{
-					latLng: myLocation,
-					options:{
-						  content:  '<div style=" border-bottom: 8px solid #444; height: 0px; width: 0px; '+
-									'border-right: 8px solid transparent; margin: auto; border-left: 8px solid transparent;"></div>'+
-									'<div style="background-color:#fff;border:2px solid #444;text-align:center;padding:5px 10px;">'+
-									TEXTOS[25]+'</div>',
-						  offset:{
-							y:0,
-							x:-40
-						  }
-					  }
-				  },
-				  marker:{
-					values: todos_puntos,
-					events:{ // events trigged by markers 
-						click: function(marker, event, context)
-								{
-									var map = $(this).gmap3("get"),
-										infowindow = $(this).gmap3({get:{name:"infowindow"}});
-									if (infowindow)
-									{
-										infowindow.open(map, marker);
-										infowindow.setContent(context.data);
-									} 
-									else {
-										$(this).gmap3({
-											infowindow:{
-												anchor:marker, 
-												options:{content: context.data}
-											}
-										});
-									}
-								}
-					},
-					callback: function() {
-						 $("#geoloc_map_text_02").html("");
-					},
-					cluster:{
-					  radius: 90,
-					  events:{ // events trigged by clusters 
-							click: function(cluster, event, context)
-								{							
-									var info=new Object();
-									info.data="";
-									if(context.data.markers.length>6)
-									{
-										info.data=context.data.markers.length+" "+TEXTOS[41];
-										
-									}
-									else
-									{
-										$.each(context.data.markers, function(i, m) {
-											if((m.data).search("href")!=-1)
-												info.data+=m.data;
-										});
-									}
-
-									var map = $(this).gmap3("get"),
-										infowindow = $(this).gmap3({get:{name:"infowindow"}});
-									if (infowindow)
-									{
-										infowindow.open(map, cluster.main);
-										infowindow.setContent(info.data);
-									} 
-									else {
-										$(this).gmap3({
-											infowindow:{
-												anchor:cluster.main, 
-												options:{content: info.data}
-											}
-										});
-									}
-								},
-						mouseover: function(cluster){
-						  $(cluster.main.getDOMElement()).css("border", "0px");
-						},
-						mouseout: function(cluster){
-						  $(cluster.main.getDOMElement()).css("border", "0px");
-						}
-					  },
-					  0: {
-						content: "<div class='cluster cluster-1'>CLUSTER_COUNT</div>",
-						width: 40,
-						height: 55
-					  },
-					  10: {
-						content: "<div class='cluster cluster-2'>CLUSTER_COUNT</div>",
-						width: 40,
-						height: 55
-					  },
-					  25: {
-						content: "<div class='cluster cluster-3'>CLUSTER_COUNT</div>",
-						width: 40,
-						height: 55
-					  }
-					}
-				  }
-			});
-		
-		
-			
-		}).fail(function(jqXHR, textStatus, errorThrown) {
-			//alert('Error: "+textStatus+"  "+errorThrown);	
-			
-			$("#geoloc_map_text").append("<p>"+TEXTOS[6]+"<br>Error: "+textStatus+"  "+errorThrown+"</p>");
-
-		});
-					
-		
-	}).fail(function(jqXHR, textStatus, errorThrown) {
-		//alert('Error: "+textStatus+"  "+errorThrown);	
-		
-		$("#geoloc_map_text").html("<p>"+TEXTOS[6]+"<br>Error: "+textStatus+"  "+errorThrown+"</p>");
-
-	});
-		
-}
-
-function draw_map_points(position)
-{	
-	//Center Avila position
-	var lat1 = 40.604496;
-  	var lon1 = -4.899115;
-  	var latlong = lat1+","+lon1;
-  	
-  	var radio=RADIO_DESDE_USER_MAPA_LOCATION;
-  	var radioTierra=6371; //km
-	
-	//Recoger todos los puntos de interés
-	var near_points=new Array();
-		
-	var objajax=$.getJSON(local_url+"point_list.json", function(data) {
-		
-		var id_cat="";
-		if(typeof categ_list[FILTRO]!="undefined")
-		{
-			switch(getLocalStorage("current_language"))
-			{
-				default:
-				case "es":  id_cat=categ_list[FILTRO][0].es;
-							break;
-									
-				case "en":  id_cat=categ_list[FILTRO][0].en;
-							break;
-			}
-		}
-
-		$("#geoloc_map_text").html("<h3>"+id_cat+"</h3><p>"+TEXTOS[23]+" "+radio+" "+TEXTOS[24]);
-		
-		$("#geoloc_map_text").append("<span id='geoloc_map_text_02' ><img src='../../styles/images/icons/loader.gif' style='margin:0 5px;width:25px' /></span>");
-		
-		var q = FILTRO,
-			regex = new RegExp(q, "i");
-			
-		$.each(data.result.items, function(index, d) {   
-
-			var geolocalizacion=d.geolocalizacion.split(/[(,)]/);
-			var lat2=parseFloat(geolocalizacion[1]);
-			var lon2=parseFloat(geolocalizacion[2]);
-			
-			var dLat = (lat2-lat1).toRad();
-			var dLon = (lon2-lon1).toRad();
-			
-			var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-					Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
-					Math.sin(dLon/2) * Math.sin(dLon/2);
-			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-			var di = radioTierra * c;
-			
-			$.each(d.categoria, function(i, cat) {
-				if(cat.id.search(regex) != -1) 
-				{			
-					if($.inArray(d, near_points)==-1)	
-					{			
-						if(di<=radio)
-							near_points.push(d);
-					}	
-				}
-			});
-				
-			
-			
-		});
-				
-		//GMAP3
-		var myLocation=new google.maps.LatLng(lat1, lon1);	
-		var todos_puntos=new Array();
-
-		var resultados=near_points.length;
-		var enlace_punto="";
-		$.each(near_points, function(i, near_d) {
-				switch(getLocalStorage("current_language"))
-				{
-					default:
-					case "es":  var informacion=near_d.es;	
-								break;
-								
-					case "en":  var informacion=near_d.en;	
-								break;
-				}
-				
-				enlace_punto="<p><a href='points.html?id="+near_d.id+"' >"+informacion.nombre+"</a></p>";
-					
-			var coord=near_d.geolocalizacion.split(/[(,)]/);
-			var lat=coord[1];
-			var lon=coord[2]; 			
-			todos_puntos.push(
-				{
-					latLng:new Array(lat, lon),
-					data: enlace_punto,
-					options:{
-					  icon: "../../styles/images/icons/my_point.png"
-					},
-					events:
-					{
-			          click:function(marker, event, context)
-							{
-								var map = $(this).gmap3("get"),
-									infowindow = $(this).gmap3({get:{name:"infowindow"}});
-								if (infowindow)
-								{
-									infowindow.open(map, marker);
-									infowindow.setContent(context.data);
-								} 
-								else {
-									$(this).gmap3({
-										infowindow:{
-											anchor:marker, 
-											options:{content: context.data}
-										}
-									});
-								}
-							}
-			        }
-				}
-			);	
-						
-		});
-		
-		if(resultados==0)
-		{
-			$("#geoloc_map_text").html("<h3>"+id_cat+"</h3><p>"+TEXTOS[5]+"</p>"); 
-		}	
-		
-		$("#geoloc_map_text").append("<p>"+TEXTOS[19]+"</p>");
-		
-		$("#my_location_map").gmap3({
-			  map:{
-				options:{
-				  center: myLocation,
-				  zoom: 9,
-				  mapTypeId: google.maps.MapTypeId.ROADMAP
-				}
-			  },
-			  marker:{
-				values: todos_puntos,
-				events:{ // events trigged by markers 
-					click: function(marker, event, context)
-							{
-								var map = $(this).gmap3("get"),
-									infowindow = $(this).gmap3({get:{name:"infowindow"}});
-								if (infowindow)
-								{
-									infowindow.open(map, marker);
-									infowindow.setContent(context.data);
-								} 
-								else {
-									$(this).gmap3({
-										infowindow:{
-											anchor:marker, 
-											options:{content: context.data}
-										}
-									});
-								}
-							}
-				},
-				callback: function() {
-					 $("#geoloc_map_text_02").html("");
-				},
-				cluster:{
-				  radius: 100,
-				  events:{ // events trigged by clusters 
-						click: function(cluster, event, context)
-							{							
-								var info=new Object();
-								info.data="";
-								if(context.data.markers.length>6)
-								{
-									info.data=context.data.markers.length+" "+TEXTOS[41];
-									
-								}
-								else
-								{
-									$.each(context.data.markers, function(i, m) {
-										if((m.data).search("href")!=-1)
-											info.data+=m.data;
-									});
-								}
-	
-								var map = $(this).gmap3("get"),
-									infowindow = $(this).gmap3({get:{name:"infowindow"}});
-								if (infowindow)
-								{
-									infowindow.open(map, cluster.main);
-									infowindow.setContent(info.data);
-								} 
-								else {
-									$(this).gmap3({
-										infowindow:{
-											anchor:cluster.main, 
-											options:{content: info.data}
-										}
-									});
-								}
-							},
-					mouseover: function(cluster){
-					  $(cluster.main.getDOMElement()).css("border", "0px");
-					},
-					mouseout: function(cluster){
-					  $(cluster.main.getDOMElement()).css("border", "0px");
-					}
-				  },
-				  0: {
-					content: "<div class='cluster cluster-1'>CLUSTER_COUNT</div>",
-					width: 40,
-					height: 55
-				  },
-				  10: {
-					content: "<div class='cluster cluster-2'>CLUSTER_COUNT</div>",
-					width: 40,
-					height: 55
-				  },
-				  25: {
-					content: "<div class='cluster cluster-3'>CLUSTER_COUNT</div>",
-					width: 40,
-					height: 55
-				  }
-				}
-			  }
-			});
-
-	})
-		.fail(function(jqXHR, textStatus, errorThrown) {
-			//alert('Error: "+textStatus+"  "+errorThrown);	
-			
-			$("#geoloc_map_text").html("<p>"+TEXTOS[6]+"<br>Error: "+textStatus+"  "+errorThrown+"</p>");
-
-		});
-		
-	
-}
-
-function createMarker(place, title, type) 
-{
-    //var placeLoc = place.geometry.location;
-    var marker=new google.maps.Marker({
-		map: map,
-		position: place //placeLoc
-    }); 
-    marker.setTitle(title);
-    
-    var infowindow=new google.maps.InfoWindow(
-    	{ 
-    		content: title 
-    	});
-
-	google.maps.event.addListener(marker, 'click', function () {
-		infowindow.open(map, marker);
-	});
-	
-	switch(type)
-    {
-    	case "0": marker.setIcon("../../styles/images/icons/my_point.png");   
-    			  break; 
-		
-    	case "1": infowindow.open(map, marker);
-				  marker.setIcon("../../styles/images/icons/near_points.png");   
-    			  break;
-				  
-		default: break;
-
-    }
 }
 
 function go_to_page(name, id) {
