@@ -271,11 +271,15 @@ function get_data_api(date, identificador, operation, container) {
 							
 							$.each(data.result, function(index, d) {   
 								cadena+='<li onclick="go_to_page(\'evento\',\''+d.id+'\')">'+
-											'<div class="e_titulo">'+d.titulo+'</div>'+
-											'<div class="e_hora">'+
+											'<div class="e_titulo">'+d.titulo+'</div>';
+								if(d.hora!="")
+								{
+									cadena+='<div class="e_hora">'+
 												'<i class="fa fa-clock-o fa-fw"> </i> '+d.hora+
-											'</div>'+
-											'<div class="e_lugar">'+
+											'</div>';
+								}
+											
+								cadena+='<div class="e_lugar">'+
 												'<i class="fa fa-map-marker fa-fw"> </i> '+d.lugar+
 											'</div>'+
 										'</li>';
@@ -314,13 +318,23 @@ function get_data_api(date, identificador, operation, container) {
 						}
 						
 						cadena+= '<div class="e_titulo_02">'+d.titulo+'</div>'+
-								'<div class="e_hora_02"><i class="fa fa-calendar fa-fw fa-lg"> </i> '+campo_fecha+'</div>'+
-								'<div class="e_hora_02"><i class="fa fa-clock-o fa-fw fa-lg"> </i> '+d.hora+'h.</div>'+
-								'<div class="e_lugar_02">'+
+								'<div class="e_hora_02"><i class="fa fa-calendar fa-fw fa-lg"> </i> '+campo_fecha+'</div>';
+								
+						if(d.hora!="")
+						{
+							cadena+= '<div class="e_hora_02"><i class="fa fa-clock-o fa-fw fa-lg"> </i> '+d.hora+'h.</div>';
+						}
+						
+						cadena+='<div class="e_lugar_02">'+
 									'<i class="fa fa-map-marker fa-fw fa-lg"> </i> '+d.lugar+
-								'</div>'+
-								'<div class="e_precio_02"><i class="fa fa-ticket fa-fw fa-lg"> </i> '+d.precio+'</div>'+
-								'<div class="boton_01" onclick="load_geolocate_map(\''+d.lugar+'\',\''+d.geolocalizacion+'\',\'location_map\');">'+
+								'</div>';
+								
+						if(d.precio!="")
+						{
+							cadena+='<div class="e_precio_02"><i class="fa fa-ticket fa-fw fa-lg"> </i> '+d.precio+'</div>';
+						}
+						
+						cadena+='<div class="boton_01" onclick="load_geolocate_map(\''+d.lugar+'\',\''+d.geolocalizacion+'\',\'location_map\');">'+
 								'<i class="fa fa-location-arrow fa-fw fa-lg"> </i> ¿Cómo llegar?</div>'+
 								
 								'<div class="e_geolocation_map" id="location_map"> </div>'+
@@ -385,9 +399,13 @@ function get_data_api(date, identificador, operation, container) {
 						
 								cadena+='<div class="swiper-slide" onclick="go_to_page(\'evento\','+d.id+')">'+
 											'<div class="e_titulo">'+d.titulo+'</div>'+
-											'<div class="e_data">'+
-												'<i class="fa fa-clock-o fa-fw"> </i> '+d.hora+'h. '+
-												'<i class="fa fa-map-marker fa-fw"> </i> '+d.lugar+
+											'<div class="e_data">';
+								if(d.hora!="")
+								{
+									cadena+='<i class="fa fa-clock-o fa-fw"> </i> '+d.hora+'h. ';
+								}
+								
+								cadena+='<i class="fa fa-map-marker fa-fw"> </i> '+d.lugar+
 											'</div>'+
 										'</div>';									
 							});
@@ -507,10 +525,18 @@ function get_data_api(date, identificador, operation, container) {
 								cadena+='<div class="cupon_01" onclick="show_offer(\''+d.imagenDestacada+'\')" style="background:url('+d.imagenDestacada+') no-repeat center; ">'+
 											'<div class="cupon_info">'+
 												'<div class="e_titulo">'+d.titulo_oferta+'</div>'+
-												'<div class="e_data">'+d.nombre_establecimiento+
-													'<br><i class="fa fa-calendar fa-fw"> </i> '+d.fecha_validez+
-													'<br><i class="fa fa-map-marker fa-fw"> </i> '+d.direccion+
-												'</div>'+
+												'<div class="e_data">'+d.nombre_establecimiento;
+												
+								if(d.fecha_validez)
+								{
+									cadena+='<br><i class="fa fa-calendar fa-fw"> </i> '+d.fecha_validez;
+								}
+								if(d.fecha_validez)
+								{
+									cadena+='<br><i class="fa fa-map-marker fa-fw"> </i> '+d.direccion;
+								}									
+													
+								cadena+='</div>'+
 											'</div>'+
 										'</div>';									
 							});

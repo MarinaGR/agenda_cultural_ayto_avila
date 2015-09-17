@@ -293,7 +293,7 @@ ul.lista_eventos_02 {
     margin-bottom: 25px;
 }
 .e_precio_02, .e_lugar_02, .e_hora_02 {
-    height: 30px;
+    min-height: 30px;
     padding: 5px 0;
 }
 .e_tlf_03, .e_web_03, .e_horario_03, .e_precio_03, .e_lugar_03 {

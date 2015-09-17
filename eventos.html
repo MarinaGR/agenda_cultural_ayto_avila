@@ -23,8 +23,8 @@
 		
 		var nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
 		
-		$(document).ready(function() {
-		//document.addEventListener("deviceready", function() {
+		//$(document).ready(function() {
+		document.addEventListener("deviceready", function() {
 			
 			$("#actual_day").html(current_day_of_month+" de "+monthNames[current_month]);
 			
@@ -213,10 +213,10 @@
 		
 		<div id="contenedor" class="contenedor">
 			
-			<div class="selector_fecha">
+			<!--<div class="selector_fecha">
 				<div class="selector activo" id="sdia" onclick="">Diario</div>
 				<div class="selector" id="ssemana" onclick="">Semanal</div>
-			</div>
+			</div>-->
 			
 			<div class="fecha_seleccionada" id="fecha_seleccionada">
 
@@ -239,73 +239,12 @@
 				</div>
 				
 				<div id="semanal" class="timeline">
-	            	<!--<div class="timeline_container"> 
-				
-						<div class="timeline_arrows">
-							<div class="timeline_lastmonth" id="last_week" title="Mes Previo">-</div>
-							<div class="timeline_date" id="actual_date">
-								Agosto 2015
-							</div>
-							<div class="timeline_nextmonth" id="next_week" title="Mes Siguiente">+</div>
-						</div>
-						
-						<div class="timeline_container">
-							<div class="timeline_days" id="actua_week">
-								<ul>									
-									<li><div class="">l<br>14</div></li>
-									<li><div class="event today">m<br>15</div></li>
-									<li><div class="">m<br>16</div></li>
-									<li><div class="event">j<br>17</div></li>
-									<li><div class="">v<br>18</div></li>
-									<li><div class="event">s<br>19</div></li>
-									<li><div class="event">d<br>20</div></li>									
-								</ul>
-							</div>
-							<div class="todayArrow"> </div>
-						</div>
-					</div>-->
+	
 				</div>
 
 			</div>
 		
 			<div class="contenido" id="contenedor_eventos">
-
-				<!--<ul class="lista_eventos_01">
-					<li>
-						<div class="e_fecha">MARTES 15 DE AGOSTO</div>
-						<ul class="fecha_evento">
-							<li onclick="go_to_page('evento','evento_01')">
-								<div class="e_titulo">NOMBRE DEL EVENTO 1</div>
-								<div class="e_hora">
-									<i class="fa fa-clock-o fa-fw"> </i> 18:30h
-								</div>
-								<div class="e_lugar">
-									<i class="fa fa-map-marker fa-fw"> </i> Plaza Santa Teresa
-								</div>
-							</li>
-							<li>
-								<div class="e_titulo">Nombre del evento 2</div>
-								<div class="e_hora">
-									<i class="fa fa-clock-o fa-fw"> </i> 11:00h
-								</div>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<div class="e_fecha">JUEVES 17 DE AGOSTO</div>
-						<ul class="fecha_evento">
-							<li>
-								<div class="e_titulo">EVENTO 1</div>
-								<div class="e_hora">
-									<i class="fa fa-clock-o fa-fw"> </i> 18:30h
-								</div>
-								<div class="e_lugar">
-									<i class="fa fa-map-marker fa-fw"> </i> Plaza Santa Teresa
-								</div>
-							</li>
-						</ul>
-					</li>
-				</ul>-->
 				
 			</div>
 
