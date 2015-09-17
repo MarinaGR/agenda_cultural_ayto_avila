@@ -145,9 +145,9 @@ function detect_system_device()
 	}
 }
 
-function show_offer(identificador) {
+function show_offer(imagen) {
 	$("#cortina2").show('fade', function() {
-		$("#"+identificador).show();
+		$(".cupon_02").html("<img src='"+imagen+"' alt='oferta' />");
 		$(".cupon_02").show();
 	});
 }
@@ -492,6 +492,33 @@ function get_data_api(date, identificador, operation, container) {
 
 						
 						break;
+						
+			case "offers":
+						var cadena="";
+						
+						if(data.status=="KO")
+						{
+							cadena='<p>- '+data.error+' -</p>';	
+						}
+						else
+						{				
+							$.each(data.result, function(index, d) {   						
+						
+								cadena+='<div class="cupon_01" onclick="show_offer(\''+d.imagenDestacada+'\')" style="background:url('+d.imagenDestacada+') no-repeat center; ">'+
+											'<div class="cupon_info">'+
+												'<div class="e_titulo">'+d.titulo_oferta+'</div>'+
+												'<div class="e_data">'+d.nombre_establecimiento+
+													'<br><i class="fa fa-calendar fa-fw"> </i> '+d.fecha_validez+
+													'<br><i class="fa fa-map-marker fa-fw"> </i> '+d.direccion+
+												'</div>'+
+											'</div>'+
+										'</div>';									
+							});
+						}
+							
+						$("#"+container).html(cadena);
+					
+						break;	
 	
 		}
 		
@@ -536,9 +563,8 @@ function load_geolocate_map(direccion, geolocalizacion, container) {
 			if(geolocalizacion!="")
 			{
 				geolocalizacion=geolocalizacion.split(/[(,)]/);
-				var geo_lat=geolocalizacion[1];
-				var geo_lon=geolocalizacion[2];
-				var my_zoom=parseInt(geolocalizacion[3]);
+				var geo_lat=geolocalizacion[0];
+				var geo_lon=geolocalizacion[1];
 	
 				setTimeout(function() {
 	
@@ -558,7 +584,6 @@ function load_geolocate_map(direccion, geolocalizacion, container) {
 										      $(this).gmap3({
 										        map:{
 										          options:{
-										            zoom: my_zoom,  
 										            center: [geo_lat, geo_lon]
 										          }
 										        },
@@ -579,7 +604,7 @@ function load_geolocate_map(direccion, geolocalizacion, container) {
 			}
 			else
 			{
-				$("#"+container).html("<p>"+TEXTOS[8]+"</p>");			
+				$("#"+container).html("<p>Sin localización</p>");			
 			}
 			
 			$("body,html").animate({scrollTop:$(".boton_01").offset().top},500);
@@ -602,9 +627,9 @@ function load_geolocate_map(direccion, geolocalizacion, container) {
 function draw_map_point(direccion, geolocalizacion, container) {
 	
 	geolocalizacion=geolocalizacion.split(/[(,)]/);
-	var geo_lat=geolocalizacion[1];
-	var geo_lon=geolocalizacion[2];
-	var my_zoom=parseInt(geolocalizacion[3]);
+	var geo_lat=geolocalizacion[0];
+	var geo_lon=geolocalizacion[1];
+	var my_zoom=16;
 	
 	setTimeout(function() {
 		
@@ -612,7 +637,7 @@ function draw_map_point(direccion, geolocalizacion, container) {
 			address:direccion,
 			map:{
 					options:{
-						mapTypeId: google.maps.MapTypeId.HYBRID,
+						mapTypeId: google.maps.MapTypeId.ROADMAP,
 						center:[geo_lat, geo_lon],
 						zoom:my_zoom
 					}
@@ -644,446 +669,6 @@ function draw_map_point(direccion, geolocalizacion, container) {
 		
 	}, 500);
 		
-}
-
-function ajax_recover_data(type, folder, values, container, params) {
-
-	var file_to_load="";
-	if(folder!="")
-	{
-		file_to_load=local_url+folder+"/"+values+".json";
-	}
-	else
-	{
-		file_to_load=local_url+values+".json";
-	}
-	
-	var objajax=$.getJSON(file_to_load, f_success)
-		.fail(function(jqXHR, textStatus, errorThrown) {
-			//alert('Error: "+textStatus+"  "+errorThrown);	
-			
-			 $("#"+container).html(TEXTOS[6]+"<br>Error: "+local_url+folder+"/"+values+".json"+" - "+textStatus+"  "+errorThrown);
-
-		});
-		
-	if(params)
-	{
-		for(var i=0;i<params.length;i++)
-		{
-			if(params[i][0]=="id")
-			{
-				var filter_id=params[i][1];
-			}
-			if(params[i][0]=="element")
-			{
-				var element=params[i][1];
-			}
-			if(params[i][0]=="start")
-			{
-				var start=parseInt(params[i][1]);
-			}
-			if(params[i][0]=="limit")
-			{
-				var limit=parseInt(params[i][1]);
-			}
-		}
-	}
-
-	function f_success(data) {
-
-		if(data.length==0) {
-			
-			$("#"+container).html("<p>"+TEXTOS[7]+"</p>");
-			return;
-		}
-		
-		switch(type)
-		{
-			
-			case "municipios_list": 	
-			
-					var cadena="";
-					var start_count=start;
-					
-					var sorted_municipios=new Array();
-					
-					$.each(data.result.items, function(index, d) {   
-						
-						if($.inArray(d, sorted_municipios)==-1)					
-							sorted_municipios.push(d);	
-						
-					});
-
-					sorted_municipios.sort(SortByName);
-					
-					$.each(sorted_municipios, function(index, d) {
-						
-						/*if(start_count>index)
-						{
-							return true;
-						}
-						else
-							start_count++;
-							
-						if(start_count>start+limit)
-							return false;*/
-							
-							
-						cadena+='<div onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/filter_by_municipio.html?id='+d.id+'\'" >';
-							
-						cadena+='<div id="ov_box_13_1_f" class="ov_box_13" ><img src="../../styles/images/icons/right_arrow.png" alt="menu" class="ov_image_14"/></div>';
-						
-						cadena+='<div id="ov_box_14_1_f" class="ov_box_14"><div id="ov_text_24_1_f" class="ov_text_24">'+d.nombre+'</div></div>';
-						
-						cadena+='</div>';   
-					});
-					
-					cadena+='<div class="ov_clear_floats_01">&nbsp;</div>';
-						
-					/*if(start-limit>=0)
-						cadena+="<a class='verpagina' href='municipios_list.html?id="+filter_id+"&start="+(start-limit)+"&limit="+limit+"' style='float:left'>"+TEXTOS[27]+"</a>";
-					
-					if(start+limit<data.result.total)
-						cadena+="<a class='verpagina' href='municipios_list.html?id="+filter_id+"&start="+(start+limit)+"&limit="+limit+"' style='float:right'>"+TEXTOS[26]+"</a>";*/
-					
-					cadena+='<div class="ov_clear_floats_01">&nbsp;</div>';
-					
-					$("#"+container).html(cadena);
-							
-					break;
-					
-					
-			case "filter_list_p": 	
-					
-					/*Habría que comprobar folder para ver si es point o empresa (o cualquier otro elemento) y en función de eso redirigir donde fuese necesario.*/
-					
-					var objajax=$.getJSON("../../resources/json/category_list.json", function(categorias) {
-						
-						var filter_name="";
-						
-						var q = filter_id,
-							regex = new RegExp(q, "i");
-						
-						$.each(categorias.result.items, function(i, cat) {
-
-							switch(getLocalStorage("current_language"))
-							{
-								default:
-								case "es":  if(cat.id.search(regex) != -1) 
-												filter_name=cat.es;
-											break;
-								
-								case "en":  if(cat.id.search(regex) != -1) 
-												filter_name=cat.en;
-											break;
-							}
-						});
-						
-						///////////////////
-						
-						var cadena="";
-						cadena+="<div class='ov_zone_15'><h3>"+filter_name+"</h3><p>"+TEXTOS[1]+"</p></div>";
-						
-						var filter_points=new Array();
-						var resultados=0;
-						
-						var start_count=start;
-					
-						$.each(data.result.items, function(index, d) {   
-							
-							var coord=d.geolocalizacion.split(",");
-							var lat1=parseFloat(coord[0]);
-							var lon1=parseFloat(coord[1]);
-							
-							$.each(d.categoria, function(i, cat) {
-								if(cat.id.search(regex) != -1) 
-								{							
-									if($.inArray(d, filter_points)==-1)
-										filter_points.push(d);			
-								}
-							});
-							
-						});
-						
-						filter_points.sort(SortByLangName);
-						
-						resultados=filter_points.length;
-
-						$.each(filter_points, function(i, fd) {
-						
-							/*if(start_count>i)
-							{
-								return true;
-							}
-							else
-								start_count++;
-								
-							if(start_count>start+limit)
-								return false;*/
-							
-							cadena+='<div onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/'+element+'.html?id='+fd.id+'\'" >';
-
-								cadena+='<div id="ov_box_13_1_f" class="ov_box_13" style="background-image:url(../..'+fd.imagen+');" ><img src="../../styles/images/icons/right_arrow.png" alt="menu" class="ov_image_14"/></div>';
-								
-								switch(getLocalStorage("current_language"))
-								{
-									default:
-									case "es":  var informacion=fd.es;	
-												break;
-												
-									case "en":  var informacion=fd.en;	
-												break;
-								}
-						
-								cadena+='<div id="ov_box_14_1_f" class="ov_box_14"><div id="ov_text_24_1_f" class="ov_text_24">'+informacion.nombre+'</div></div>';
-							
-							cadena+='</div>';
-						});
-						
-						if(resultados==0)
-						{
-							cadena+="<p>"+TEXTOS[0]+"</p>";
-						}
-						
-						cadena+='<div class="ov_clear_floats_01">&nbsp;</div>';
-						
-						/*if(start-limit>=0)
-							cadena+="<a class='verpagina' href='filter_list.html?id="+filter_id+"&start="+(start-limit)+"&limit="+limit+"' style='float:left'>"+TEXTOS[27]+"</a>";
-						
-						if(start+limit<resultados)
-							cadena+="<a class='verpagina' href='filter_list.html?id="+filter_id+"&start="+(start+limit)+"&limit="+limit+"' style='float:right'>"+TEXTOS[26]+"</a>";*/
-						
-						cadena+='<div class="ov_clear_floats_01">&nbsp;</div>';
-						
-						$("#"+container).html(cadena);
-						ajax_recover_data("filter_list_e", "", "empresas_list", "ov_zone_21_all", [['id',identificador],['start',start],['limit',limit],['element','empresa']]);
-						
-						///////////////////
-						
-					})
-						.fail(function(jqXHR, textStatus, errorThrown) {
-							//alert('Error: "+textStatus+"  "+errorThrown);	
-							
-							$("#"+container).html("<p>"+TEXTOS[6]+"<br>Error: category_list.json - "+textStatus+"  "+errorThrown+"</p>");
-
-						});
-									
-					break;
-
-			case "points": 			
-					var cadena="";
-					
-					var d=data.result;
-					
-					switch(getLocalStorage("current_language"))
-					{
-						default:
-						case "es":  var informacion=d.es;	
-									break;
-									
-						case "en":  var informacion=d.en;	
-									break;
-					}
-					
-					$("#point_name").html(informacion.nombre);
-					$("#point_mini_description").html(informacion.miniDescripcion);
-					$("#point_description").html(informacion.descripcion);
-					$("#container_point").css("background-image","url(../.."+d.imagenDestacada+")");
-					
-					$("#categories_point").append('<div class="ov_box_19" onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/filter_by_municipio.html?id='+d.municipio+'\'">'+d.municipio+'</div>');
-						
-					categ_list=JSON.parse(getLocalStorage("categ_list"));
-					$.each(d.categoria, function(i, cat) {
-					
-						switch(getLocalStorage("current_language"))
-						{
-							default:
-							case "es":  $("#categories_point").append('<div class="ov_box_18" onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/filter_list.html?id='+cat.id+'\'">'+categ_list[cat.id][0].es+'</div>');
-										break;
-										
-							case "en":  $("#categories_point").append('<div class="ov_box_18" onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/filter_list.html?id='+cat.id+'\'">'+categ_list[cat.id][0].en+'</div>');
-								
-										break;
-						}
-					});
-					 
-					$("#categories_point").append('<div class="ov_clear_floats_01"> </div>');
-					
-					break;
-		
-			case "gallery_point": 			
-					var cadena="";
-					
-					var d=data.result;
-					
-					switch(getLocalStorage("current_language"))
-					{
-						default:
-						case "es":  var informacion=d.es;	
-									break;
-									
-						case "en":  var informacion=d.en;	
-									break;
-					}
-
-					$("#point_name").html(informacion.nombre);
-					$("#point_mini_description").html(informacion.miniDescripcion);
-									
-					break;
-					
-			case "location_point": 			
-					var cadena="";
-					
-					var geolocalizacion=data.result.geolocalizacion;
-					if(geolocalizacion!="")
-					{
-						geolocalizacion=geolocalizacion.split(/[(,)]/);
-						var geo_lat=geolocalizacion[1];
-						var geo_lon=geolocalizacion[2];
-						var my_zoom=parseInt(geolocalizacion[3]);
-						
-						setTimeout(function() {
-							
-							$("#"+container).gmap3({
-								address:data.result.es.nombre,
-								map:{
-										options:{
-											mapTypeId: google.maps.MapTypeId.HYBRID,
-											center:[geo_lat, geo_lon],
-											zoom:my_zoom
-										}
-									},
-								marker:{
-										values:[{latLng:[geo_lat, geo_lon], data:data.result.es.nombre}],
-										events:{
-											  click: function(marker, event, context){
-												var map = $(this).gmap3("get"),
-												  infowindow = $(this).gmap3({get:{name:"infowindow"}});
-												if (infowindow){
-												  infowindow.open(map, marker);
-												  infowindow.setContent(context.data);
-												} else {
-												  $(this).gmap3({
-													infowindow:{
-													  anchor:marker, 
-													  options:{content: context.data}
-													}
-												  });
-												}
-											  }
-											}
-									}
-							});
-							
-						}, 500);
-					}
-					else
-					{
-						$("#"+container).html("<p>"+TEXTOS[8]+"</p>");						
-					}
-
-									
-					break;
-					
-			case "geolocation_point": 			
-					var cadena="";
-
-					$("#datos_geo_position").html("<span id='geoloc_loader' ><img src='../../styles/images/icons/loader.gif' style='margin:0 5px;width:25px' /></span>");			
-
-					if (navigator.geolocation)
-					{
-						options = {
-						  enableHighAccuracy: true,
-						  timeout: 15000,
-						  maximumAge: 30000
-						};
-						
-						navigator.geolocation.getCurrentPosition(function(position){
-
-							var geolocalizacion=data.result.geolocalizacion;
-							if(geolocalizacion!="")
-							{
-								geolocalizacion=geolocalizacion.split(/[(,)]/);
-								var geo_lat=geolocalizacion[1];
-								var geo_lon=geolocalizacion[2];
-								var my_zoom=parseInt(geolocalizacion[3]);
-
-								setTimeout(function() {
-
-									$("#"+container).gmap3({
-										  getroute:
-										  {
-												options:
-												{
-													origin:new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
-													destination:new google.maps.LatLng(geo_lat, geo_lon),
-													travelMode: google.maps.DirectionsTravelMode.DRIVING
-												},		
-										  
-											  callback: function(results){
-											      if (!results) return;
-											      $(this).gmap3({
-											        map:{
-											          options:{
-											          	mapTypeId: google.maps.MapTypeId.HYBRID,
-											            zoom: my_zoom,  
-											            center: [geo_lat, geo_lon]
-											          }
-											        },
-											        directionsrenderer:{
-											          options:{
-											            directions:results
-											          } 
-											        }
-											      });
-											      
-											      $("#geoloc_loader").hide();
-											  
-												}
-										}
-									});
-								}, 500);
-													
-							}
-							else
-							{
-								$("#"+container).html("<p>"+TEXTOS[8]+"</p>");		
-								$("#geoloc_loader").hide();				
-							}
-							
-						}, function() {
-							
-							$("#datos_geo_position").html("<p>"+TEXTOS[3]+"</p>");		
-							$("#geoloc_loader").hide();
-											
-						}, options);
-						
-					}
-					else
-					{	
-						$("#datos_geo_position").html("<p class='data_route'>"+TEXTOS[44]+"</p>");	
-						$("#cargando").hide();
-					}
-					
-								
-					break;
-
-		}
-			
-		$("a").on("click", function(e) {
-			
-			var url = $(this).attr('href');
-			var containsHttp = new RegExp('http\\b'); 
-
-			if(containsHttp.test(url)) { 
-				e.preventDefault(); 
-				window.open(url, "_system", "location=yes"); // For iOS
-				//navigator.app.loadUrl(url, {openExternal: true}); //For Android
-			}
-		});	
-	
-	}
-	
 }
 
 function show_localstorage_data(type, container, params) {

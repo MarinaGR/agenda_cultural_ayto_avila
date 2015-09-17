@@ -318,18 +318,34 @@ ul.lista_eventos_02 {
 	border-radius: 5px;
 	width: 31%;
 	height: 180px;
+	position: relative;
+	background-size:cover !important;
+}
+.cupon_info {
+	background: rgba(0,0,0,0.5);
+	color: #FFF;
+	position: absolute;
+	width: 90%;
+	padding: 5px 5%;
+	bottom: 0;
+	font-size: 0.85em;
 }
 .cupon_02 {
 	margin: 2%;
     width: 96%;
     min-height: 50px;
-    height: 95%;
+    min-height: 75%;
+    padding-top: 50px;
     display: none;
     position: absolute;
     z-index: 9999;
+    text-align: center;
     background-color: #fff;
     top: 0;
     left: 0;
+}
+.cupon_02 img {
+	max-width: 100%;
 }
 
 .cupon_02::before {
@@ -343,10 +359,11 @@ ul.lista_eventos_02 {
     text-align: center;
     right: 0;
     left:0;
+    top: 0;
     margin:auto;
     position: absolute;
     padding: 5px 2%;
-    font-size:0.9em;
+    font-size:0.8em;
 }
 
 .eventos span, .lugares span, .ofertas span, .programa span{
@@ -383,7 +400,7 @@ ul.lista_eventos_02 {
 }
 
 .selector_fecha {	
-	width: 200px;
+	width: 225px;
 	margin:auto;
 	display:block;
 }

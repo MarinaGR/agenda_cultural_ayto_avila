@@ -16,7 +16,13 @@
 		<script src="./cordova.js"></script>
 		
 		<script>
-		$(document).ready(function() {
+		//$(document).ready(function() {
+		document.addEventListener("deviceready", function() {
+
+			var nueva_fecha=addZero(current_day_of_month)+"-"+addZero(current_month)+"-"+current_year;
+		
+			get_data_api(nueva_fecha, '', 'offers', 'contenedor_ofertas');
+			
 			$(".cupon_02").click(function() {
 				hide_offer(); 
 			});
@@ -49,20 +55,8 @@
 				<h2>CUPONES</h2>
 				<p>Busca tu cupón y muéstralo en el establecimiento para conseguir la oferta.</p>
 				
-				<div class="cupon_01" onclick="show_offer('id')">
-					
-				</div>
-				
-				<div class="cupon_01">
-					
-				</div>
-				
-				<div class="cupon_01">
-					
-				</div>
-				
-				<div class="cupon_01">
-					
+				<div id="contenedor_ofertas">
+	
 				</div>
 				
 				<div class="cupon_02">
