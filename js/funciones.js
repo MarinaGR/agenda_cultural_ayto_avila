@@ -54,7 +54,7 @@ function onBodyLoad()
 	{
 		if(device.platform!='android' && device.platform!='Android') 
 		{
-			$(".contenedor_ads").css("padding-top","20px");
+			$(".contenedor_ads").css("padding-top","35px");
 		}
 	}
 	
