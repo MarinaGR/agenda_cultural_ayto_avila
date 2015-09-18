@@ -157,6 +157,24 @@ iframe.iframe_program {
     text-align: center;
 }
 
+.titulo_agenda {
+	color: #C00F32;
+	text-align: center;
+    font-size: 3em;
+    height: 50px;
+    font-weight: bold;
+	border-bottom: 1px solid #C00F32;
+}
+
+.titulo_seccion {
+	color: #C00F32;
+	text-align: center;
+    font-size: 3em;
+    height: 50px;
+    font-weight: bold;
+	border-bottom: 5px solid #C00F32;
+}
+
 .eventos , .lugares, .ofertas, .programa, .servicios {
     /*float: left;*/
 	font-size:1.6em;
@@ -315,7 +333,7 @@ ul.lista_servicios {
 }
 .lista_servicios li ul li {
 	position:relative;
-	padding: 10px 20px;
+	padding: 15px 20px;
 	color: #333;
 	background-color: rgba(250,250,250,0.75);
 	border-bottom: 1px solid #EEE;

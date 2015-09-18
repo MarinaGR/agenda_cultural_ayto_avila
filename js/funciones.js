@@ -280,7 +280,7 @@ function get_services(container) {
 	$.getJSON(local_url+'services_list.json', function (data) 
 		{  		
 				cadena='<ul class="lista_servicios">'+
-							'<li><h2>SERVICIOS</h2>'+
+							'<li><div class="titulo_seccion">SERVICIOS</div>'+
 								'<ul>';
 				
 					$.each(data.result.items, function(index, d) {   
