@@ -22,18 +22,16 @@
 		var nuevo_dia=current_day_of_month;
 		var nuevo_mes=current_month;
 		var nuevo_anio=current_year;
-		
-		var nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
-		
+
 		if(id && id!="")
 		{
-			nueva_fecha=id;
-			
-			var fecha_split=nueva_fecha.split("-");
+			var fecha_split=id.split("-");
 			nuevo_dia=fecha_split[0];
 			nuevo_mes=parseInt(fecha_split[1])-1;
 			nuevo_anio=fecha_split[2];
 		}
+		
+		var nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
 		
 		//$(document).ready(function() {
 		document.addEventListener("deviceready", function() {
