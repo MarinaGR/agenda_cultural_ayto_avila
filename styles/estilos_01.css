@@ -248,7 +248,7 @@ ul.lista_eventos_01 {
 	padding: 10px 20px;
 	color: #333;
 	background-color: rgba(250,250,250,0.75);
-	border-bottom: 1px solid #EEE;
+	border-bottom: 1px solid #DEDEDE;
 }
 .lista_eventos_01 li ul li:hover {
 	cursor:pointer;
@@ -274,6 +274,7 @@ ul.lista_eventos_01 {
 .lista_eventos_01 .e_titulo {
 	font-weight: bold;
 	margin-bottom: 5px;
+	color: #C00F32;
 }
 .lista_eventos_01 .e_lugar {
 

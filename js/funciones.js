@@ -301,12 +301,8 @@ function get_services(container) {
 
 function get_data_api(date, identificador, operation, container) {
 	
-	alert(date);
-	
 	if(date!="")
 		date=get_date_to_api(date);
-	
-	alert(date);
 	
 	$.ajax({
 	 // url: extern_url+"json/"+identificador+".json",
