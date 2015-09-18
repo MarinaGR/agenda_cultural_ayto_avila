@@ -1,6 +1,6 @@
 //var api_url='http://www.avilaturismo.com/api.php';
 var api_url='./server/api.php';
-var api_url='http://www.hoopale.com/AGENDACULTURAL_PRUEBAS/api.php';
+var api_url='http://www.hoopale.com/AGENDACULTURAL/api.php';
 var kml_url='http://www.avilaturismo.com/app/resources/avila.kml';
 //var extern_url='http://www.avilaturismo.com/app/';
 var extern_url='./server/resources/';
@@ -28,12 +28,6 @@ var current_week=current_date.getWeek();
 var current_day_of_month=current_date.getDate();
 var current_month=current_date.getMonth();
 var current_year=current_date.getFullYear();
-
-/*PROBLEMAS EN IPHONE??
-var fecha_split=current_date.toString().split("-");
-current_day_of_month=parseInt(fecha_split[2]); 
-current_month=parseInt(fecha_split[1]); 
-current_year=parseInt(fecha_split[0]);*/
 
 var viewport_width=$(window).outerWidth();
 var viewport_height=$(window).outerHeight();
@@ -236,18 +230,19 @@ function get_program(container) {
 	/*FIESTAS OCTUBRE 2015*/
 	var totalPaginas=27;
 	var carpetaPrograma="ProgramaOctubre2015"
-	var url="http://www.avila.es/images/Documentos%20PDF%20para%20descargar/CULTURA%20Y%20EVENTOS/AvilaFiestas2015.pdf";
+	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/FiestasOctubre2015.pdf";
 	
 	var cadena="";
 	
 	cadena+="<p>El 15 de octubre la ciudad celebra las fiestas en honor de Santa Teresa. "+
 			"Los festejos se inician con la proclamación del pregón de las mismas desde los balcones del Ayuntamiento. "+
 			"Gigantes, cabezudos y tarasca recorren las calles y se hace la ofrenda floral ante una de las esculturas de la Santa en el Mercado Grande."+
-			"<br><br>El día de la festividad se celebra una misa solemne en la catedral y manda la tradición que durante la liturgia, "+
-			"la bandera de la ciudad se sitúe en el altar mayor."+
-			"<br><br>Conciertos, fuegos artificiales y actividades deportivas se desarrollan a lo largo de esta semana festiva.</p>";
+			"<br><br>Conciertos, fuegos artificiales y actividades deportivas se desarrollan a lo largo de esta semana festiva, con una misa solemne en la Catedral el día de la festividad.</p>";
+				
+	cadena+="<div class='swip_me'>Desliza el dedo sobre las páginas para ver el programa completo</div>";
 			
-	cadena+="<div class='swiper-container contenedor_programa' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'>";
+	//cadena+="<div class='swiper-container contenedor_programa' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'>";
+	cadena+="<div class='swiper-container contenedor_programa' >";
 	//SLIDER
 	cadena+="<div class='swiper-wrapper programa_imagenes' id='swiper_container'>";				
 		
@@ -260,18 +255,12 @@ function get_program(container) {
 	
 	cadena+="</div>";
 	cadena+="</div>";
-			
-	cadena+='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> DESCARGAR PROGRAMA</div>';
 	
-	cadena+="<div class='contenedor_program' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'><iframe src='https://docs.google.com/viewer?url="+url+"&embedded=true' class='iframe_program' id='programa' ></iframe></div>";
+	cadena+='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> DESCARGAR PROGRAMA</div><br>';
+	
+	/*cadena+="<div class='contenedor_program' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'><iframe src='https://docs.google.com/viewer?url="+url+"&embedded=true' class='iframe_program' id='programa' ></iframe></div>";*/
 		
 	$("#"+container).html(cadena);
-		
-	/*setTimeout(function() {
-		
-		$("#programa").attr("src","https://docs.google.com/viewer?url="+url+"&embedded=true");
-		
-	}, 500);*/
 	
 }
 
@@ -356,7 +345,7 @@ function get_data_api(date, identificador, operation, container) {
 											'<ul class="fecha_evento">';
 							
 							$.each(data.result, function(index, d) {   
-								cadena+='<li onclick="go_to_page(\'evento\',\''+d.id+'\')">'+
+								cadena+='<li onclick="go_to_page(\'evento\',\''+d.id+'&date='+date+'\')">'+
 											'<div class="e_titulo">'+d.titulo+'</div>';
 								if(d.hora!="")
 								{
@@ -638,11 +627,16 @@ function get_data_api(date, identificador, operation, container) {
 		}
 		
 		$("a").on("click", function(e) {
-			
 			var url = $(this).attr('href');
 			var containsHttp = new RegExp('http\\b'); 
+			var containsHttps = new RegExp('https\\b'); 
 
 			if(containsHttp.test(url)) { 
+				e.preventDefault(); 
+				window.open(url, "_system", "location=yes"); // For iOS
+				//navigator.app.loadUrl(url, {openExternal: true}); //For Android
+			}
+			else if(containsHttps.test(url)) { 
 				e.preventDefault(); 
 				window.open(url, "_system", "location=yes"); // For iOS
 				//navigator.app.loadUrl(url, {openExternal: true}); //For Android
@@ -845,181 +839,6 @@ function show_localstorage_data(type, container, params) {
 					break;
 
 	}
-}
-
-function ajax_recover_extern_data(operation, container, params) {
-
-	$.ajax({
-		  url: api_url,
-		  data: { o: operation, p:params },
-		  type: 'POST',
-		  dataType: 'json',
-		  crossDomain: true, 
-		  success: f_e_success,
-		  error: f_e_error,
-		  async:false,
-	});
-		
-	if(params)
-	{
-		for(var i=0;i<params.length;i++)
-		{
-			if(params[i][0]=="id")
-			{
-				var filter_id=params[i][1];
-			}
-		}
-	}
-
-	function f_e_success(data) {
-	
-		if(data.length==0) {
-			
-			$("#"+container).html("<div id='ov_zone_15' class='ov_zone_15'><br>"+TEXTOS[7]+"</div>");
-			return;
-		}
-		
-		switch(operation)
-		{
-			case "blog": 			
-							break;
-					
-			case "events": 
-						var cadena="";
-				
-						cadena='<ul class="lista_eventos_01">'+
-									'<li>'+
-										'<div class="e_fecha">'+d.fecha+'</div>'+
-										'<ul class="fecha_evento">';
-						
-						$.each(data.result, function(index, d) {   
-							cadena='<li onclick="go_to_page(\'evento\',\''+d.identificador+'\')">'+
-										'<div class="e_titulo">'+d.titulo+'</div>'+
-										'<div class="e_hora">'+
-											'<i class="fa fa-clock-o fa-fw"> </i> '+d.hora+
-										'</div>'+
-										'<div class="e_lugar">'+
-											'<i class="fa fa-map-marker fa-fw"> </i> '+d.lugar+
-										'</div>'+
-									'</li>';
-						});
-							
-						cadena+='</ul>'+
-							'</li>'+
-						'</ul>';
-						
-						$("#"+container).html(cadena);
-						
-						break;
-						
-			case "event": 
-						var cadena="";
-						
-						var d=data.result;
-						
-						var fecha_ini=d.fecha_ini;
-						var fecha_fin=d.fecha_fin;
-						var campo_fecha;
-						if(fecha_ini==fecha_fin)
-						{
-							campo_fecha=fecha_ini;
-						}
-						else
-						{
-							campo_fecha=fecha_ini+" a "+fecha_fin;
-						}
-						
-						cadena= '<div class="e_imagen" style="background-image:url('+d.imagenDestacada+')"> </div>'+
-								'<div class="e_titulo_02">'+d.titulo+'</div>'+
-								'<div class="e_hora_02"><i class="fa fa-calendar fa-fw fa-lg"> </i> '+campo_fecha+'</div>'+
-								'<div class="e_hora_02"><i class="fa fa-clock-o fa-fw fa-lg"> </i> '+d.hora+' h.</div>'+
-								'<div class="e_lugar_02">'+
-									'<i class="fa fa-map-marker fa-fw fa-lg"> </i> '+d.lugar+
-								'</div>'+
-								'<div class="e_precio_02"><i class="fa fa-ticket fa-fw fa-lg"> </i> '+d.precio+'</div>'+
-								'<div class="boton_01" onclick="load_geolocate_map(\''+d.lugar+'\',\''+d.geolocalizacion+'\',\'location_map\');">'+
-								'<i class="fa fa-location-arrow fa-fw fa-lg"> </i> ¿Cómo llegar?</div>'+
-								
-								'<div class="e_geolocation_map" id="location_map"> </div>'+
-								
-								'<div class="e_descripcion">'+d.descripcion+'</div>';
-
-						$("#"+container).html(cadena);
-						
-						break;		
-					
-		}
-		
-		$("a").on("click", function(e) {
-			var url = $(this).attr('href');
-			var containsHttp = new RegExp('http\\b'); 
-			var containsHttps = new RegExp('https\\b'); 
-
-			if(containsHttp.test(url)) { 
-				e.preventDefault(); 
-				window.open(url, "_system", "location=yes"); // For iOS
-				//navigator.app.loadUrl(url, {openExternal: true}); //For Android
-			}
-			else if(containsHttps.test(url)) { 
-				e.preventDefault(); 
-				window.open(url, "_system", "location=yes"); // For iOS
-				//navigator.app.loadUrl(url, {openExternal: true}); //For Android
-			}
-		});	
-	
-	}
-	function f_e_error(jqXHR, textStatus, errorThrown) {
-		//alert('Error: "+textStatus+"  "+errorThrown);	
-		
-		$("#"+container).html("<div id='ov_zone_15' class='ov_zone_15'><br>"+TEXTOS[10]+"</div>");
-	}
-	
-}
-
-function show_geoloc(redraw)
-{
-	if (navigator.geolocation)
-	{
-		//navigator.geolocation.watchPosition(draw_geoloc, error_geoloc_02, options);
-		
-		options = {
-		  enableHighAccuracy: true,
-		  timeout: 15000,
-		  maximumAge: 30000
-		};
-		
-		$("#cargando").show('fade', function() {
-			if(redraw)
-				navigator.geolocation.getCurrentPosition(draw_geoloc_02,error_geoloc_02,options);
-			else
-				navigator.geolocation.getCurrentPosition(draw_geoloc,error_geoloc_02,options);
-			
-		});
-	}
-	else
-	{	
-		$("#datos_geo_position").html("<p class='data_route'>"+TEXTOS[44]+"</p>");	
-		$("#cargando").hide();
-	}
-}
-
-function error_geoloc_02(error)
-{
-	if(error.code == 1) {
-		$("#datos_geo_position").html("<p class='data_route'>La geolocalizaci&oacute;n ha fallado. Acceso denegado.</p>");	
-	} 
-	else if( error.code == 2) {
-		$("#datos_geo_position").html("<p class='data_route'>La geolocalizaci&oacute;n ha fallado. Posición no disponible.</p>");	
-	}
-	else {
-		$("#datos_geo_position").html("<p class='data_route'>La geolocalizaci&oacute;n ha fallado.</p>");	
-	}
-	$("#cargando").hide();
-}
-
-function error_geoloc(error)
-{
-	$("#geoloc_map_text").html("<p>Error en la geolocalización</p>");
 }
 
 function go_to_page(name, id) {

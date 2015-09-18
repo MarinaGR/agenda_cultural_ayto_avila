@@ -17,14 +17,23 @@
 		
 		<script>
 		
+		var id=get_var_url("id");
+
 		var nuevo_dia=current_day_of_month;
 		var nuevo_mes=current_month;
 		var nuevo_anio=current_year;
 		
 		var nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
 		
-		//$(document).ready(function() {
-		document.addEventListener("deviceready", function() {
+		alert(id);
+		
+		if(id && id!="")
+		{
+			nueva_fecha=fdate;
+		}
+		
+		$(document).ready(function() {
+		//document.addEventListener("deviceready", function() {
 			
 			$("#actual_day").html(current_day_of_month+" de "+monthNames[current_month]);
 			

@@ -19,6 +19,7 @@
 		
 		<script>
 		var identificador=get_var_url("id");
+		var fdate=get_var_url("date");
 		
 		//$(document).ready(function() {
 		document.addEventListener("deviceready", function() {
@@ -53,7 +54,7 @@
 		</div>	
 		
 		<div id="menu">			
-			<span onclick="go_to_page('eventos')"><i class="fa fa-arrow-circle-left fa-2x"> </i></span>
+			<span onclick="go_to_page('eventos',fdate)"><i class="fa fa-arrow-circle-left fa-2x"> </i></span>
 			<span onclick="go_to_page('menu')"><i class="fa fa-bars fa-2x"> </i></span>
 			<span><img style="vertical-align:bottom" src="./images/logos/AVcultura.png" /></span>
 		</div>	
