@@ -155,10 +155,9 @@ function detect_system_device()
 }
 
 function get_total_days(mes, anio) {
-	alert(mes);
 	var total=28;
-	
-	if( mes == 2 )
+	//Empiezan los meses en 0
+	if( mes == 1 )
     {    
         if( (anio % 4 == 0) && (anio % 100 != 0) || (anio % 400 == 0) )
             total=29;
@@ -169,20 +168,6 @@ function get_total_days(mes, anio) {
 		total=diasMes[mes];	
 	
 	return total;
-}
-getUltimoDiaDelMes = function( mes, ano )
-{
-    if( (mes == 1) || (mes == 3) || (mes == 5) || (mes == 7) || (mes == 8) || (mes == 10) || (mes == 12) ) 
-        return 31;
-    else if( (mes == 4) || (mes == 6) || (mes == 9) || (mes == 11) ) 
-        return 30;
-    else if( mes == 2 )
-    {    
-        if( (ano % 4 == 0) && (ano % 100 != 0) || (ano % 400 == 0) )
-            return 29;
-        else
-            return 28;
-    }       
 }
 
 function show_offer(imagen) {
