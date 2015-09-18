@@ -16,6 +16,7 @@ var publi_banner_top=false;
 
 var daysNamesMini=new Array('Do','Lu','Ma','Mi','Ju','Vi','Sa');
 var monthNames=new Array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
+var diasMes=new Array('31','','31','30','31','30','31','31','30','31','30','31');
 
 Date.prototype.getWeek = function() {
     var onejan = new Date(this.getFullYear(), 0, 1);
@@ -44,7 +45,7 @@ var imgsize="small";
 if(viewport_width>=758)
 	imgsize="big";
 
-var publi_url='http://sercofradeavila.com/ciudadreal/server/publicidad/loader.php?day='+current_day_of_month+'&month='+current_month+'&imgsize='+imgsize;
+var publi_url='http://hoopale.com/publicidad/loader.php?day='+current_day_of_month+'&month='+current_month+'&imgsize='+imgsize;
 
 function onBodyLoad()
 {		
@@ -153,6 +154,37 @@ function detect_system_device()
 	}
 }
 
+function get_total_days(mes, anio) {
+	alert(mes);
+	var total=28;
+	
+	if( mes == 2 )
+    {    
+        if( (anio % 4 == 0) && (anio % 100 != 0) || (anio % 400 == 0) )
+            total=29;
+        else
+            total=28;    
+    }    
+	else
+		total=diasMes[mes];	
+	
+	return total;
+}
+getUltimoDiaDelMes = function( mes, ano )
+{
+    if( (mes == 1) || (mes == 3) || (mes == 5) || (mes == 7) || (mes == 8) || (mes == 10) || (mes == 12) ) 
+        return 31;
+    else if( (mes == 4) || (mes == 6) || (mes == 9) || (mes == 11) ) 
+        return 30;
+    else if( mes == 2 )
+    {    
+        if( (ano % 4 == 0) && (ano % 100 != 0) || (ano % 400 == 0) )
+            return 29;
+        else
+            return 28;
+    }       
+}
+
 function show_offer(imagen) {
 	$("#cortina2").show('fade', function() {
 		$(".cupon_02").html("<img src='"+imagen+"' alt='oferta' />");
@@ -216,12 +248,24 @@ function get_program(container) {
 		async:false,
 	});
 	
+	/*FIESTAS OCTUBRE 2015*/
+	
 	var url="http://www.avila.es/images/Documentos%20PDF%20para%20descargar/CULTURA%20Y%20EVENTOS/AvilaFiestas2015.pdf";
 	
-	var cadena='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> DESCARGAR PROGRAMA</div>';
+	var cadena="";
+	
+	cadena+="<p>El 15 de octubre la ciudad celebra las fiestas en honor de Santa Teresa. "+
+			"Los festejos se inician con la proclamación del pregón de las mismas desde los balcones del Ayuntamiento. "+
+			"Gigantes, cabezudos y tarasca recorren las calles y se hace la ofrenda floral ante una de las esculturas de la Santa en el Mercado Grande."+
+			"<br><br>El día de la festividad se celebra una misa solemne en la catedral y manda la tradición que durante la liturgia, "+
+			"la bandera de la ciudad se sitúe en el altar mayor."+
+			"<br><br>Conciertos, fuegos artificiales y actividades deportivas se desarrollan a lo largo de esta semana festiva.</p>";
+			
+	cadena+='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> DESCARGAR PROGRAMA</div>';
+	
 	cadena+="<div class='contenedor_program' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'><iframe src='https://docs.google.com/viewer?url="+url+"&embedded=true' class='iframe_program' id='programa' ></iframe></div>";
 		
-	$("#"+container).append(cadena);
+	$("#"+container).html(cadena);
 		
 	/*setTimeout(function() {
 		
@@ -229,6 +273,40 @@ function get_program(container) {
 		
 	}, 500);*/
 	
+}
+
+function get_services(container) {
+	
+	$.getJSON(local_url+'services_list.json', function (data) 
+		{  		
+				cadena='<ul class="lista_servicios">'+
+							'<li><h2>SERVICIOS</h2>'+
+								'<ul>';
+				
+					$.each(data.result.items, function(index, d) {   
+						cadena+='<li>'+
+									'<div class="e_titulo">'+d.nombre+'</div>';
+						if(d.tlf!="")
+						{
+							cadena+='<div class="e_tlf">'+
+										'<i class="fa fa-phone fa-fw"> </i> '+d.tlf+
+									'</div>';
+						}	
+						if(d.direccion!="")		
+						{						
+							cadena+='<div class="e_lugar">'+
+										'<i class="fa fa-map-marker fa-fw"> </i> '+d.direccion+
+									'</div>';
+						}
+						cadena+='</li>';
+					});
+					
+				cadena+='</ul>'+
+					'</li>'+
+				'</ul>';
+
+				$("#"+container).html(cadena);			
+		});		
 }
 
 function get_data_api(date, identificador, operation, container) {
@@ -354,7 +432,7 @@ function get_data_api(date, identificador, operation, container) {
 						break;		
 						
 				
-				case "place":
+			case "place":
 				
 						var cadena="";
 						
@@ -392,7 +470,7 @@ function get_data_api(date, identificador, operation, container) {
 						
 						break;
 						 
-				case "events_slide":
+			case "events_slide":
 						var cadena="";
 						
 						if(data.status=="KO")
@@ -549,10 +627,13 @@ function get_data_api(date, identificador, operation, container) {
 										'</div>';									
 							});
 						}
+						
+						cadena='<div style="clear:both"> </div>';	
 							
 						$("#"+container).html(cadena);
 					
 						break;	
+						
 	
 		}
 		
@@ -895,7 +976,6 @@ function ajax_recover_extern_data(operation, container, params) {
 	
 }
 
-
 function show_geoloc(redraw)
 {
 	if (navigator.geolocation)
@@ -939,271 +1019,7 @@ function error_geoloc_02(error)
 
 function error_geoloc(error)
 {
-	$("#geoloc_map_text").html("<p>"+TEXTOS[19]+"</p>");
-}
-
-function get_current_pos_user(data, filter_id, filter_name, container, is_mun, is_serv)
-{
-	DATOS=data;
-	FILTRO=filter_id;
-	NOMBRE_FILTRO=filter_name;
-	CONTENEDOR=container;
-	ES_MUNICIPIO=is_mun;
-	ES_SERVICIO=is_serv;
-	
-	if (navigator.geolocation)
-	{		
-		navigator.geolocation.getCurrentPosition(return_current_points,return_all_points,{enableHighAccuracy:true, maximumAge:30000, timeout:10000});
-				
-		$("#"+container).append("<div class='ov_zone_15'><p>"+TEXTOS[4]+"</p></div>");
-		
-	}
-	else
-	{
-		return_all_points();
-	}
-}
-
-//Para obtener las coordenadas dando una direccion
-function getLocation(address) {
-	var geocoder = new google.maps.Geocoder();
-	geocoder.geocode({ 'address': address }, function (results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			var latitude = results[0].geometry.location.lat();
-			var longitude = results[0].geometry.location.lng();
-			var latlon="("+latitude+","+longitude+")";
-			return latlon;
-		} else {
-			return false;
-		}
-	});
-}
-
-function return_current_points(position)
-{
-	//User position
-	var lat1 = position.coords.latitude;
-  	var lon1 = position.coords.longitude;
-  	var latlong = lat1+","+lon1;
-	
-	var cadena="";
-	
-	if(typeof FILTRO=="undefined")
-		q="";
-	
-	var q = FILTRO,
-			regex = new RegExp(q, "i");
-	
-	cadena+="<div class='ov_zone_15'><h3>"+NOMBRE_FILTRO+"</h3><p>"+TEXTOS[42]+" "+RADIO_DESDE_USER+" "+TEXTOS[24]+"</p></div>";
-	
-	var near_points=new Array();
-	var resultados=0;
-	$.each(DATOS.result.items, function(index, d) {   
-
-		if(ES_SERVICIO)
-		{
-			//Point position				
-			d.geolocalizacion=getLocation(d.direccion);
-			//Habría que esperar al callback de la función, mejor añadir estos datos en el fichero json de servicios
-		}
-		
-		//Point position
-		var geolocalizacion=d.geolocalizacion.split(/[(,)]/);
-		var lat2=parseFloat(geolocalizacion[1]);
-		var lon2=parseFloat(geolocalizacion[2]);
-		
-		
-		//SI NO HAY FILTRO
-		if(typeof q=="undefined" || q=="")
-		{
-			var radio=RADIO_DESDE_USER;
-			var radioTierra=6371; //km
-
-			var dLat = (lat2-lat1).toRad();
-			var dLon = (lon2-lon1).toRad();
-
-			var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-					Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
-					Math.sin(dLon/2) * Math.sin(dLon/2);
-			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-			var di = radioTierra * c;
-
-			if(di<=radio)
-				near_points.push(d);
-		
-		}
-		else
-		{
-			if(!ES_MUNICIPIO)
-			{
-				$.each(d.categoria, function(i, cat) {
-					if(cat.id.search(regex) != -1) 
-					{							
-							var radio=RADIO_DESDE_USER;
-							var radioTierra=6371; //km
-	
-							var dLat = (lat2-lat1).toRad();
-							var dLon = (lon2-lon1).toRad();
-							
-							var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-									Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
-									Math.sin(dLon/2) * Math.sin(dLon/2);
-							var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-							var di = radioTierra * c;
-							
-							if(di<=radio)
-								near_points.push(d);
-						
-					}
-				});
-			}
-			else
-			{
-				if(d.id.search(regex) != -1) 
-				{							
-						var radio=RADIO_DESDE_USER;
-						var radioTierra=6371; //km
-
-						var dLat = (lat2-lat1).toRad();
-						var dLon = (lon2-lon1).toRad();
-						
-						var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-								Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
-								Math.sin(dLon/2) * Math.sin(dLon/2);
-						var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-						var di = radioTierra * c;
-						
-						if(di<=radio)
-							near_points.push(d);
-					
-				}
-			}
-		}
-		
-		
-	});
-	
-	resultados=near_points.length;
-	
-	if(!ES_MUNICIPIO)
-		near_points.sort(SortByLangName);
-	else
-		near_points.sort(SortByName);
-	
-	$.each(near_points, function(i, near_d) {
-
-			if(!ES_MUNICIPIO)
-			{
-				if(ES_SERVICIO)
-				{
-					cadena+='<div onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/filter_by_municipio.html?id='+near_d.municipio+'&tab=services\'" >';
-				}
-				else
-				{
-					cadena+='<div onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/points.html?id='+near_d.id+'\'" >';
-				}
-				switch(getLocalStorage("current_language"))
-				{
-					default:
-					case "es":  var informacion=near_d.es.nombre;	
-								break;
-								
-					case "en":  var informacion=near_d.en.nombre;	
-								break;
-				}
-			}
-			else
-			{
-				cadena+='<div onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/filter_by_municipio.html?id='+near_d.id+'\'" >';
-				var informacion=near_d.nombre;
-			}
-
-			cadena+='<div id="ov_box_13_1_f" class="ov_box_13" style="background-image:url(../..'+near_d.imagen+');" ><img src="../../styles/images/icons/right_arrow.png" alt="menu" class="ov_image_14"/></div>';
-			
-			cadena+='<div id="ov_box_14_1_f" class="ov_box_14"><div id="ov_text_24_1_f" class="ov_text_24">'+informacion+'</div></div>';
-		
-			cadena+='</div>';
-	});
-	
-	if(resultados==0)
-	{
-		cadena+="<p>"+TEXTOS[5]+"</p>";
-	}
-	
-	cadena+='<div class="ov_clear_floats_01">&nbsp;</div>';
-	
-	$("#"+CONTENEDOR).html(cadena);
-			
-
-}
-function return_all_points()
-{
-	var q = FILTRO,
-			regex = new RegExp(q, "i");
-
-		var cadena="";
-		cadena+="<div class='ov_zone_15'><p>"+TEXTOS[3]+"<br>"+TEXTOS[1]+"</p><h3>"+NOMBRE_FILTRO+"</h3></div>";
-		
-		var filter_points=new Array();
-		var resultados=0;
-	
-		$.each(DATOS.result.items, function(index, d) {   
-			
-			var coord=d.geolocalizacion.split(",");
-			var lat1=parseFloat(coord[0]);
-			var lon1=parseFloat(coord[1]);
-			
-			if(q=="")
-			{
-				if($.inArray(d, filter_points)==-1)
-						filter_points.push(d);			
-			}
-			else
-			{
-				$.each(d.categoria, function(i, cat) {
-					if(cat.id.search(regex) != -1) 
-					{							
-						if($.inArray(d, filter_points)==-1)
-							filter_points.push(d);			
-					}
-				});
-			}
-			
-		});
-
-		
-		resultados=filter_points.length;
-		
-		$.each(filter_points, function(i, fd) {
-						
-			cadena+='<div onclick="window.location.href=\'../'+getLocalStorage('current_language')+'/points.html?id='+fd.id+'\'" >';
-
-				cadena+='<div id="ov_box_13_1_f" class="ov_box_13" style="background-image:url(../..'+fd.imagen+');" ><img src="../../styles/images/icons/right_arrow.png" alt="menu" class="ov_image_14"/></div>';
-				
-				switch(getLocalStorage("current_language"))
-				{
-					default:
-					case "es":  var informacion=fd.es;	
-								break;
-								
-					case "en":  var informacion=fd.en;	
-								break;
-				}
-		
-				cadena+='<div id="ov_box_14_1_f" class="ov_box_14"><div id="ov_text_24_1_f" class="ov_text_24">'+informacion.nombre+'</div></div>';
-			
-			cadena+='</div>';
-		});
-		
-		if(resultados==0)
-		{
-			cadena+="<p>"+TEXTOS[0]+"</p>";
-		}
-		
-		cadena+='<div class="ov_clear_floats_01">&nbsp;</div>';
-		
-		$("#"+CONTENEDOR).html(cadena);
-				
+	$("#geoloc_map_text").html("<p>Error en la geolocalización</p>");
 }
 
 function go_to_page(name, id) {

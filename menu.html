@@ -17,11 +17,13 @@
 		<script src="./cordova.js"></script>
 		
 		<script>
-		//$(document).ready(function() {
-		document.addEventListener("deviceready", function() {
-			
-			var fecha_actual=addZero(current_day_of_month)+"-"+addZero(current_month)+"-"+current_year;
+		var fecha_actual=addZero(current_day_of_month)+"-"+addZero(current_month)+"-"+current_year;
+		
+		$(document).ready(function() {
 			$("#fecha_hoy").html(format_date2(fecha_actual));
+		});
+		
+		document.addEventListener("deviceready", function() {
 		
 			get_data_api(fecha_actual, '', 'events_slide', 'swiper_container');
 			
@@ -59,7 +61,7 @@
 			<div class="swiper-container lista_eventos">
 				<!-- SLIDER -->
 				<div class="swiper-wrapper lista_eventos_02" id="swiper_container">
-
+					<div class="swiper-slide">- Próximos eventos -</div>
 				</div>
 				
 			</div>
@@ -85,6 +87,16 @@
 				CUPONES<br>
 				<span>OFERTAS</span>
 			</div>-->
+			
+			<div class="servicios" onclick="go_to_page('servicios')">
+				INFO<br>
+				<span>SERVICIOS</span>
+			</div>
+			
+			<div class="info" onclick="go_to_page('acercade')">
+				ACERCA DE<br>
+				<span>INFORMACIÓN</span>
+			</div>
 		
 		</div>		
 	</body>

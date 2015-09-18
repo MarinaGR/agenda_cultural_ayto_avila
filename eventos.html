@@ -63,7 +63,7 @@
 					if(nuevo_dia<1)
 					{
 						nuevo_mes--;
-						nuevo_dia=31;
+						nuevo_dia=get_total_days(nuevo_mes, nuevo_anio);
 					}
 					if(nuevo_mes<0)
 					{
@@ -116,7 +116,7 @@
 					if(nuevo_dia<1)
 					{
 						nuevo_mes--;
-						nuevo_dia=31;
+						nuevo_dia=get_total_days(nuevo_mes, nuevo_anio);
 					}
 					if(nuevo_mes<0)
 					{
@@ -253,7 +253,7 @@
 		<div id="menu">			
 			<span onclick="go_to_page('menu')"><i class="fa fa-arrow-circle-left fa-2x"> </i></span>
 			<span onclick="go_to_page('menu')"><i class="fa fa-bars fa-2x"> </i></span>
-			<span>Ayuntamiento de Ávila</span>
+			<span><img style="vertical-align:bottom" src="./images/AVcultura.png" /></span>
 		</div>	
 			
 	</body>

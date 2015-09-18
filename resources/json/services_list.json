@@ -1,0 +1,81 @@
+﻿{
+	"result": 
+	{
+		"items": 
+			[
+				{
+					"id":  "MUNI-00000000251-AYTO",
+					"nombre": "Ayuntamiento de Ávila",
+					"categoria": [{"id": "cat_0_1"}],
+					"tlf": "920350000",
+					"fax": null,
+					"email": null,
+					"web": "http://www.avila.es",
+					"direccion": "Plaza Mercado Chico 1, 05001 Ávila",
+					"geolocalizacion": null,
+					"municipio": "MUNI-00000000251"
+				},
+				{
+					"id":  "MUNI-00000000251-BOMBEROS",
+					"nombre": "Bomberos Ávila",
+					"categoria": [{"id": "cat_0_4"}],
+					"tlf": "080 / 920211080",
+					"fax": null,
+					"email": null,
+					"web": null,
+					"direccion": "C/ Jorge Santayana s/n, Ávila",
+					"geolocalizacion": null,
+					"municipio": "MUNI-00000000251"
+				},
+				{
+					"id":  "MUNI-00000000251-POLICIA",
+					"nombre": "Policía Local Ávila",
+					"categoria": [{"id": "cat_0_3"}],
+					"tlf": "920352424",
+					"fax": null,
+					"email": null,
+					"web": null,
+					"direccion": "C/ Molino del Carril 1, 05005, Ávila",
+					"geolocalizacion": null,
+					"municipio": "MUNI-00000000251"
+				},
+				{
+					"id":  "MUNI-00000000251-TURISMO",
+					"nombre": "Centro de Recepción de visitantes de Ávila",
+					"categoria": [{"id": "cat_0_2"}],
+					"tlf": "920350000",
+					"fax": null,
+					"email": null,
+					"web": null,
+					"direccion": "Avda. de Madrid 39, 05001, Ávila",
+					"geolocalizacion": null,
+					"municipio": "MUNI-00000000251"
+				},
+				{
+					"id":  "MUNI-00000000251-BUS",
+					"nombre": "Estación de autobuses de Ávila",
+					"categoria": [{"id": "cat_0_6"}],
+					"tlf": "920220154",
+					"fax": null,
+					"email": null,
+					"web": "http://www.estacionautobusesavila.com",
+					"direccion": "Ctra. Villacastín-Vigo 5, 05004, Ávila",
+					"geolocalizacion": null,
+					"municipio": "MUNI-00000000251"
+				},
+				{
+					"id":  "MUNI-00000000251-TREN",
+					"nombre": "Estación de trenes de Ávila",
+					"categoria": [{"id": "cat_0_6"}],
+					"tlf": "902432343 / 902320320",
+					"fax": null,
+					"email": null,
+					"web": null,
+					"direccion": "Paseo de la Estación 50, 05001, Ávila",
+					"geolocalizacion": null,
+					"municipio": "MUNI-00000000251"
+				}
+				
+			]
+	}
+}

@@ -20,9 +20,12 @@
 		<script>
 		var identificador=get_var_url("id");
 		
-		//$(document).ready(function() {
-		document.addEventListener("deviceready", function() {
-			get_data_api("", identificador, 'place', 'contenedor_punto');
+		$(document).ready(function() {
+		//document.addEventListener("deviceready", function() {
+
+			//Mostrar servicios			
+			get_services('contenedor_servicios');			
+						
 		});
 		
 		$(window).load(function() {
@@ -46,7 +49,7 @@
 		
 		<div id="contenedor" class="contenedor">
 			
-			<div id="contenedor_punto" class="contenido">
+			<div id="contenedor_servicios" class="contenido">
 
 			</div>
 

@@ -156,7 +156,7 @@ iframe.iframe_program {
     text-align: center;
 }
 
-.eventos , .lugares, .ofertas, .programa {
+.eventos , .lugares, .ofertas, .programa, .servicios {
     /*float: left;*/
 	font-size:1.6em;
     overflow: hidden;
@@ -171,16 +171,31 @@ iframe.iframe_program {
     background: #C00F32 url(../resources/images/ir.png) no-repeat bottom right;
 	cursor:pointer;
 }
+.info {
+	/*float: left;*/
+	font-size:1.4em;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+	min-height: 50px;
+	margin: 10px 0;
+	padding: 10px 25px;
+    cursor: default;
+	color: #2A030B;
+	font-weight:bold;
+    background: #999 url(../resources/images/ir.png) no-repeat bottom right;
+	cursor:pointer;
+}
 
 .lista_eventos  {
     /*float: left;*/
-	font-size:1.2em;
+	font-size:1.1em;
     overflow: hidden;
     position: relative;
     text-align: center;
 	min-height: 50px;
 	margin: 0 0 10px 0;
-	padding: 10px 25px;
+	padding: 10px 15px;
     cursor: default;
 	color: #FFF;
 	line-height: 1.2em;
@@ -276,6 +291,48 @@ ul.lista_eventos_02 {
 	font-weight: bold;
 	margin-bottom: 5px;
 }
+/*fin lista_eventos_02*/
+
+/*lista_servicios*/
+ul.lista_servicios {
+	list-style: none;
+	margin: 0;
+	padding:0;
+}
+.lista_servicios li {
+	padding: 10px 0;
+}
+.lista_servicios li h2{
+	padding: 0;
+	margin: 0;
+	margin-bottom: 10px;
+}
+.lista_servicios li ul {
+	list-style: none;
+	margin: 0;
+	padding:0;
+}
+.lista_servicios li ul li {
+	position:relative;
+	padding: 10px 20px;
+	color: #333;
+	background-color: rgba(250,250,250,0.75);
+	border-bottom: 1px solid #EEE;
+}
+.lista_servicios .e_tlf {
+	font-size:0.9em;
+	margin: 5px 0;
+}
+.lista_servicios .e_titulo {
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+.lista_servicios .e_lugar {
+	font-size:0.9em;
+	margin: 5px 0;
+}
+/*fin lista_servicios*/
+
 
 .e_imagen {
 	height: 360px;
@@ -367,8 +424,12 @@ ul.lista_eventos_02 {
     font-size:0.8em;
 }
 
-.eventos span, .lugares span, .ofertas span, .programa span{
+.eventos span, .lugares span, .ofertas span, .programa span, .servicios span{
     font-size: 1.3em;
+    color: #FFFFFF;
+}
+.info span {
+	font-size: 1.1em;
     color: #FFFFFF;
 }
 
@@ -695,8 +756,11 @@ ul.lista_eventos_02 {
 
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
-	.eventos, .lugares, .ofertas, .programa {
+	.eventos, .lugares, .ofertas, .programa, .servicios {
 		font-size:1.4em;
+	}
+	.info {
+		font-size:1.2em;
 	}
 	.e_imagen {
 		height: 280px;
@@ -719,8 +783,11 @@ ul.lista_eventos_02 {
 
 
 @media only screen and (max-width: 320px), only screen and (max-device-width: 320px) {
-	.eventos, .lugares, .ofertas, .programa {
+	.eventos, .lugares, .ofertas, .programa, .servicios {
 		font-size:1.2em;
+	}
+	.info {
+		font-size:1em;
 	}
 	.e_imagen {
 		height: 220px;
