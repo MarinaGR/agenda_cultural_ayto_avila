@@ -229,6 +229,7 @@ function get_program(container) {
 		
 	/*FIESTAS OCTUBRE 2015*/
 	var totalPaginas=27;
+	var fiestas_title="OCTUBRE 2015";
 	var carpetaPrograma="ProgramaOctubre2015"
 	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/FiestasOctubre2015.pdf";
 	
@@ -242,24 +243,24 @@ function get_program(container) {
 	cadena+="<div class='swip_me'>Desliza el dedo sobre las páginas para ver el programa completo</div>";
 			
 	//cadena+="<div class='swiper-container contenedor_programa' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'>";
-	cadena+="<div class='swiper-container contenedor_programa' >";
-	//SLIDER
-	cadena+="<div class='swiper-wrapper programa_imagenes' id='swiper_container'>";				
-		
-	for(pagina=1;pagina<=totalPaginas;pagina++)
-	{
-		cadena+='<div class="swiper-slide">'+
-					'<img src="./resources/images/'+carpetaPrograma+"/"+pagina+'.jpg" />'+
-				'</div>';
-	}
-	
-	cadena+="</div>";
+	cadena+="<div class='swiper-container contenedor_programa' >";		
+		cadena+="<div class='swiper-wrapper programa_imagenes' id='swiper_container'>";				
+		//SLIDER
+		for(pagina=1;pagina<=totalPaginas;pagina++)
+		{
+			cadena+='<div class="swiper-slide">'+
+						'<img src="./resources/images/'+carpetaPrograma+"/"+pagina+'.jpg" />'+
+					'</div>';
+		}	
+		cadena+="</div>";
 	cadena+="</div>";
 	
 	cadena+='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> DESCARGAR PROGRAMA</div><br>';
 	
 	/*cadena+="<div class='contenedor_program' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'><iframe src='https://docs.google.com/viewer?url="+url+"&embedded=true' class='iframe_program' id='programa' ></iframe></div>";*/
-		
+	
+	$("#fiestas_title").html(fiestas_title);
+	
 	$("#"+container).html(cadena);
 	
 }
