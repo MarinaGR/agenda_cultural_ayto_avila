@@ -84,8 +84,9 @@
 					$("#actual_day").show('slide', { direction: 'left' });	
 					
 					nuevo_dia++;
+					ultimo_dia=get_total_days(nuevo_mes, nuevo_anio);
 					//Comprobar
-					if(nuevo_dia>31)
+					if(nuevo_dia>ultimo_dia)
 					{
 						nuevo_dia=1;
 						nuevo_mes++;
@@ -140,8 +141,9 @@
 					$("#actual_week").show('slide', { direction: 'left' });	
 					
 					nuevo_dia+=7;
+					ultimo_dia=get_total_days(nuevo_mes, nuevo_anio);
 					//Comprobar
-					if(nuevo_dia>31)
+					if(nuevo_dia>ultimo_dia)
 					{
 						nuevo_dia=1;
 						nuevo_mes++;

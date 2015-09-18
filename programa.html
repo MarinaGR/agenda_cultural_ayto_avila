@@ -8,6 +8,7 @@
 		<meta name="robots" content="NOINDEX,NOFOLLOW,NOARCHIVE,NOODP,NOSNIPPET">
 		
 		<link href="./styles/estilos_01.css" rel="stylesheet" type="text/css">
+		<link href="./styles/swiper.min.css" rel="stylesheet" type="text/css">
 		
 		<script src="./js/jquery.js"></script>
 		<script src="./js/jqueryui.js"></script>
@@ -18,7 +19,7 @@
 		<script>
 		//$(document).ready(function() {
 		document.addEventListener("deviceready", function() {
-			get_program("contenido");
+			get_program("contenido");			
 		});
 		
 		$(window).load(function() {
@@ -26,8 +27,18 @@
 			
 				$('#contenedor').show();
 				
+				var swiper = new Swiper('.swiper-container', {
+					paginationClickable: false,
+					slidesPerView: 1,
+					spaceBetween: 5,
+					loop:false,
+					centeredSlides: true,
+					speed: 500
+				});
+				
 			}, 500);
 		});
+
 		</script>		
 	</head>
 
@@ -47,6 +58,8 @@
 			</div>
 	
 		</div>
+		
+		<script src="./js/swiper.min.js"></script>
 		
 		<div id="menu">			
 			<span onclick="go_to_page('menu')"><i class="fa fa-arrow-circle-left fa-2x"> </i></span>

@@ -247,9 +247,10 @@ function get_program(container) {
 				},
 		async:false,
 	});
-	
+		
 	/*FIESTAS OCTUBRE 2015*/
-	
+	var totalPaginas=27;
+	var carpetaPrograma="ProgramaOctubre2015"
 	var url="http://www.avila.es/images/Documentos%20PDF%20para%20descargar/CULTURA%20Y%20EVENTOS/AvilaFiestas2015.pdf";
 	
 	var cadena="";
@@ -260,6 +261,20 @@ function get_program(container) {
 			"<br><br>El día de la festividad se celebra una misa solemne en la catedral y manda la tradición que durante la liturgia, "+
 			"la bandera de la ciudad se sitúe en el altar mayor."+
 			"<br><br>Conciertos, fuegos artificiales y actividades deportivas se desarrollan a lo largo de esta semana festiva.</p>";
+			
+	cadena+="<div class='swiper-container contenedor_programa' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'>";
+	//SLIDER
+	cadena+="<div class='swiper-wrapper programa_imagenes' id='swiper_container'>";				
+		
+	for(pagina=1;pagina<=totalPaginas;pagina++)
+	{
+		cadena+='<div class="swiper-slide">'+
+					'<img src="./resources/images/'+carpetaPrograma+"/"+pagina+'.jpg" />'+
+				'</div>';
+	}
+	
+	cadena+="</div>";
+	cadena+="</div>";
 			
 	cadena+='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> DESCARGAR PROGRAMA</div>';
 	
