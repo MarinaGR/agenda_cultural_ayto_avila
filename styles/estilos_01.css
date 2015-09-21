@@ -120,7 +120,7 @@ iframe.iframe_program {
 	max-width: 768px;
 	margin: auto;
 	background: #FFF url(../images/logos/logo_fondo.png) no-repeat bottom center;
-	padding-top: 20px;
+	padding-top: 10px;
 	padding-bottom: 45px; /*tamaño menu pie*/
 }
 
@@ -511,27 +511,28 @@ ul.lista_servicios {
     height: 50px;
     font-weight: bold;
 }
-
+.fecha_seleccionada {
+	/*border-bottom: 6px solid #C00F32;*/
+}
 .selector_fecha {	
-	width: 225px;
+	width: 215px;
 	margin:auto;
 	display:block;
 }
 .selector {
     display: inline-block;
-    color: #333;
-    padding: 15px;
-    background-color: #EEE;
+    color: #FFF;
+    padding: 10px 20px;
+    background-color: #888;
     margin: 0;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     border: 1px solid #DDD;
-    border-bottom: 0;
-    font-weight: bold;
+    border-top: 0;
 }
 .selector_fecha .activo {
-	background-color: #C00F32;	
-	color: #FFF;
+	background-color: #EEE;	
+	color: #333;
 }
 .selector_fecha:hover {
 	cursor:pointer;
@@ -552,7 +553,7 @@ ul.lista_servicios {
 	text-shadow:none !important;
 }
 .timeline_daily {
-	padding: 15px 0px 0px 0px;
+	padding: 15px 0px 3px 0px;
 }
 
 .timeline_container {

@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html>
-
 	<head>
 		<title>Fiestas - Ayuntamiento de Ávila</title>
 		<meta charset="UTF-8">
@@ -22,23 +21,22 @@
 		var nuevo_dia=current_day_of_month;
 		var nuevo_mes=current_month;
 		var nuevo_anio=current_year;
-
-		if(id && id!="")
-		{
-			var fecha_split=id.split("-");
-			nuevo_dia=fecha_split[0];
-			nuevo_mes=parseInt(fecha_split[1])-1;
-			nuevo_anio=fecha_split[2];
-		}
 		
 		var nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+		
+		if(id && id!="")
+		{
+			nueva_fecha=fdate;
+		}
 		
 		//$(document).ready(function() {
 		document.addEventListener("deviceready", function() {
 			
-			$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
+			$("#actual_day").html(current_day_of_month+" de "+monthNames[current_month]);
 			
 			get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
+			
+			draw_week(nueva_fecha);
 			load_week(current_week);
 			
 			$("#ssemana").click(function() {
@@ -65,9 +63,7 @@
 			
 			$("#last_day").click(function() {
 				$("#actual_day").hide('slide', { direction: 'left' }, function() {
-					$("#actual_day").html("DÍA ANTERIOR");
-					$("#actual_day").show('slide', { direction: 'right' });	
-			
+
 					nuevo_dia--;
 					//Comprobar
 					if(nuevo_dia<1)
@@ -83,6 +79,9 @@
 						
 					$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
 					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+					
+					$("#actual_day").show('slide', { direction: 'right' });				
+					
 					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
 					
 				});
@@ -90,8 +89,6 @@
 			
 			$("#next_day").click(function() {
 				$("#actual_day").hide('slide', { direction: 'right' }, function() {
-					$("#actual_day").html("DÍA SIGUIENTE");
-					$("#actual_day").show('slide', { direction: 'left' });	
 					
 					nuevo_dia++;
 					ultimo_dia=get_total_days(nuevo_mes, nuevo_anio);
@@ -109,6 +106,9 @@
 					
 					$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
 					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+					
+					$("#actual_day").show('slide', { direction: 'left' });	
+					
 					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
 					
 				});
@@ -116,11 +116,7 @@
 			
 			
 			$("#last_week").click(function() {
-				
 				$("#actual_week").hide('slide', { direction: 'left' }, function() {
-					$("#actual_date").html("SEMANA ANTERIOR");
-					$("#actual_week").html("SEMANA ANTERIOR");
-					$("#actual_week").show('slide', { direction: 'right' });	
 					
 					nuevo_dia-=7;
 					//Comprobar
@@ -138,18 +134,19 @@
 					var nueva_semana=current_week-1;
 					
 					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+					nueva_fecha=draw_week(nueva_fecha);
+					
+					$("#actual_week").show('slide', { direction: 'right' });						
+					
 					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
-					load_week(nueva_semana);
 
 				});
 			});
 			
 			$("#next_week").click(function() {
+			
 				$("#actual_week").hide('slide', { direction: 'right' }, function() {
-					$("#actual_date").html("SEMANA SIGUIENTE");
-					$("#actual_week").html("SEMANA ANTERIOR");
-					$("#actual_week").show('slide', { direction: 'left' });	
-					
+				
 					nuevo_dia+=7;
 					ultimo_dia=get_total_days(nuevo_mes, nuevo_anio);
 					//Comprobar
@@ -167,15 +164,123 @@
 					var nueva_semana=current_week+1;
 					
 					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+					nueva_fecha=draw_week(nueva_fecha);
+					
+					$("#actual_week").show('slide', { direction: 'left' });						
+					
 					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
-					load_week(nueva_semana);
+					
 				});
 			});
 			
 		});
 		
+		function draw_week(fecha) {
+		
+			//FECHA(AÑO;1;1)+(SEMANA*7)+(1>=DIASEM(FECHA(AÑO;1;1))*7)+1-DIASEM(FECHA(AÑO;1;1))-6
+			
+			//OBTIENE PRIMER LUNES DE LA SEMANA
+			
+			//PRIMER_DIA_DEL_AÑO+DIAS_TRANSCURRIDO_DESDE_ENTONCES+(1>=DIA_SEMANA(FECHA)*7+1-DIA_SEMANA(FECHA))-6
+			
+			 
+			//GET_MONDAY
+			
+			/*var d = new Date(fecha);
+			var day = d.getDay();
+			var diff = d.getDate() - day + (day == 0 ? -6:1); // ajustar cuando el día es domingo
+			var lunes_semana=new Date(d.setDate(diff));*/
+			
+			var f=new Date(nuevo_anio, nuevo_mes, nuevo_dia); 
+			var day = f.getDay() || 7;  //obtiene el día de la semana, convirtiendo domingo a 7
+			if( day !== 1 ) 			//Si no es lunes obtiene el día del mes que fue lunes en esa semana
+				f.setHours(-24 * (day - 1)); 
+			
+			var lunes_semana=f.getDate();
+			
+			if(lunes_semana<1)
+			{
+				nuevo_mes--;
+				nuevo_dia=get_total_days(nuevo_mes, nuevo_anio);
+			}
+			if(nuevo_mes<0)
+			{
+				nuevo_anio--;
+				nuevo_mes=11;
+			}
+						
+			nueva_fecha=addZero(lunes_semana)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+			
+			$("#actual_week").html(monthNames[nuevo_mes]+' '+nuevo_anio);
+
+			cadena='<ul>';			
+
+			console.log(lunes_semana)		
+			//check if today -> add class today										
+					
+			var semana=get_week_days(lunes_semana, nuevo_mes, nuevo_anio)
+			
+			var semana_0=addZero(semana[0][0])+"-"+addZero(semana[0][1])+"-"+semana[0][2];
+			var semana_1=addZero(semana[1][0])+"-"+addZero(semana[1][1])+"-"+semana[1][2];
+			var semana_2=addZero(semana[2][0])+"-"+addZero(semana[2][1])+"-"+semana[2][2];
+			var semana_3=addZero(semana[3][0])+"-"+addZero(semana[3][1])+"-"+semana[3][2];
+			var semana_4=addZero(semana[4][0])+"-"+addZero(semana[4][1])+"-"+semana[4][2];
+			var semana_5=addZero(semana[5][0])+"-"+addZero(semana[5][1])+"-"+semana[5][2];
+			var semana_6=addZero(semana[6][0])+"-"+addZero(semana[6][1])+"-"+semana[6][2];
+			
+			cadena+='<li><div class="" onclick="'+get_data_api(semana_0, '', 'events', 'contenedor_eventos')+'">l<br>'+semana[0][0]+'</div></li>'+			
+					'<li><div class="" onclick="'+get_data_api(semana_1, '', 'events', 'contenedor_eventos')+'">m<br>'+semana[1][0]+'</div></li>'+
+					'<li><div class="" onclick="'+get_data_api(semana_2, '', 'events', 'contenedor_eventos')+'">m<br>'+semana[2][0]+'</div></li>'+
+					'<li><div class="" onclick="'+get_data_api(semana_3, '', 'events', 'contenedor_eventos')+'">j<br>'+semana[3][0]+'</div></li>'+
+					'<li><div class="" onclick="'+get_data_api(semana_4, '', 'events', 'contenedor_eventos')+'">v<br>'+semana[4][0]+'</div></li>'+
+					'<li><div class="" onclick="'+get_data_api(semana_5, '', 'events', 'contenedor_eventos')+'">s<br>'+semana[5][0]+'</div></li>'+
+					'<li><div class="" onclick="'+get_data_api(semana_6, '', 'events', 'contenedor_eventos')+'">d<br>'+semana[6][0]+'</div></li>';
+			
+			cadena+='</ul>';
+				
+			$("#semanal").html(cadena);	
+			
+			return nueva_fecha;		
+			
+		}
+		
+		function get_week_days(lunes, nuevo_mes, nuevo_anio) {
+			var semana=new Array();
+			
+			semana[0]=sumar_dia(lunes,0,nuevo_mes);
+			semana[1]=sumar_dia(semana[0][0],1,semana[0][1]);
+			semana[2]=sumar_dia(semana[1][0],1,semana[1][1]);
+			semana[3]=sumar_dia(semana[2][0],1,semana[2][1]);
+			semana[4]=sumar_dia(semana[3][0],1,semana[3][1]);
+			semana[5]=sumar_dia(semana[4][0],1,semana[4][1]);
+			semana[6]=sumar_dia(semana[5][0],1,semana[5][1]);
+
+			return semana;
+		}
+		
+		function sumar_dia(dia,incremento,mes)
+		{
+			dia+=incremento;
+			var otro_mes=mes;
+			var otro_anio=nuevo_anio;
+			ultimo_dia=get_total_days(otro_mes, otro_anio);
+			//Comprobar
+			if(dia>ultimo_dia)
+			{
+				dia=1;
+				otro_mes++;
+			}
+			if(otro_mes>11)
+			{	
+				otro_mes=0;
+				otro_anio++;
+			}
+			return [dia,otro_mes,otro_anio];
+		}
+		
 		function load_week(week) {
-			console.log(week);
+		
+			/*console.log(week);
 			cadena='<div class="timeline_container">'+				
 						'<div class="timeline_arrows">'+
 							'<div class="timeline_lastmonth" id="last_week" title="Mes Previo">-</div>'+
@@ -201,7 +306,7 @@
 						'</div>'+
 					'</div>';
 					
-			$("#semanal").html(cadena);
+			$("#semanal").html(cadena);*/
 		}
 		
 		$(window).load(function() {
@@ -227,11 +332,6 @@
 		
 			<div class="titulo_agenda">AGENDA</div>
 			
-			<!--<div class="selector_fecha">
-				<div class="selector activo" id="sdia" onclick="">Diario</div>
-				<div class="selector" id="ssemana" onclick="">Semanal</div>
-			</div>-->
-			
 			<div class="fecha_seleccionada" id="fecha_seleccionada">
 
 				<div id="diario" class="timeline_daily"> 
@@ -254,10 +354,32 @@
 				
 				<div id="semanal" class="timeline">
 	
+					<div class="timeline_container">				
+						<div class="timeline_arrows">
+							<div class="timeline_lastmonth" id="last_week" title="Mes Previo">-</div>
+							<div class="timeline_date" id="actual_date">
+							
+							</div>
+							<div class="timeline_nextmonth" id="next_week" title="Mes Siguiente">+</div>
+						</div>
+						
+						<div class="timeline_container">
+							<div class="timeline_days" id="actual_week">
+								
+							</div>
+							<div class="todayArrow"> </div>
+						</div>
+					</div>
+					
 				</div>
 
 			</div>
-		
+			<!--
+			<div class="selector_fecha">
+				<div class="selector activo" id="sdia" onclick="">Diario</div>
+				<div class="selector" id="ssemana" onclick="">Semanal</div>
+			</div>
+			-->
 			<div class="contenido" id="contenedor_eventos">
 				
 			</div>

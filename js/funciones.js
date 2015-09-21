@@ -505,7 +505,7 @@ function get_data_api(date, identificador, operation, container) {
 						var enlace_punto="";
 						$.each(data.result, function(i, d) {
 							
-							enlace_punto="<p><a href='punto.html?id="+d.id+"' >"+d.nombre+"</a></p>";
+							enlace_punto="<p style='font-size:1.2em;padding:2px;'><a href='punto.html?id="+d.id+"' >"+d.nombre+"</a></p>";
 									
 							var coord=d.geolocalizacion.split(/[(,)]/);
 							var lat=coord[0];
@@ -659,6 +659,9 @@ function get_data_api(date, identificador, operation, container) {
 }
 
 function load_geolocate_map(direccion, geolocalizacion, container) {
+
+	$("#"+container).toggle("blind");
+	$("body,html").animate({scrollTop:$(".boton_01").offset().top},500);
 	
 	if (navigator.geolocation)
 	{
@@ -708,16 +711,12 @@ function load_geolocate_map(direccion, geolocalizacion, container) {
 					});
 					
 				}, 500);
-				
-				$("#"+container).toggle("blind");
 									
 			}
 			else
 			{
 				$("#"+container).html("<p>Sin localización</p>");			
 			}
-			
-			$("body,html").animate({scrollTop:$(".boton_01").offset().top},500);
 			
 		}, function() {
 			
@@ -728,8 +727,7 @@ function load_geolocate_map(direccion, geolocalizacion, container) {
 	}
 	else
 	{	
-		$("#datos_geo_position").html("<p class='data_route'>"+TEXTOS[44]+"</p>");	
-		$("#cargando").hide();
+		$("#"+container).html("<p>Sin localización</p>");			
 	}
 	
 }
@@ -773,9 +771,6 @@ function draw_map_point(direccion, geolocalizacion, container) {
 						}
 				}
 		});
-		
-		$("#"+container).toggle("blind");
-		$("body,html").animate({scrollTop:$(".boton_01").offset().top},500);
 		
 	}, 500);
 		

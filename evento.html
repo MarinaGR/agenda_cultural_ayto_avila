@@ -24,6 +24,10 @@
 		//$(document).ready(function() {
 		document.addEventListener("deviceready", function() {
 			get_data_api("", identificador, 'event', 'contenedor_eventos');
+			
+			document.addEventListener("backbutton", function() {
+				go_to_page('eventos',fdate);
+			}, false);
 		});
 		
 		$(window).load(function() {
