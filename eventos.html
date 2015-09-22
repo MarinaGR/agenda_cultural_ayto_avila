@@ -16,7 +16,7 @@
 		
 		<script>
 		
-		var id=get_var_url("id");
+		var fdate=get_var_url("id");
 
 		var nuevo_dia=current_day_of_month;
 		var nuevo_mes=current_month;
@@ -24,7 +24,7 @@
 		
 		var nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
 		
-		if(id && id!="")
+		if(fdate && fdate!="")
 		{
 			nueva_fecha=fdate;
 		}

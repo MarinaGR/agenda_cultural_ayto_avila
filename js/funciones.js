@@ -46,7 +46,6 @@ function onBodyLoad()
 	document.addEventListener("deviceready", onDeviceReady, false);
 	
 	var alto_minimo=$(window).outerHeight()-parseInt($(".contenedor").css("padding-bottom"))-parseInt($(".contenedor").css("padding-top"))-$(".contenedor_ads").outerHeight(true);
-	console.log(alto_minimo);
 	
 	$(".contenedor").css("min-height", alto_minimo+"px");
 	
