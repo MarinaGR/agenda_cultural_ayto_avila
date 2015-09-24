@@ -32,6 +32,9 @@
 		
 		nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
 		
+		var nuevo_dia_sem=nuevo_dia;
+		var nuevo_mes_sem=nuevo_mes;
+		var nuevo_anio_sem=nuevo_anio;
 		
 		//$(document).ready(function() {
 		document.addEventListener("deviceready", function() {
@@ -40,17 +43,14 @@
 			
 			get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
 			
-			//draw_week(nueva_fecha);
-			//load_week(current_week);
-			
 			$("#ssemana").click(function() {
 				$("#diario").hide('blind', function() {
 					$("#sdia").removeClass("activo");
 					$("#ssemana").addClass("activo");
 					$("#semanal").show('blind');
 					
-					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
-														
+					nueva_fecha=draw_week(addZero(nuevo_dia_sem)+"-"+addZero(nuevo_mes_sem)+"-"+nuevo_anio_sem, "actual");
+																			
 				});
 			});
 			
@@ -122,27 +122,30 @@
 			$("#last_week").click(function() {
 				$("#actual_week").hide('slide', { direction: 'left' }, function() {
 					
-					nuevo_dia-=7;
+					nuevo_dia_sem=nuevo_dia_sem-7;
+					
+					var dia_sem_ant=nuevo_dia_sem;
+					
 					//Comprobar
-					if(nuevo_dia<1)
+					if(nuevo_dia_sem<1)
 					{
-						nuevo_mes--;
-						nuevo_dia=get_total_days(nuevo_mes, nuevo_anio);
+						nuevo_mes_sem--;
+						nuevo_dia_sem=parseInt(get_total_days(nuevo_mes_sem, nuevo_anio_sem))+parseInt(nuevo_dia_sem);
 					}
-					if(nuevo_mes<0)
+					if(nuevo_mes_sem<0)
 					{
-						nuevo_anio--;
-						nuevo_mes=11;
+						nuevo_anio_sem--;
+						nuevo_mes_sem=11;						
+						nuevo_dia_sem=parseInt(get_total_days(nuevo_mes_sem, nuevo_anio_sem))+parseInt(dia_sem_ant);
 					}
 					
 					var nueva_semana=current_week-1;
 					
-					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
-					nueva_fecha=draw_week(nueva_fecha);
+					nueva_fecha=draw_week(addZero(nuevo_dia_sem)+"-"+addZero(nuevo_mes_sem)+"-"+nuevo_anio_sem, "last");
 					
 					$("#actual_week").show('slide', { direction: 'right' });						
 					
-					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
+					//get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
 
 				});
 			});
@@ -150,128 +153,141 @@
 			$("#next_week").click(function() {
 			
 				$("#actual_week").hide('slide', { direction: 'right' }, function() {
-				
-					nuevo_dia+=7;
-					ultimo_dia=get_total_days(nuevo_mes, nuevo_anio);
+					
+					nuevo_dia_sem=nuevo_dia_sem+7;
+					ultimo_dia=get_total_days(nuevo_mes_sem, nuevo_anio_sem);
 					//Comprobar
-					if(nuevo_dia>ultimo_dia)
+					if(nuevo_dia_sem>ultimo_dia)
 					{
-						nuevo_dia=1;
-						nuevo_mes++;
+						nuevo_dia_sem=nuevo_dia_sem-ultimo_dia;
+						nuevo_mes_sem++;
 					}
-					if(nuevo_mes>11)
+					if(nuevo_mes_sem>11)
 					{	
-						nuevo_mes=0;
-						nuevo_anio++;
+						nuevo_mes_sem=0;
+						nuevo_anio_sem++;
 					}
 					
 					var nueva_semana=current_week+1;
 					
-					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
-					nueva_fecha=draw_week(nueva_fecha);
+					nueva_fecha=draw_week(addZero(nuevo_dia_sem)+"-"+addZero(nuevo_mes_sem)+"-"+nuevo_anio_sem, "next");
 					
 					$("#actual_week").show('slide', { direction: 'left' });						
 					
-					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
+					//get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
 					
 				});
 			});
 			
 		});
-		
-		function draw_week(fecha) {
-		
-			//FECHA(AÑO;1;1)+(SEMANA*7)+(1>=DIASEM(FECHA(AÑO;1;1))*7)+1-DIASEM(FECHA(AÑO;1;1))-6
-			
-			//OBTIENE PRIMER LUNES DE LA SEMANA
-			
+				
+		function draw_week(fecha,direction) {		
+
+			//OBTIENE PRIMER LUNES DE LA SEMANA			
 			//PRIMER_DIA_DEL_AÑO+DIAS_TRANSCURRIDO_DESDE_ENTONCES+(1>=DIA_SEMANA(FECHA)*7+1-DIA_SEMANA(FECHA))-6
 			
-			 
-			//GET_MONDAY
+			var fecha_split=fecha.split("-");
+			var dia_split=fecha_split[0];
 			
-			/*var d = new Date(fecha);
-			var day = d.getDay();
-			var diff = d.getDate() - day + (day == 0 ? -6:1); // ajustar cuando el día es domingo
-			var lunes_semana=new Date(d.setDate(diff));*/
+			/*if(direction=="actual")
+			{
+				var f=new Date(nuevo_anio_sem, nuevo_mes_sem, dia_split, 0, 0, 0, 0);
+				 
+			}
+			else if(direction=="next")
+			{
+				var f=new Date(nuevo_anio_sem, nuevo_mes_sem, dia_split+7, 0, 0, 0, 0); 
+				
+			}
+			else if(direction=="last")//last
+			{
+				var f=new Date(nuevo_anio_sem, nuevo_mes_sem, dia_split-7, 0, 0, 0, 0); 
+			}*/
 			
-			var f=new Date(nuevo_anio, nuevo_mes, nuevo_dia); 
+			var f=new Date(nuevo_anio_sem, nuevo_mes_sem, dia_split, 0, 0, 0, 0); 
+			
+						
 			var day = f.getDay() || 7;  //obtiene el día de la semana, convirtiendo domingo a 7
 			if( day !== 1 ) 			//Si no es lunes obtiene el día del mes que fue lunes en esa semana
 				f.setHours(-24 * (day - 1)); 
-			
+
 			var lunes_semana=f.getDate();
 			
-			if(lunes_semana<1)
+			if(nuevo_mes_sem!=f.getMonth() && nuevo_anio_sem!=f.getFullYear()) 
 			{
-				nuevo_mes--;
-				nuevo_dia=get_total_days(nuevo_mes, nuevo_anio);
+				$("#actual_date").html(monthNames[f.getMonth()]+' '+f.getFullYear()+'/'+monthNames[nuevo_mes_sem]+' '+nuevo_anio_sem);
 			}
-			if(nuevo_mes<0)
+			else if(nuevo_mes_sem!=f.getMonth()) 
 			{
-				nuevo_anio--;
-				nuevo_mes=11;
+				$("#actual_date").html(monthNames[f.getMonth()]+'/'+monthNames[nuevo_mes_sem]+' '+f.getFullYear());
 			}
-						
-			nueva_fecha=addZero(lunes_semana)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+			else 
+			{
+				$("#actual_date").html(monthNames[f.getMonth()]+' '+f.getFullYear());
+			}
 			
-			$("#actual_week").html(monthNames[nuevo_mes]+' '+nuevo_anio);
-
+			var semana=get_week_days(lunes_semana, f.getMonth(), f.getFullYear());
+			
+			var semana_d=new Array();
+			
 			cadena='<ul>';			
-
-			console.log(lunes_semana)		
-			//check if today -> add class today										
-					
-			var semana=get_week_days(lunes_semana, nuevo_mes, nuevo_anio)
 			
-			var semana_0=addZero(semana[0][0])+"-"+addZero(semana[0][1])+"-"+semana[0][2];
-			var semana_1=addZero(semana[1][0])+"-"+addZero(semana[1][1])+"-"+semana[1][2];
-			var semana_2=addZero(semana[2][0])+"-"+addZero(semana[2][1])+"-"+semana[2][2];
-			var semana_3=addZero(semana[3][0])+"-"+addZero(semana[3][1])+"-"+semana[3][2];
-			var semana_4=addZero(semana[4][0])+"-"+addZero(semana[4][1])+"-"+semana[4][2];
-			var semana_5=addZero(semana[5][0])+"-"+addZero(semana[5][1])+"-"+semana[5][2];
-			var semana_6=addZero(semana[6][0])+"-"+addZero(semana[6][1])+"-"+semana[6][2];
-			
-			cadena+='<li><div class="" onclick="'+get_data_api(semana_0, '', 'events', 'contenedor_eventos')+'">l<br>'+semana[0][0]+'</div></li>'+			
-					'<li><div class="" onclick="'+get_data_api(semana_1, '', 'events', 'contenedor_eventos')+'">m<br>'+semana[1][0]+'</div></li>'+
-					'<li><div class="" onclick="'+get_data_api(semana_2, '', 'events', 'contenedor_eventos')+'">m<br>'+semana[2][0]+'</div></li>'+
-					'<li><div class="" onclick="'+get_data_api(semana_3, '', 'events', 'contenedor_eventos')+'">j<br>'+semana[3][0]+'</div></li>'+
-					'<li><div class="" onclick="'+get_data_api(semana_4, '', 'events', 'contenedor_eventos')+'">v<br>'+semana[4][0]+'</div></li>'+
-					'<li><div class="" onclick="'+get_data_api(semana_5, '', 'events', 'contenedor_eventos')+'">s<br>'+semana[5][0]+'</div></li>'+
-					'<li><div class="" onclick="'+get_data_api(semana_6, '', 'events', 'contenedor_eventos')+'">d<br>'+semana[6][0]+'</div></li>';
+			for(d=0;d<7;d++)
+			{
+				semana_d[d]=addZero(semana[d][0])+"-"+addZero(semana[d][1])+"-"+semana[d][2];
+				
+				if(semana[d][0]==nuevo_dia)
+				{
+					cadena+='<li><div class="dias today" onclick="click_day_week(this, \''+semana_d[d]+'\', '+true+')">'+daysNamesMini[d]+'<br>'+semana[d][0]+'</div></li>';			
+				}
+				else
+				{
+					cadena+='<li><div class="dias" onclick="click_day_week(this, \''+semana_d[d]+'\', '+false+')">'+daysNamesMini[d]+'<br>'+semana[d][0]+'</div></li>';	
+				}
+			}
 			
 			cadena+='</ul>';
 				
-			$("#semanal").html(cadena);	
+			$("#actual_week").html(cadena);			
 			
-			return nueva_fecha;		
+			return addZero(lunes_semana)+"-"+addZero(f.getMonth())+"-"+nuevo_anio_sem;		
 			
 		}
 		
-		function get_week_days(lunes, nuevo_mes, nuevo_anio) {
-			var semana=new Array();
+		function click_day_week(_this, dia, is_today) {
 			
-			semana[0]=sumar_dia(lunes,0,nuevo_mes);
-			semana[1]=sumar_dia(semana[0][0],1,semana[0][1]);
-			semana[2]=sumar_dia(semana[1][0],1,semana[1][1]);
-			semana[3]=sumar_dia(semana[2][0],1,semana[2][1]);
-			semana[4]=sumar_dia(semana[3][0],1,semana[3][1]);
-			semana[5]=sumar_dia(semana[4][0],1,semana[4][1]);
-			semana[6]=sumar_dia(semana[5][0],1,semana[5][1]);
+			$('.dias').removeClass('today');
+						
+			$(_this).addClass('today');
+				
+			get_data_api(dia, '', 'events', 'contenedor_eventos');
+		}
+		
+		function get_week_days(lunes, otro_mes, otro_anio) {
+			var semana=new Array();
+						
+			semana[0]=sumar_dia(lunes, 0, otro_mes, otro_anio);			
+			semana[1]=sumar_dia(lunes, 1, otro_mes, otro_anio);
+			semana[2]=sumar_dia(lunes, 2, otro_mes, otro_anio);
+			semana[3]=sumar_dia(lunes, 3, otro_mes, otro_anio);
+			semana[4]=sumar_dia(lunes, 4, otro_mes, otro_anio);
+			semana[5]=sumar_dia(lunes, 5, otro_mes, otro_anio);
+			semana[6]=sumar_dia(lunes, 6, otro_mes, otro_anio);
 
 			return semana;
 		}
 		
-		function sumar_dia(dia,incremento,mes)
+		function sumar_dia(dia,incremento,mes,anio)
 		{
 			dia+=incremento;
 			var otro_mes=mes;
-			var otro_anio=nuevo_anio;
+			var otro_anio=anio;
 			ultimo_dia=get_total_days(otro_mes, otro_anio);
+			
 			//Comprobar
 			if(dia>ultimo_dia)
 			{
-				dia=1;
+				dia=dia-ultimo_dia;
 				otro_mes++;
 			}
 			if(otro_mes>11)
@@ -279,40 +295,10 @@
 				otro_mes=0;
 				otro_anio++;
 			}
+						
 			return [dia,otro_mes,otro_anio];
 		}
-		
-		function load_week(week) {
-		
-			/*console.log(week);
-			cadena='<div class="timeline_container">'+				
-						'<div class="timeline_arrows">'+
-							'<div class="timeline_lastmonth" id="last_week" title="Mes Previo">-</div>'+
-							'<div class="timeline_date" id="actual_date">'+
-								'Agosto 2015'+
-							'</div>'+
-							'<div class="timeline_nextmonth" id="next_week" title="Mes Siguiente">+</div>'+
-						'</div>'+
-						
-						'<div class="timeline_container">'+
-							'<div class="timeline_days" id="actual_week">'+
-								'<ul>'+									
-									'<li><div class="">l<br>14</div></li>'+
-									'<li><div class="event">m<br>15</div></li>'+
-									'<li><div class="today">m<br>16</div></li>'+
-									'<li><div class="event">j<br>17</div></li>'+
-									'<li><div class="">v<br>18</div></li>'+
-									'<li><div class="event">s<br>19</div></li>'+
-									'<li><div class="event">d<br>20</div></li>'+									
-								'</ul>'+
-							'</div>'+
-							'<div class="todayArrow"> </div>'+
-						'</div>'+
-					'</div>';
-					
-			$("#semanal").html(cadena);*/
-		}
-		
+
 		$(window).load(function() {
 			$('#cortina').hide('fade', function() {
 			
@@ -378,12 +364,12 @@
 				</div>
 
 			</div>
-			<!--
+	
 			<div class="selector_fecha">
 				<div class="selector activo" id="sdia" onclick="">Diario</div>
 				<div class="selector" id="ssemana" onclick="">Semanal</div>
 			</div>
-			-->
+			
 			<div class="contenido" id="contenedor_eventos">
 				
 			</div>
