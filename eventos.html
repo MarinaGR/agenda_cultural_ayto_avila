@@ -236,7 +236,7 @@
 			{
 				semana_d[d]=addZero(semana[d][0])+"-"+addZero(semana[d][1])+"-"+semana[d][2];
 				
-				if(semana[d][0]==nuevo_dia)
+				if(semana[d][0]==nuevo_dia && semana[d][1]==nuevo_mes)
 				{
 					cadena+='<li><div class="dias today" onclick="click_day_week(this, \''+semana_d[d]+'\', '+true+')">'+daysNamesMini[d]+'<br>'+semana[d][0]+'</div></li>';			
 				}

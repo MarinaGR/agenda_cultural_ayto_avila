@@ -14,7 +14,7 @@ var categ_list=new Object();
 var intersticial=true;
 var publi_banner_top=false;
 
-var daysNamesMini=new Array('Do','Lu','Ma','Mi','Ju','Vi','Sa');
+var daysNamesMini=new Array('L','M','M','J','V','S','D');
 var monthNames=new Array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
 var diasMes=new Array('31','','31','30','31','30','31','31','30','31','30','31');
 
@@ -195,8 +195,8 @@ function addZero(number) {
 	return number;
 }
 
-function get_date_to_api(date) {
-	var fecha_split=date.split("-");
+function get_date_to_api(fecha) {
+	var fecha_split=fecha.split("-");
 	var fecha_to_api=fecha_split[0]+"-"+addZero(parseInt(fecha_split[1])+1)+"-"+fecha_split[2];
 	
 	return fecha_to_api;
@@ -666,8 +666,8 @@ function load_geolocate_map(direccion, geolocalizacion, container) {
 	{
 		options = {
 		  enableHighAccuracy: true,
-		  timeout: 15000,
-		  maximumAge: 30000
+		  timeout: 10000,
+		  maximumAge: 20000
 		};
 		
 		navigator.geolocation.getCurrentPosition(function(position){
