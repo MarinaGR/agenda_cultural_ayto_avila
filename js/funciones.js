@@ -397,7 +397,7 @@ function get_data_api(date, identificador, operation, container) {
 								
 						if(d.hora!="")
 						{
-							cadena+= '<div class="e_hora_02"><i class="fa fa-clock-o fa-fw fa-lg"> </i> '+d.hora+'h.</div>';
+							cadena+= '<div class="e_hora_02"><i class="fa fa-clock-o fa-fw fa-lg"> </i> '+d.hora+'</div>';
 						}
 						
 						cadena+='<div class="e_lugar_02">'+
@@ -441,7 +441,7 @@ function get_data_api(date, identificador, operation, container) {
 							cadena+='<div class="e_web_03"><span><i class="fa fa-globe fa-fw fa-lg"> </i> WEB</span><br>'+d.web+'</div>';
 							
 						if(d.horario)
-							cadena+='<div class="e_horario_03"><span><i class="fa fa-clock-o fa-fw fa-lg"> </i> HORARIO</span><br>'+d.horario+'h.</div>';
+							cadena+='<div class="e_horario_03"><span><i class="fa fa-clock-o fa-fw fa-lg"> </i> HORARIO</span><br>'+d.horario+'</div>';
 													
 						if(d.entrada)
 							cadena+='<div class="e_precio_03"><span><i class="fa fa-ticket fa-fw fa-lg"> </i> ENTRADA</span><br>'+d.entrada+'</div>';
@@ -475,9 +475,10 @@ function get_data_api(date, identificador, operation, container) {
 								cadena+='<div class="swiper-slide" onclick="go_to_page(\'evento\','+d.id+')">'+
 											'<div class="e_titulo">'+d.titulo+'</div>'+
 											'<div class="e_data">';
+											
 								if(d.hora!="")
 								{
-									cadena+='<i class="fa fa-clock-o fa-fw"> </i> '+d.hora+'h. ';
+									cadena+='<i class="fa fa-clock-o fa-fw"> </i> '+d.hora;
 								}
 								
 								cadena+='<i class="fa fa-map-marker fa-fw"> </i> '+d.lugar+
