@@ -167,11 +167,12 @@ iframe.iframe_program {
 }
 .titulo_agenda {
 	color: #C00F32;
-	text-align: center;
+    text-align: center;
     font-size: 3em;
-    height: 50px;
+    height: 45px;
     font-weight: bold;
-	border-bottom: 1px solid #C00F32;
+    border-bottom: 1px solid #C00F32;
+    line-height: 50px;
 }
 
 .titulo_seccion {
