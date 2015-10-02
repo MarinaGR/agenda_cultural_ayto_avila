@@ -17,18 +17,13 @@
 		<script src="./cordova.js"></script>
 		
 		<script>
-		//var fecha_actual=addZero(current_day_of_month)+"-"+addZero(current_month)+"-"+current_year;
-		var fecha_actual;
+		var fecha_actual=addZero(current_day_of_month)+"-"+addZero(current_month)+"-"+current_year;
 		
-		/*$(document).ready(function() {
+		$(document).ready(function() {
 			$("#fecha_hoy").html(format_date2(fecha_actual));
-		});*/
+		});
 		
-		//$(document).ready(function() {
 		document.addEventListener("deviceready", function() {
-		
-			fecha_actual=addZero(current_day_of_month)+"-"+addZero(current_month)+"-"+current_year;
-			$("#fecha_hoy").html(format_date2(fecha_actual));
 		
 			get_data_api(fecha_actual, '', 'events_slide', 'swiper_container');
 			
