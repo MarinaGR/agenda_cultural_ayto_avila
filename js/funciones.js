@@ -23,11 +23,17 @@ Date.prototype.getWeek = function() {
     return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
 }
 
-var current_date=new Date(); 
+/*var current_date=new Date(); 
 var current_week=current_date.getWeek();
 var current_day_of_month=current_date.getDate();
 var current_month=current_date.getMonth();
-var current_year=current_date.getFullYear();
+var current_year=current_date.getFullYear();*/
+
+var current_date; 
+var current_week;
+var current_day_of_month;
+var current_month;
+var current_year;
 
 var viewport_width=$(window).outerWidth();
 var viewport_height=$(window).outerHeight();
@@ -87,7 +93,13 @@ function onBodyLoad()
 }
 
 function onDeviceReady()
-{					
+{				
+	current_date=new Date(); 
+	current_week=current_date.getWeek();
+	current_day_of_month=current_date.getDate();
+	current_month=current_date.getMonth();
+	current_year=current_date.getFullYear();
+
 	document.addEventListener("offline", onOffline, false);
 	document.addEventListener("online", onOnline, false);
 

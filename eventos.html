@@ -18,26 +18,45 @@
 		
 		var fdate=get_var_url("id");
 
-		var nuevo_dia=current_day_of_month;
+		/*var nuevo_dia=current_day_of_month;
 		var nuevo_mes=current_month;
-		var nuevo_anio=current_year;
-				
-		if(fdate && fdate!="")
-		{
-			var fecha_split=fdate.split("-");
-			nuevo_dia=parseInt(fecha_split[0]);
-			nuevo_mes=parseInt(fecha_split[1])-1;
-			nuevo_anio=fecha_split[2];
-		}
+		var nuevo_anio=current_year;*/
 		
-		nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+		var nuevo_dia;
+		var nuevo_mes;
+		var nuevo_anio;
 		
-		var nuevo_dia_sem=nuevo_dia;
-		var nuevo_mes_sem=nuevo_mes;
-		var nuevo_anio_sem=nuevo_anio;
+		var fecha_split;
+						
+		var nuevo_dia_sem;
+		var nuevo_mes_sem;
+		var nuevo_anio_sem;
 		
 		//$(document).ready(function() {
 		document.addEventListener("deviceready", function() {
+		
+			/* */
+			
+			nuevo_dia=current_day_of_month;
+			nuevo_mes=current_month;
+			nuevo_anio=current_year
+			
+			if(fdate && fdate!="")
+			{
+				var fecha_split=fdate.split("-");
+				nuevo_dia=parseInt(fecha_split[0]);
+				nuevo_mes=parseInt(fecha_split[1])-1;
+				nuevo_anio=fecha_split[2];
+			}
+			
+			nuevo_dia_sem=nuevo_dia;
+			nuevo_mes_sem=nuevo_mes;
+			nuevo_anio_sem=nuevo_anio;
+			
+			/* */
+			
+			nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
+		
 			
 			$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
 			
