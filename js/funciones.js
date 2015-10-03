@@ -203,7 +203,11 @@ function format_date2(fecha) {
 	var fecha_split=fecha.split("-");
 	var fecha_formateada=fecha_split[0]+"/"+addZero(parseInt(fecha_split[1])+1)+"/"+fecha_split[2];
 	
-	console.log("FORMAT DATE: "+fecha_to_api);
+	console.log("FORMAT DATE: "+fecha);
+	
+	console.log("fecha_split[1]: "+fecha_split[1]);
+	console.log("parseInt(fecha_split[1])+1: "+(parseInt(fecha_split[1])+1));
+	console.log("addZero(parseInt(fecha_split[1])+1): "+addZero(parseInt(fecha_split[1])+1));
 	
 	return fecha_formateada;	
 }
@@ -226,6 +230,8 @@ function get_date_to_api(fecha) {
 
 	var fecha_split=fecha.split("-");
 	var fecha_to_api=fecha_split[0]+"-"+addZero(parseInt(fecha_split[1])+1)+"-"+fecha_split[2];
+	
+	console.log("fecha_split[1]: "+fecha_split[1]);
 	
 	console.log("FECHA TO API: "+fecha_to_api);
 	
