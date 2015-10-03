@@ -184,6 +184,10 @@ iframe.iframe_program {
 	border-bottom: 5px solid #C00F32;
 }
 
+.contenedor_programa {
+	min-height: 180px;
+}
+
 .eventos , .lugares, .ofertas, .programa, .servicios {
     /*float: left;*/
 	font-size:1.6em;
