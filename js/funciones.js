@@ -203,6 +203,8 @@ function format_date2(fecha) {
 	var fecha_split=fecha.split("-");
 	var fecha_formateada=fecha_split[0]+"/"+addZero(parseInt(fecha_split[1])+1)+"/"+fecha_split[2];
 	
+	console.log("FORMAT DATE: "+fecha_to_api);
+	
 	return fecha_formateada;	
 }
 
@@ -219,6 +221,8 @@ function addZero(number) {
 function get_date_to_api(fecha) {
 	var fecha_split=fecha.split("-");
 	var fecha_to_api=fecha_split[0]+"-"+addZero(parseInt(fecha_split[1])+1)+"-"+fecha_split[2];
+	
+	console.log("FECHA TO API: "+fecha_to_api);
 	
 	return fecha_to_api;
 }
@@ -323,6 +327,8 @@ function get_data_api(date, identificador, operation, container) {
 	
 	if(date!="")
 		date=get_date_to_api(date);
+		
+	console.log("GET DATE TO API: "+date);
 	
 	$.ajax({
 	 // url: extern_url+"json/"+identificador+".json",
@@ -437,7 +443,15 @@ function get_data_api(date, identificador, operation, container) {
 								
 								'<div class="e_descripcion">'+d.descripcion+'</div>';
 								
-						cadena+='<a class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+d.descripcion+'\', \''+d.titulo+'\', \''+d.imagenDestacada+'\', null)" href="#" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</a>';
+						if(d.imagenDestacada!="")
+						{
+							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Mensaje\', \''+d.titulo+'\', \''+d.imagenDestacada+'\', null)" href="#" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
+						}
+						else
+						{
+							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Mensaje\', \''+d.titulo+'\', null, null)" href="#" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
+						}
+						
 						
 						$("#"+container).html(cadena);
 						

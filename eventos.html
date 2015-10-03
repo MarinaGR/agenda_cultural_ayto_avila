@@ -44,10 +44,10 @@
 			
 			$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
 			
+			get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
+			
 			console.log("NUEVA FECHA AFTER: "+nueva_fecha);
 			console.log("NUEVO MES AFTER: "+nuevo_mes);
-			
-			get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
 			
 			$("#ssemana").click(function() {
 				$("#diario").hide('blind', function() {
