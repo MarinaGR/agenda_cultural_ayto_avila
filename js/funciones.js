@@ -210,6 +210,8 @@ function format_date2(fecha) {
 
 function addZero(number) {
 	
+	console.log("NUMBER: "+number);
+	
 	if(parseInt(number)<10) 
 	{
 		number="0"+number;
@@ -219,6 +221,9 @@ function addZero(number) {
 }
 
 function get_date_to_api(fecha) {
+
+	console.log("get_date_to_api FECHA: "+fecha);
+
 	var fecha_split=fecha.split("-");
 	var fecha_to_api=fecha_split[0]+"-"+addZero(parseInt(fecha_split[1])+1)+"-"+fecha_split[2];
 	
@@ -327,8 +332,6 @@ function get_data_api(date, identificador, operation, container) {
 	
 	if(date!="")
 		date=get_date_to_api(date);
-		
-	console.log("GET DATE TO API: "+date);
 	
 	$.ajax({
 	 // url: extern_url+"json/"+identificador+".json",

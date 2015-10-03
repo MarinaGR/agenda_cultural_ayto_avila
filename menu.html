@@ -24,9 +24,7 @@
 		});
 		
 		document.addEventListener("deviceready", function() {
-		
-			$("#fecha_hoy").html(format_date2(fecha_actual));
-			
+					
 			get_data_api(fecha_actual, '', 'events_slide', 'swiper_container');
 			
 			var swiper = new Swiper('.swiper-container', {
