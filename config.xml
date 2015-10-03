@@ -57,6 +57,7 @@
 	<gap:plugin name="org.apache.cordova.device" version="0.2.8" /> -->
 	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
 
 
     <!-- Iconos para cada plataforma -->

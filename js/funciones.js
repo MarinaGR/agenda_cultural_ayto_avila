@@ -41,6 +41,14 @@ if(viewport_width>=758)
 
 var publi_url='http://hoopale.com/publicidad/loader.php?day='+current_day_of_month+'&month='+current_month+'&imgsize='+imgsize;
 
+$(window).load(function() {
+	$('#cortina').hide('fade', function() {
+	
+		$('#contenedor').show();
+		
+	}, 380);
+});
+		
 function onBodyLoad()
 {		
 	document.addEventListener("deviceready", onDeviceReady, false);
@@ -174,6 +182,17 @@ function hide_offer() {
 	$("#cortina2").hide();
 }
 
+function show_image(imagen) {
+	$("#cortina2").show('fade', function() {
+		$(".cupon_02").html("<img src='"+imagen+"' alt='imagen' />");
+		$(".cupon_02").show();
+	});
+}
+function hide_image() {
+	$(".cupon_02").hide();
+	$("#cortina2").hide();
+}
+
 function format_date(fecha) {
 	var fecha_split=fecha.split("-");
 	var fecha_formateada=fecha_split[0]+" de "+monthNames[parseInt(fecha_split[1])-1]+" de "+fecha_split[2];
@@ -188,10 +207,12 @@ function format_date2(fecha) {
 }
 
 function addZero(number) {
-	if(number<10) 
+	console.log(typeof number);
+	if(parseInt(number)<10) 
 	{
 		number="0"+number;
 	}
+	console.log(typeof number);
 	return number;
 }
 
@@ -389,7 +410,7 @@ function get_data_api(date, identificador, operation, container) {
 						
 						if(d.imagenDestacada!="")
 						{
-							cadena+='<div class="e_imagen" style="background-image:url('+d.imagenDestacada+')"> </div>';
+							cadena+='<div class="e_imagen" style="background-image:url('+d.imagenDestacada+')" onclick="show_image(\''+d.imagenDestacada+'\')" > </div>';
 						}
 						
 						cadena+= '<div class="e_titulo_02">'+d.titulo+'</div>'+
@@ -415,7 +436,9 @@ function get_data_api(date, identificador, operation, container) {
 								'<div class="e_geolocation_map" id="location_map"> </div>'+
 								
 								'<div class="e_descripcion">'+d.descripcion+'</div>';
-
+								
+						cadena+='<a class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+d.descripcion+'\', \''+d.titulo+'\', \''+d.imagenDestacada+'\', null)" href="#" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</a>';
+						
 						$("#"+container).html(cadena);
 						
 						break;		

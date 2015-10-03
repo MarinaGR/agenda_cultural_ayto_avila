@@ -27,7 +27,7 @@ body div:active {outline:0px;}
 	padding:25px 5px;
 	text-align:center;
 	color:#EEE;
-	font-size:0.8em;
+	font-size:0.7em;
 	display:block;
 }
 #cortina2 {
@@ -451,7 +451,7 @@ ul.lista_servicios {
 }
 
 .cupon_02::before {
-	content: "Pulsa sobre el cupón para cerrar";
+	content: "Pulsa sobre la imagen para cerrar";
     display: block;
     width: 96%;
     height: 25px;

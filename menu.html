@@ -17,7 +17,7 @@
 		<script src="./cordova.js"></script>
 		
 		<script>
-		var fecha_actual=addZero(current_day_of_month)+"-"+addZero(current_month)+"-"+current_year;
+		var fecha_actual=addZero(current_day_of_month)+"-"+addZero(parseInt(current_month))+"-"+current_year;
 		
 		$(document).ready(function() {
 			$("#fecha_hoy").html(format_date2(fecha_actual));
@@ -25,6 +25,8 @@
 		
 		document.addEventListener("deviceready", function() {
 		
+			$("#fecha_hoy").html(format_date2(fecha_actual));
+			
 			get_data_api(fecha_actual, '', 'events_slide', 'swiper_container');
 			
 			var swiper = new Swiper('.swiper-container', {
@@ -40,7 +42,11 @@
 		});
 		
 		$(window).load(function() {
+			$('#cortina').hide('fade', function() {
 			
+				$('#contenedor').show();
+				
+			}, 100);
 		});
 		
 		function onBackKeyDown()
@@ -52,7 +58,7 @@
 	</head>
 
 	<body class="ov_body_01" onload="onBodyLoad()">
-		<!--<div id="cortina"> </div>-->
+		<div id="cortina"> </div>
 
 		<div class="contenedor" >
 			

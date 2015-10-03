@@ -18,9 +18,9 @@
 		
 		var fdate=get_var_url("id");
 
-		var nuevo_dia=current_day_of_month;
-		var nuevo_mes=current_month;
-		var nuevo_anio=current_year;
+		var nuevo_dia=parseInt(current_day_of_month);
+		var nuevo_mes=parseInt(current_month);
+		var nuevo_anio=parseInt(current_year);
 				
 		if(fdate && fdate!="")
 		{
@@ -66,7 +66,7 @@
 			});
 			
 			$("#last_day").click(function() {
-				$("#actual_day").hide('slide', { direction: 'left' }, function() {
+				$("#actual_day").hide('slide', { direction: 'right' }, function() {
 
 					nuevo_dia--;
 					//Comprobar
@@ -84,7 +84,7 @@
 					$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
 					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
 					
-					$("#actual_day").show('slide', { direction: 'right' });				
+					$("#actual_day").show('slide', { direction: 'left' });				
 					
 					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
 					
@@ -92,7 +92,7 @@
 			});
 			
 			$("#next_day").click(function() {
-				$("#actual_day").hide('slide', { direction: 'right' }, function() {
+				$("#actual_day").hide('slide', { direction: 'left' }, function() {
 					
 					nuevo_dia++;
 					ultimo_dia=get_total_days(nuevo_mes, nuevo_anio);
@@ -111,7 +111,7 @@
 					$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
 					nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
 					
-					$("#actual_day").show('slide', { direction: 'left' });	
+					$("#actual_day").show('slide', { direction: 'right' });	
 					
 					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
 					
@@ -299,13 +299,6 @@
 			return [dia,otro_mes,otro_anio];
 		}
 
-		$(window).load(function() {
-			$('#cortina').hide('fade', function() {
-			
-				$('#contenedor').show();
-				
-			}, 500);
-		});
 		</script>		
 	</head>
 

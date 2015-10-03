@@ -26,14 +26,10 @@
 					
 			get_data_api("", identificador, 'event', 'contenedor_eventos');
 			
-		});
-		
-		$(window).load(function() {
-			$('#cortina').hide('fade', function() {
+			$(".cupon_02").click(function() {
+				hide_image(); 
+			});
 			
-				$('#contenedor').show();
-				
-			}, 500);
 		});
 		
 		function onBackKeyDown()
@@ -45,6 +41,7 @@
 
 	<body class="ov_body_01" onload="onBodyLoad()">
 		<div id="cortina"> </div>
+		<div id="cortina2"> </div>
 		
 		<!-- Ads -->
 		<div class="contenedor_ads">
@@ -56,6 +53,10 @@
 			
 			<div id="contenedor_eventos" class="contenido">
 
+			</div>
+			
+			<div class="cupon_02">
+					
 			</div>
 
 		</div>	
