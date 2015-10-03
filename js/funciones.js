@@ -195,7 +195,7 @@ function hide_image() {
 
 function format_date(fecha) {
 	var fecha_split=fecha.split("-");
-	var fecha_formateada=fecha_split[0]+" de "+monthNames[parseInt(fecha_split[1])-1]+" de "+fecha_split[2];
+	var fecha_formateada=fecha_split[0]+" de "+monthNames[parseInt(fecha_split[1].toString())-1]+" de "+fecha_split[2];
 	
 	return fecha_formateada;	
 }
@@ -206,7 +206,8 @@ function format_date2(fecha) {
 	console.log("FORMAT DATE: "+fecha);
 	
 	console.log("fecha_split[1]: "+fecha_split[1]);
-	console.log("parseInt(fecha_split[1])+1: "+(parseInt(fecha_split[1])+1));
+	console.log("typeof fecha_split[1]: "+typeof fecha_split[1]);
+	console.log("parseInt(fecha_split[1]): "+parseInt(fecha_split[1]));
 	console.log("addZero(parseInt(fecha_split[1])+1): "+addZero(parseInt(fecha_split[1])+1));
 	
 	return fecha_formateada;	
