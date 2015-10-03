@@ -17,7 +17,7 @@
 		<script src="./cordova.js"></script>
 		
 		<script>
-		var fecha_actual=addZero(current_day_of_month)+"-"+addZero(parseInt(current_month))+"-"+current_year;
+		var fecha_actual=addZero(current_day_of_month)+"-"+addZero(parseInt(current_month,10))+"-"+current_year;
 		
 		$(document).ready(function() {
 			$("#fecha_hoy").html(format_date2(fecha_actual));

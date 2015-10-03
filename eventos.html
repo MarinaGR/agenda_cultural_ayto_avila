@@ -18,15 +18,15 @@
 		
 		var fdate=get_var_url("id");
 
-		var nuevo_dia=parseInt(current_day_of_month);
-		var nuevo_mes=parseInt(current_month);
-		var nuevo_anio=parseInt(current_year);
+		var nuevo_dia=parseInt(current_day_of_month, 10);
+		var nuevo_mes=parseInt(current_month, 10);
+		var nuevo_anio=parseInt(current_year, 10);
 				
 		if(fdate && fdate!="")
 		{
 			var fecha_split=fdate.split("-");
-			nuevo_dia=parseInt(fecha_split[0]);
-			nuevo_mes=parseInt(fecha_split[1])-1;
+			nuevo_dia=parseInt(fecha_split[0], 10);
+			nuevo_mes=parseInt(fecha_split[1], 10)-1;
 			nuevo_anio=fecha_split[2];
 		}
 		
@@ -136,13 +136,13 @@
 					if(nuevo_dia_sem<1)
 					{
 						nuevo_mes_sem--;
-						nuevo_dia_sem=parseInt(get_total_days(nuevo_mes_sem, nuevo_anio_sem))+parseInt(nuevo_dia_sem);
+						nuevo_dia_sem=parseInt(get_total_days(nuevo_mes_sem, nuevo_anio_sem),10)+parseInt(nuevo_dia_sem,10);
 					}
 					if(nuevo_mes_sem<0)
 					{
 						nuevo_anio_sem--;
 						nuevo_mes_sem=11;						
-						nuevo_dia_sem=parseInt(get_total_days(nuevo_mes_sem, nuevo_anio_sem))+parseInt(dia_sem_ant);
+						nuevo_dia_sem=parseInt(get_total_days(nuevo_mes_sem, nuevo_anio_sem),10)+parseInt(dia_sem_ant,10);
 					}
 					
 					var nueva_semana=current_week-1;

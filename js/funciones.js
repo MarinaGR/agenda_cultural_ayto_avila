@@ -195,20 +195,20 @@ function hide_image() {
 
 function format_date(fecha) {
 	var fecha_split=fecha.split("-");
-	var fecha_formateada=fecha_split[0]+" de "+monthNames[parseInt(fecha_split[1].toString())-1]+" de "+fecha_split[2];
+	var fecha_formateada=fecha_split[0]+" de "+monthNames[parseInt(fecha_split[1],10)-1]+" de "+fecha_split[2];
 	
 	return fecha_formateada;	
 }
 function format_date2(fecha) {
 	var fecha_split=fecha.split("-");
-	var fecha_formateada=fecha_split[0]+"/"+addZero(parseInt(fecha_split[1])+1)+"/"+fecha_split[2];
+	var fecha_formateada=fecha_split[0]+"/"+addZero(parseInt(fecha_split[1],10)+1)+"/"+fecha_split[2];
 	
 	console.log("FORMAT DATE: "+fecha);
 	
 	console.log("fecha_split[1]: "+fecha_split[1]);
 	console.log("typeof fecha_split[1]: "+typeof fecha_split[1]);
-	console.log("parseInt(fecha_split[1]): "+parseInt(fecha_split[1]));
-	console.log("addZero(parseInt(fecha_split[1])+1): "+addZero(parseInt(fecha_split[1])+1));
+	console.log("parseInt(fecha_split[1],10): "+parseInt(fecha_split[1],10));
+	console.log("addZero(parseInt(fecha_split[1],10)+1): "+addZero(parseInt(fecha_split[1],10)+1));
 	
 	return fecha_formateada;	
 }
@@ -217,7 +217,7 @@ function addZero(number) {
 	
 	console.log("NUMBER: "+number);
 	
-	if(parseInt(number)<10) 
+	if(parseInt(number,10)<10) 
 	{
 		number="0"+number;
 	}
@@ -230,7 +230,7 @@ function get_date_to_api(fecha) {
 	console.log("get_date_to_api FECHA: "+fecha);
 
 	var fecha_split=fecha.split("-");
-	var fecha_to_api=fecha_split[0]+"-"+addZero(parseInt(fecha_split[1])+1)+"-"+fecha_split[2];
+	var fecha_to_api=fecha_split[0]+"-"+addZero(parseInt(fecha_split[1],10)+1)+"-"+fecha_split[2];
 	
 	console.log("fecha_split[1]: "+fecha_split[1]);
 	
