@@ -32,6 +32,9 @@
 		
 		nueva_fecha=addZero(nuevo_dia)+"-"+addZero(nuevo_mes)+"-"+nuevo_anio;
 		
+		console.log("NUEVA FECHA BEFORE: "+nueva_fecha);
+		console.log("NUEVO MES BEFORE: "+nuevo_mes);
+		
 		var nuevo_dia_sem=nuevo_dia;
 		var nuevo_mes_sem=nuevo_mes;
 		var nuevo_anio_sem=nuevo_anio;
@@ -40,6 +43,9 @@
 		document.addEventListener("deviceready", function() {
 			
 			$("#actual_day").html(nuevo_dia+" de "+monthNames[nuevo_mes]);
+			
+			console.log("NUEVA FECHA AFTER: "+nueva_fecha);
+			console.log("NUEVO MES AFTER: "+nuevo_mes);
 			
 			get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
 			
@@ -60,7 +66,7 @@
 					$("#sdia").addClass("activo");
 					$("#diario").show('blind');
 					
-					get_data_api(nueva_fecha, '', 'events', 'contenedor_eventos');
+					get_data_api(addZero(nuevo_dia_sem)+"-"+addZero(nuevo_mes_sem)+"-"+nuevo_anio_sem, '', 'events', 'contenedor_eventos');
 										
 				});				
 			});

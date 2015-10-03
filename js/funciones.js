@@ -207,12 +207,12 @@ function format_date2(fecha) {
 }
 
 function addZero(number) {
-	console.log(typeof number);
+	
 	if(parseInt(number)<10) 
 	{
 		number="0"+number;
 	}
-	console.log(typeof number);
+	
 	return number;
 }
 
