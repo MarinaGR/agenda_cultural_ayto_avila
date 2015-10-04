@@ -16,12 +16,15 @@
 		<script src="./cordova.js"></script>
 		
 		<script>
-		//$(document).ready(function() {
-		document.addEventListener("deviceready", function() {
-
+		$(document).ready(function() {
+		//document.addEventListener("deviceready", function() {
+				$('#contenedor').show();
+				setTimeout(function(){
+					window.location.href='menu.html';
+				}, 1500);
 		});
 		
-		$(window).load(function() {
+		/*$(window).load(function() {
 			$('#cortina').hide('fade', function() {
 			
 				$('#contenedor').show();
@@ -30,12 +33,12 @@
 				}, 1500);
 				
 			}, 350);
-		});
+		});*/
 		</script>		
 	</head>
 
 	<body class="ov_body_01" onload="onBodyLoad()">
-		<div id="cortina"> </div>
+		<!--<div id="cortina"> </div>-->
 		<div id="menu"> </div>
 		<div id="contenedor" onclick="go_to_page('menu')">
 			<div class="portada" >	</div>		

@@ -1,15 +1,13 @@
-var api_url='http://www.avilaturismo.com/api.php';
+//var api_url='http://www.avilaturismo.com/api.php';
 //var api_url='./server/api.php';
 var api_url='http://www.hoopale.com/AGENDACULTURAL/api.php';
-var kml_url='http://www.avilaturismo.com/app/resources/avila.kml';
-var extern_url='http://www.avilaturismo.com/app/';
+//var kml_url='http://www.avilaturismo.com/app/resources/avila.kml';
+//var extern_url='http://www.avilaturismo.com/app/';
 //var extern_url='./server/resources/';
 var local_url='./resources/json/';
 
 //var DATOS, DIRECTION, GEOLOCATION;
 var CONTENEDOR;
-
-var categ_list=new Object();
 
 var intersticial=true;
 var publi_banner_top=false;
@@ -69,28 +67,6 @@ function onBodyLoad()
 		$("#iframe_ads").attr('src', publi_url);
 	else
 		$(".contenedor_ads").html('<img src="./images/logos/AVturismo.png" alt="Ávila" />');
-	
-	//Cargamos las categorias en local storage
-	categ_list=JSON.parse(getLocalStorage("categ_list"));		
-	if(categ_list==null)
-	{		
-		$.getJSON(local_url+'category_list.json', function (data) 
-		{
-			categ_list=new Object();	
-			$.each(data.result.items, function(index, d) 
-			{   		
-				categ_list[d.id]=new Array();
-			
-				categ_list[d.id].push(
-					{
-						es:d.es,
-						en:d.en
-					}
-				);	
-			});				
-			setLocalStorage("categ_list", JSON.stringify(categ_list));  
-		});		
-	}
 	
 }
 
@@ -203,20 +179,11 @@ function format_date2(fecha) {
 	var fecha_split=fecha.split("-");
 	var fecha_formateada=fecha_split[0]+"/"+addZero(parseInt(fecha_split[1],10)+1)+"/"+fecha_split[2];
 	
-	console.log("FORMAT DATE: "+fecha);
-	
-	console.log("fecha_split[1]: "+fecha_split[1]);
-	console.log("typeof fecha_split[1]: "+typeof fecha_split[1]);
-	console.log("parseInt(fecha_split[1],10): "+parseInt(fecha_split[1],10));
-	console.log("addZero(parseInt(fecha_split[1],10)+1): "+addZero(parseInt(fecha_split[1],10)+1));
-	
 	return fecha_formateada;	
 }
 
 function addZero(number) {
-	
-	console.log("NUMBER: "+number);
-	
+		
 	if(parseInt(number,10)<10) 
 	{
 		number="0"+number;
@@ -227,41 +194,13 @@ function addZero(number) {
 
 function get_date_to_api(fecha) {
 
-	console.log("get_date_to_api FECHA: "+fecha);
-
 	var fecha_split=fecha.split("-");
 	var fecha_to_api=fecha_split[0]+"-"+addZero(parseInt(fecha_split[1],10)+1)+"-"+fecha_split[2];
-	
-	console.log("fecha_split[1]: "+fecha_split[1]);
-	
-	console.log("FECHA TO API: "+fecha_to_api);
 	
 	return fecha_to_api;
 }
 
 function get_program(container) {
-	$.ajax({
-		url: api_url,
-		data: { date: "", o: "get_active_program" },
-		type: 'POST',
-		dataType: 'json',
-		crossDomain: true, 
-		success: function(data) {
-					var cadena='<div class="boton_01" onclick="window.open('+data.url_program+', \'_system\', \'location=yes\'); ">Ver programa</div>';
-					$("#"+container).append(cadena);
-				},
-		error: function(jqXHR, textStatus, errorThrown){
-					//alert('Error: '+textStatus+" - "+errorThrown);	
-					if(jqXHR.status == 404) {
-						//$("#"+container).html("No hay informaci&oacute;n");
-					}
-					else
-					{
-						//$("#"+container).html("Necesita conexi&oacute;n a internet para acceder a esta secci&oacute;n.");
-					}
-				},
-		async:false,
-	});
 		
 	/*FIESTAS OCTUBRE 2015*/
 	var totalPaginas=27;
@@ -298,6 +237,29 @@ function get_program(container) {
 	$("#fiestas_title").html(fiestas_title);
 	
 	$("#"+container).html(cadena);
+	
+	$.ajax({
+		url: api_url,
+		data: { date: "", o: "get_active_program" },
+		type: 'POST',
+		dataType: 'json',
+		crossDomain: true, 
+		success: function(data) {
+					cadena='<div class="boton_01" onclick="window.open('+data.url_program+', \'_system\', \'location=yes\'); ">Ver programa</div>';
+					$("#"+container).append(cadena);
+				},
+		error: function(jqXHR, textStatus, errorThrown){
+					//alert('Error: '+textStatus+" - "+errorThrown);	
+					if(jqXHR.status == 404) {
+						//$("#"+container).html("No hay informaci&oacute;n");
+					}
+					else
+					{
+						//$("#"+container).html("Necesita conexi&oacute;n a internet para acceder a esta secci&oacute;n.");
+					}
+				},
+		async:false,
+	});
 	
 }
 
