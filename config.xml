@@ -7,7 +7,7 @@
     <name>Agenda Cultural Ayto. Ávila</name>
 
     <description>
-		Aplicación con toda la información de las fiestas de Ávila: programa de fiestas, puntos de interés, agenda de eventos, ofertas...
+		Aplicación con toda la información de las fiestas de Ávila: programa de fiestas, puntos de interés, agenda de eventos, servicios...
     </description>
 
     <author href="http://www.ovnyline.com" email="info@ovnyline.com">
@@ -57,7 +57,7 @@
 	<gap:plugin name="org.apache.cordova.device" version="0.2.8" /> -->
 	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
-	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.16" />
 
 
     <!-- Iconos para cada plataforma -->

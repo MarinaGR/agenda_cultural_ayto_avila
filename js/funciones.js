@@ -417,11 +417,11 @@ function get_data_api(date, identificador, operation, container) {
 								
 						if(d.imagenDestacada!="")
 						{
-							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Mensaje\', \''+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
+							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa? \', \''+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
 						}
 						else
 						{
-							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Mensaje\', \''+d.titulo+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
+							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa? \', \''+d.titulo+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
 						}
 						
 						
