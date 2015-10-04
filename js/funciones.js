@@ -73,7 +73,19 @@ function onBodyLoad()
 function onDeviceReady()
 {					
 	document.addEventListener("offline", onOffline, false);
-	document.addEventListener("online", onOnline, false);
+	document.addEventListener("online", onOnline, false);	
+	
+	if(typeof device!="undefined")
+	{
+	
+		console.log("WINDOW "+window);
+		console.log("DEVICE "+device);
+	
+		if(device.platform!='android' && device.platform!='Android') 
+		{
+			window.plugin.statusbarOverlay.hide();
+		}
+	}
 
 	document.addEventListener("backbutton", onBackKeyDown, false);
 	document.addEventListener("menubutton", onMenuKeyDown, false);
@@ -238,6 +250,15 @@ function get_program(container) {
 	
 	$("#"+container).html(cadena);
 	
+	var swiper = new Swiper('.swiper-container', {
+					paginationClickable: false,
+					slidesPerView: 1,
+					spaceBetween: 5,
+					loop:false,
+					centeredSlides: true,
+					speed: 500
+				});
+				
 	$.ajax({
 		url: api_url,
 		data: { date: "", o: "get_active_program" },
@@ -415,15 +436,14 @@ function get_data_api(date, identificador, operation, container) {
 								
 								'<div class="e_descripcion">'+d.descripcion+'</div>';
 								
-						if(d.imagenDestacada!="")
+						/*if(d.imagenDestacada!="")
 						{
 							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa? \', \''+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
 						}
 						else
 						{
 							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa? \', \''+d.titulo+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
-						}
-						
+						}*/						
 						
 						$("#"+container).html(cadena);
 						

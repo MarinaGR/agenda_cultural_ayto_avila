@@ -57,9 +57,18 @@
 	<gap:plugin name="org.apache.cordova.device" version="0.2.8" /> -->
 	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
-	<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
+	<!--<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />-->
 
+	<!-- Ocultar barra ios, a partir de ios7-->
+	<gap:plugin name="de.appplant.cordova.plugin.hidden-statusbar-overlay" version="1.1.0" />
+	<gap:config-file platform="ios" parent="UIStatusBarHidden">
+		<true/>
+	</gap:config-file>
+	<gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance">
+		<false/>
+	</gap:config-file>
 
+	
     <!-- Iconos para cada plataforma -->
     <icon src="res/icon/icon.png" />
     

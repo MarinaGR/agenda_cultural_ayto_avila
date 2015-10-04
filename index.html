@@ -16,24 +16,18 @@
 		<script src="./cordova.js"></script>
 		
 		<script>
-		$(document).ready(function() {
-		//document.addEventListener("deviceready", function() {
-				$('#contenedor').show();
-				setTimeout(function(){
-					window.location.href='menu.html';
-				}, 1500);
+		//$(document).ready(function() {
+		document.addEventListener("deviceready", function() {
+		
 		});
 		
-		/*$(window).load(function() {
-			$('#cortina').hide('fade', function() {
+		$(window).load(function() {
+		
+			setTimeout(function(){
+				window.location.href='menu.html';
+			}, 1500);
 			
-				$('#contenedor').show();
-				setTimeout(function(){
-					window.location.href='menu.html';
-				}, 1500);
-				
-			}, 350);
-		});*/
+		});
 		
 		function onBackKeyDown()
 		{
@@ -44,7 +38,7 @@
 	</head>
 
 	<body class="ov_body_01" onload="onBodyLoad()">
-		<!--<div id="cortina"> </div>-->
+		<div id="cortina"> </div>
 		<div id="menu"> </div>
 		<div id="contenedor" onclick="go_to_page('menu')">
 			<div class="portada" >	</div>		
