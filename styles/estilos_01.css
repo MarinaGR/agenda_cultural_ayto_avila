@@ -445,11 +445,13 @@ ul.lista_servicios {
     min-height: 50px;
     min-height: 75%;
     padding-top: 50px;
+	padding: 0 1%;
     display: none;
     position: absolute;
     z-index: 9999;
     text-align: center;
-    background-color: #fff;
+	color: #EEE;
+    background-color: #333;
     top: 0;
     left: 0;
 }
