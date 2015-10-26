@@ -439,7 +439,7 @@ function get_data_api(date, identificador, operation, container) {
 								'<div class="e_descripcion">'+d.descripcion+'</div>';
 								
 						var texto_compartir=texto_compartir.replace('"','');  
-						texto_compartir=texto_compartir.replace('\'','');  
+						texto_compartir=texto_compartir.replace("'","");  
 		
 						if(d.imagenDestacada!="")
 						{

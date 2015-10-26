@@ -23,6 +23,10 @@
 		//$(document).ready(function() {
 		document.addEventListener("deviceready", function() {
 			get_data_api("", identificador, 'place', 'contenedor_punto');
+			
+			$(".cupon_02").click(function() {
+				hide_image(); 
+			});
 		});
 		
 		</script>		
@@ -42,6 +46,10 @@
 			
 			<div id="contenedor_punto" class="contenido">
 
+			</div>
+			
+			<div class="cupon_02">
+					
 			</div>
 
 		</div>	
