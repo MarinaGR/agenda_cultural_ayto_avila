@@ -59,14 +59,16 @@ function onBodyLoad()
 	{
 		if(device.platform!='android' && device.platform!='Android') 
 		{
-			$(".contenedor_ads").css("padding-top","35px");
+			$(".contenedor_ads").css("padding-top","15px");
 		}
 	}
 	
+	/*
 	if(publi_banner_top)
 		$("#iframe_ads").attr('src', publi_url);
 	else
 		$(".contenedor_ads").html('<img src="./images/logos/AVturismo.png" alt="Ávila" />');
+	*/
 	
 }
 
@@ -436,15 +438,29 @@ function get_data_api(date, identificador, operation, container) {
 								
 								'<div class="e_descripcion">'+d.descripcion+'</div>';
 								
-						/*if(d.imagenDestacada!="")
+		
+						if(d.imagenDestacada!="")
 						{
 							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa? \', \''+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
+							
+							cadena+='<div class="boton_01" id="compartir en facebook" onclick="window.plugins.socialsharing.shareViaFacebook(\'Te interesa? '+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Facebook</div>';
+							
+							cadena+='<div class="boton_01" id="compartir en twitter" onclick="window.plugins.socialsharing.shareViaTwitter(\'Te interesa? '+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Twitter</div>';
+							
+							cadena+='<div class="boton_01" id="compartir en whatsapp" onclick="window.plugins.socialsharing.shareViaWhatsApp(\'Te interesa? '+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Whatsapp</div>';
 						}
 						else
 						{
 							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa? \', \''+d.titulo+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
-						}*/						
+							
+							cadena+='<div class="boton_01" id="compartir en facebook" onclick="window.plugins.socialsharing.shareViaFacebook(\'Te interesa? '+d.titulo+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Facebook</div>';
+							
+							cadena+='<div class="boton_01" id="compartir en twitter" onclick="window.plugins.socialsharing.shareViaTwitter(\'Te interesa? '+d.titulo+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Twitter</div>';
+							
+							cadena+='<div class="boton_01" id="compartir en whatsapp" onclick="window.plugins.socialsharing.shareViaWhatsApp(\'Te interesa? '+d.titulo+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Whatsapp</div>';
+						}
 						
+											
 						$("#"+container).html(cadena);
 						
 						break;		

@@ -21,6 +21,12 @@
 		
 		$(document).ready(function() {
 			$("#fecha_hoy").html(format_date2(fecha_actual));
+			
+			$('#cortina').hide('fade', function() {
+			
+				$('#contenedor').show();
+				
+			}, 100);
 		});
 		
 		document.addEventListener("deviceready", function() {
@@ -38,14 +44,6 @@
 				autoplayDisableOnInteraction: true
 			});
 			
-		});
-		
-		$(window).load(function() {
-			$('#cortina').hide('fade', function() {
-			
-				$('#contenedor').show();
-				
-			}, 100);
 		});
 		
 		function onBackKeyDown()
