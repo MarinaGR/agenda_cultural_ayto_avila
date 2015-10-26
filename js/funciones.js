@@ -443,21 +443,21 @@ function get_data_api(date, identificador, operation, container) {
 						{
 							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa? \', \''+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en facebook" onclick="window.plugins.socialsharing.shareViaFacebook(\'Te interesa? '+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Facebook</div>';
+							cadena+='<div class="boton_01" id="compartir en facebook" onclick="window.plugins.socialsharing.shareViaFacebook(\'Te interesa? '+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-facebook fa-fw fa-lg"> </i> Facebook</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en twitter" onclick="window.plugins.socialsharing.shareViaTwitter(\'Te interesa? '+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Twitter</div>';
+							cadena+='<div class="boton_01" id="compartir en twitter" onclick="window.plugins.socialsharing.shareViaTwitter(\'Te interesa? '+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-twitter fa-fw fa-lg"> </i> Twitter</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en whatsapp" onclick="window.plugins.socialsharing.shareViaWhatsApp(\'Te interesa? '+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Whatsapp</div>';
+							cadena+='<div class="boton_01" id="compartir en whatsapp" onclick="window.plugins.socialsharing.shareViaWhatsApp(\'Te interesa? '+d.titulo+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-whatsapp fa-fw fa-lg"> </i> Whatsapp</div>';
 						}
 						else
 						{
 							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa? \', \''+d.titulo+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en facebook" onclick="window.plugins.socialsharing.shareViaFacebook(\'Te interesa? '+d.titulo+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Facebook</div>';
+							cadena+='<div class="boton_01" id="compartir en facebook" onclick="window.plugins.socialsharing.shareViaFacebook(\'Te interesa? '+d.titulo+'\', null, null)" ><i class="fa fa-facebook fa-fw fa-lg"> </i> Facebook</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en twitter" onclick="window.plugins.socialsharing.shareViaTwitter(\'Te interesa? '+d.titulo+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Twitter</div>';
+							cadena+='<div class="boton_01" id="compartir en twitter" onclick="window.plugins.socialsharing.shareViaTwitter(\'Te interesa? '+d.titulo+'\', null, null)" ><i class="fa fa-twitter fa-fw fa-lg"> </i> Twitter</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en whatsapp" onclick="window.plugins.socialsharing.shareViaWhatsApp(\'Te interesa? '+d.titulo+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Whatsapp</div>';
+							cadena+='<div class="boton_01" id="compartir en whatsapp" onclick="window.plugins.socialsharing.shareViaWhatsApp(\'Te interesa? '+d.titulo+'\', null, null)" ><i class="fa fa-whatsapp fa-fw fa-lg"> </i> Whatsapp</div>';
 						}
 						
 											
@@ -474,7 +474,7 @@ function get_data_api(date, identificador, operation, container) {
 												
 						if(d.imagenDestacada!="")
 						{
-							cadena+='<div class="e_imagen" style="background-image:url('+d.imagenDestacada+')"> </div>';
+							cadena+='<div class="e_imagen" style="background-image:url('+d.imagenDestacada+')" onclick="show_image(\''+d.imagenDestacada+'\')" > </div>';
 						}
 						
 						cadena+='<div class="e_titulo_02">'+d.nombre+'</div>';

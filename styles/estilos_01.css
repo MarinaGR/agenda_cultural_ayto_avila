@@ -442,10 +442,10 @@ ul.lista_servicios {
 .cupon_02 {
 	margin: 2%;
     width: 96%;
-    min-height: 50px;
+    min-height: 40px;
     min-height: 75%;
     padding-top: 50px;
-	padding: 0 1%;
+	padding: 0;
     display: none;
     position: absolute;
     z-index: 9999;
