@@ -438,9 +438,8 @@ function get_data_api(date, identificador, operation, container) {
 								
 								'<div class="e_descripcion">'+d.descripcion+'</div>';
 								
-						var texto_compartir=texto_compartir.replace('"','');  
-						texto_compartir=texto_compartir.replace("'","");  
-		
+						var texto_compartir=(d.titulo).replace(/["']/g, "");
+								
 						if(d.imagenDestacada!="")
 						{
 							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa? \', \''+texto_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
