@@ -439,28 +439,35 @@ function get_data_api(date, identificador, operation, container) {
 								'<div class="e_descripcion">'+d.descripcion+'</div>';
 								
 						var texto_compartir=(d.titulo).replace(/["']/g, "");
+						//var descripcion_compartir=(d.descripcion).replace(/["']/g, "·");
+						//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
 								
 						if(d.imagenDestacada!="")
 						{
-							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa? \', \''+texto_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
+							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa este evento de la Agenda Cultural de Ávila? \', \''+texto_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en facebook" onclick="window.plugins.socialsharing.shareViaFacebook(\'Te interesa? '+texto_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-facebook fa-fw fa-lg"> </i> Facebook</div>';
+							/*
+							cadena+='<div class="boton_01" id="compartir en facebook" onclick="window.plugins.socialsharing.shareViaFacebook(\'Te interesa este evento de la Agenda Cultural de Ávila? '+texto_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-facebook fa-fw fa-lg"> </i> Facebook</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en twitter" onclick="window.plugins.socialsharing.shareViaTwitter(\'Te interesa? '+texto_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-twitter fa-fw fa-lg"> </i> Twitter</div>';
+							cadena+='<div class="boton_01" id="compartir en twitter" onclick="window.plugins.socialsharing.shareViaTwitter(\'Te interesa este evento de la Agenda Cultural de Ávila? '+texto_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-twitter fa-fw fa-lg"> </i> Twitter</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en whatsapp" onclick="window.plugins.socialsharing.shareViaWhatsApp(\'Te interesa? '+texto_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-whatsapp fa-fw fa-lg"> </i> Whatsapp</div>';
+							cadena+='<div class="boton_01" id="compartir en whatsapp" onclick="window.plugins.socialsharing.shareViaWhatsApp(\'Te interesa este evento de la Agenda Cultural de Ávila? '+texto_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-whatsapp fa-fw fa-lg"> </i> Whatsapp</div>';
+							*/
 						}
 						else
 						{
-							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa? \', \''+texto_compartir+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> Compartir</div>';
+							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa este evento de la Agenda Cultural de Ávila? \', \''+texto_compartir+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en facebook" onclick="window.plugins.socialsharing.shareViaFacebook(\'Te interesa? '+texto_compartir+'\', null, null)" ><i class="fa fa-facebook fa-fw fa-lg"> </i> Facebook</div>';
+							/*
+							cadena+='<div class="boton_01" id="compartir en facebook" onclick="window.plugins.socialsharing.shareViaFacebook(\'Te interesa este evento de la Agenda Cultural de Ávila? '+texto_compartir+'\', null, null)" ><i class="fa fa-facebook fa-fw fa-lg"> </i> Facebook</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en twitter" onclick="window.plugins.socialsharing.shareViaTwitter(\'Te interesa? '+texto_compartir+'\', null, null)" ><i class="fa fa-twitter fa-fw fa-lg"> </i> Twitter</div>';
+							cadena+='<div class="boton_01" id="compartir en twitter" onclick="window.plugins.socialsharing.shareViaTwitter(\'Te interesa este evento de la Agenda Cultural de Ávila? '+texto_compartir+'\', null, null)" ><i class="fa fa-twitter fa-fw fa-lg"> </i> Twitter</div>';
 							
-							cadena+='<div class="boton_01" id="compartir en whatsapp" onclick="window.plugins.socialsharing.shareViaWhatsApp(\'Te interesa? '+texto_compartir+'\', null, null)" ><i class="fa fa-whatsapp fa-fw fa-lg"> </i> Whatsapp</div>';
-						}
-						
+							cadena+='<div class="boton_01" id="compartir en whatsapp" onclick="window.plugins.socialsharing.shareViaWhatsApp(\'Te interesa este evento de la Agenda Cultural de Ávila? '+texto_compartir+'\', null, null)" ><i class="fa fa-whatsapp fa-fw fa-lg"> </i> Whatsapp</div>';
+							*/
+						}	
+
+						cadena+='<br>';
 											
 						$("#"+container).html(cadena);
 						
