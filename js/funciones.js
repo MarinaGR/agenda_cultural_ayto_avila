@@ -439,14 +439,13 @@ function get_data_api(date, identificador, operation, container) {
 								'<div class="e_descripcion">'+d.descripcion+'</div>';
 								
 						var titulo_compartir=(d.titulo).replace(/["']/g, "");
-						//Descarga la aplicación desde Google play para Android https://play.google.com/store/apps/details?id=com.ovnyline.appaytoavila o desde App Store para Iphone https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1040844673&mt=8 y mantente informado de todos los eventos culturales de Ávila.
-						var texto_compartir=titulo_compartir+" - Descarga la aplicación ·Agenda Cultural Ayto. Ávila· desde Google play para Android o desde App Store para Iphone e informate de todos los eventos culturales de la ciudad."
+						var texto_compartir="Te interesa este evento de la Agenda Cultural de Ávila? "+titulo_compartir+" - Fecha: "+campo_fecha+" - "+d.hora+"  (*) Descarga la aplicación ·Agenda Cultural Ayto. Ávila· desde Google Play para Android o desde App Store para Iphone e informate de todos los eventos culturales de la ciudad."
 						//var descripcion_compartir=(d.descripcion).replace(/["']/g, "·");
 						//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
 								
 						if(d.imagenDestacada!="")
 						{
-							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\'Te interesa este evento de la Agenda Cultural de Ávila? '+texto_compartir+'\', \''+titulo_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
+							cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
 							
 							/*
 							cadena+='<div class="boton_01" id="compartir en facebook" onclick="window.plugins.socialsharing.shareViaFacebook(\'Te interesa este evento de la Agenda Cultural de Ávila? '+texto_compartir+'\', \''+d.imagenDestacada+'\', null)" ><i class="fa fa-facebook fa-fw fa-lg"> </i> Facebook</div>';
