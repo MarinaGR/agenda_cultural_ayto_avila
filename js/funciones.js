@@ -439,7 +439,8 @@ function get_data_api(date, identificador, operation, container) {
 								'<div class="e_descripcion">'+d.descripcion+'</div>';
 								
 						var titulo_compartir=(d.titulo).replace(/["']/g, "");
-						var texto_compartir="Te interesa este evento de la Agenda Cultural de Ávila? "+titulo_compartir+" - Fecha: "+campo_fecha+" - "+d.hora+"  (*) Descarga la aplicación ·Agenda Cultural Ayto. Ávila· desde Google Play para Android o desde App Store para Iphone e informate de todos los eventos culturales de la ciudad."
+						var lugar_compartir=(d.lugar).replace(/["']/g, "");
+						var texto_compartir="Te interesa este evento de la Agenda Cultural de Ávila? "+titulo_compartir+" - FECHA: "+campo_fecha+" - LUGAR: "+lugar_compartir+" - (*) Descarga la aplicación ·Agenda Cultural Ayto. Ávila· desde Google Play para Android o desde App Store para Iphone e infórmate de todos los eventos culturales de la ciudad."
 						//var descripcion_compartir=(d.descripcion).replace(/["']/g, "·");
 						//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
 								
