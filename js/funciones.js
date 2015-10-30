@@ -439,7 +439,8 @@ function get_data_api(date, identificador, operation, container) {
 								'<div class="e_descripcion">'+d.descripcion+'</div>';
 								
 						var titulo_compartir=(d.titulo).replace(/["']/g, "");
-						var texto_compartir=titulo_compartir+". Descarga la aplicación desde Google play para Android <a href='https://play.google.com/store/apps/details?id=com.ovnyline.appaytoavila'> o desde App Store para Iphone <a href='https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1040844673&mt=8'></a> y mantente informado de todos los eventos culturales de Ávila."
+						//Descarga la aplicación desde Google play para Android https://play.google.com/store/apps/details?id=com.ovnyline.appaytoavila o desde App Store para Iphone https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1040844673&mt=8 y mantente informado de todos los eventos culturales de Ávila.
+						var texto_compartir=titulo_compartir+" - Descarga la aplicación ·Agenda Cultural Ayto. Ávila· desde Google play para Android o desde App Store para Iphone e informate de todos los eventos culturales de la ciudad."
 						//var descripcion_compartir=(d.descripcion).replace(/["']/g, "·");
 						//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
 								
