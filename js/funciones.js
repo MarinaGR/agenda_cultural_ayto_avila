@@ -216,18 +216,19 @@ function get_date_to_api(fecha) {
 
 function get_program(container) {
 		
-	/*FIESTAS OCTUBRE 2015*/
+	/*MUESTRA TEATRO NOVIEMBRE 2015*/
 	var totalPaginas=27;
-	var fiestas_title="OCTUBRE 2015";
-	var carpetaPrograma="ProgramaOctubre2015"
-	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/FiestasOctubre2015.pdf";
+	var fiestas_title="MUESTRA DE TEATRO";
+	var carpetaPrograma="MuestraTeatroNoviembre2015";
+	
+	var array_url=new Array();
+	array_url.push({nombre:"Fiestas Octubre 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/FiestasOctubre2015.pdf"});
+
+	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/folleto-muestra-teatro-2015.pdf";
 	
 	var cadena="";
 	
-	cadena+="<p>El 15 de octubre la ciudad celebra las fiestas en honor de Santa Teresa. "+
-			"Los festejos se inician con la proclamación del pregón de las mismas desde los balcones del Ayuntamiento. "+
-			"Gigantes, cabezudos y tarasca recorren las calles y se hace la ofrenda floral ante una de las esculturas de la Santa en el Mercado Grande."+
-			"<br><br>Conciertos, fuegos artificiales y actividades deportivas se desarrollan a lo largo de esta semana festiva, con una misa solemne en la Catedral el día de la festividad.</p>";
+	cadena+="<p>La 28 edición de la Muestra de Teatro Ciudad de Ávila contará  con doce obras que se representarán durante el mes de noviembre en el Centro de Congresos y Exposiciónes 'Lienzo Norte'.</p>";
 				
 	cadena+="<div class='swip_me'>Desliza el dedo sobre las páginas para ver el programa completo</div>";
 			
@@ -244,9 +245,15 @@ function get_program(container) {
 		cadena+="</div>";
 	cadena+="</div>";
 	
-	cadena+='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> DESCARGAR PROGRAMA</div><br>';
+	cadena+='<br><div class="boton_02" onclick="window.open(\''+url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> DESCARGAR PROGRAMA ACTUAL</div><br>';
 	
 	/*cadena+="<div class='contenedor_program' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'><iframe src='https://docs.google.com/viewer?url="+url+"&embedded=true' class='iframe_program' id='programa' ></iframe></div>";*/
+	
+	cadena+="<div class='titulo_agenda'><p>- HISTÓRICO -</p></div>";
+	cadena+="<p style='text-align:center'><br>Desde aquí puedes descargar los últimos programas.</p>";
+	$.each(array_url, function(index, u) {
+		cadena+='<br><div class="boton_02" onclick="window.open(\''+u.url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> '+u.nombre+'</div>';
+	});
 	
 	$("#fiestas_title").html(fiestas_title);
 	

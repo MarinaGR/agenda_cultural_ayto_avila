@@ -76,22 +76,10 @@
 					"fax": null,
 					"email": null,
 					"web": null,
-					"direccion": "Paseo de la Estación 50, 05001, Ávila",
+					"direccion": "Plaza del Mercado Chico 1, Ávila", 
 					"geolocalizacion": null,
 					"municipio": "MUNI-00000000251"
-				},
-				{
-					"id":  "MUNI-00000000251-VCENTENARIO",
-					"nombre": "Oficina de información del V Centenario",
-					"tlf": null,
-					"fax": null,
-					"email": null,
-					"web": null,
-					"direccion": null,
-					"geolocalizacion": null,
-					"municipio": "MUNI-00000000251"
-				}
-				
+				}				
 			]
 	}
 }
