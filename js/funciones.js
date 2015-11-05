@@ -249,7 +249,7 @@ function get_program(container) {
 	
 	/*cadena+="<div class='contenedor_program' style='height:"+(viewport_height-$("#menu").outerHeight())+"px'><iframe src='https://docs.google.com/viewer?url="+url+"&embedded=true' class='iframe_program' id='programa' ></iframe></div>";*/
 	
-	cadena+="<div class='titulo_agenda'><p>- HISTÓRICO -</p></div>";
+	cadena+="<div class='titulo_historico'><p>- HISTÓRICO -</p></div>";
 	cadena+="<p style='text-align:center'><br>Desde aquí puedes descargar los últimos programas.</p>";
 	$.each(array_url, function(index, u) {
 		cadena+='<br><div class="boton_02" onclick="window.open(\''+u.url+'\', \'_system\', \'location=yes\'); "><i class="fa fa-book fa-fw fa-lg"></i> '+u.nombre+'</div>';

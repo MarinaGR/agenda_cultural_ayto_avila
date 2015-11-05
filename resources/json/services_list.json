@@ -38,7 +38,7 @@
 				},
 				{
 					"id":  "MUNI-00000000251-TURISMO",
-					"nombre": "Centro de Recepción de visitantes de Ávila",
+					"nombre": "Centro de Recepción de visitantes",
 					"tlf": "<a href='tel:920350000'>920350000</a> (extensión: 370/371)",
 					"fax": null,
 					"email": null,
@@ -71,7 +71,7 @@
 				},
 				{
 					"id":  "MUNI-00000000251-ANTENCION",
-					"nombre": "Oficina de Atención al Ciudadano de Ávila",
+					"nombre": "Oficina de Atención al Ciudadano",
 					"tlf": "<a href='tel:920211011'>920211011</a>",
 					"fax": null,
 					"email": null,
