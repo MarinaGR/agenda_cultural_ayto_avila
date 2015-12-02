@@ -216,19 +216,21 @@ function get_date_to_api(fecha) {
 
 function get_program(container) {
 		
-	/*MUESTRA TEATRO NOVIEMBRE 2015*/
-	var totalPaginas=27;
-	var fiestas_title="MUESTRA DE TEATRO";
-	var carpetaPrograma="MuestraTeatroNoviembre2015";
+	/*NAVIDAD 2015*/
+	var totalPaginas=15;
+	var fiestas_title="NAVIDAD 2015";
+	var carpetaPrograma="ProgramaNavidad2015";
 	
-	var array_url=new Array();
-	array_url.push({nombre:"Fiestas Octubre 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/FiestasOctubre2015.pdf"});
+	//Histórico
+	var array_url=new Array();array_url.push({nombre:"Muestra de Teatro 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/folleto-muestra-teatro-2015.pdf"});
+	array_url.push({nombre:"Fiestas Octubre 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/FiestasOctubre2015.pdf"});	
 
-	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/folleto-muestra-teatro-2015.pdf";
+	//Actual
+	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/programaNavidad2015.pdf";
 	
 	var cadena="";
 	
-	cadena+="<p>La 28 edición de la Muestra de Teatro Ciudad de Ávila contará  con doce obras que se representarán durante el mes de noviembre en el Centro de Congresos y Exposiciónes 'Lienzo Norte'.</p>";
+	cadena+="<p>Actividades especialmente dirigidas a los más pequeños.</p>";
 				
 	cadena+="<div class='swip_me'>Desliza el dedo sobre las páginas para ver el programa completo</div>";
 			
