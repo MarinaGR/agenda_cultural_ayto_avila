@@ -18,8 +18,8 @@
 		<script src="./cordova.js"></script>
 		
 		<script>
-		$(document).ready(function() {
-		//document.addEventListener("deviceready", function() {
+		//$(document).ready(function() {
+		document.addEventListener("deviceready", function() {
 			
 			$("#mapa_puntos").height($(window).outerHeight()-$(".contenedor_ads").height()-$("#menu").outerHeight()+"px");
 			
@@ -35,24 +35,30 @@
 		
 		function geolocate_user(id) {
 		
+			$("#marker").attr("class","fa fa-spinner fa-pulse fa-2x");
+			
 			$('#'+id).gmap3({
 			
 			  getgeoloc:{
+			  
 				callback : function(latLng){
-				  if (latLng){
-					$(this).gmap3({
-					  marker:{ 
-						latLng:latLng
-					  },
-					  map:{
-						options:{
-						  zoom: 17
-						}
-					  }
-					});
-				  }
+							$("#marker").attr("class","fa fa-map-marker fa-2x");
+							
+							  if (latLng)
+							  {
+								$(this).gmap3({
+								  marker:{ 
+									latLng:latLng
+								  },
+								  map:{
+									options:{
+									  zoom: 17
+									}
+								  }
+								});
+							  }
+							}
 				}
-			  }
 			  
 			});
 			
@@ -79,7 +85,7 @@
 		<div id="menu">			
 			<span onclick="go_to_page('menu')"><i class="fa fa-arrow-circle-left fa-2x"> </i></span>
 			<span onclick="go_to_page('menu')"><i class="fa fa-bars fa-2x"> </i></span>
-			<span onclick="geolocate_user('mapa_puntos')"><i class="fa fa-map-marker fa-2x"> </i></span>
+			<span onclick="geolocate_user('mapa_puntos')"><i id="marker" class="fa fa-map-marker fa-2x"> </i></span>
 			<span><img style="vertical-align:bottom" src="./images/logos/AVcultura.png" /></span>
 		</div>	
 			
