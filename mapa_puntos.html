@@ -53,11 +53,16 @@
 								  map:{
 									options:{
 									  center: latLng,
-									  zoom: 16
+									  zoom: 15
 									}
 								  }
 								});
 							  }
+							  else {
+							    $("#marker").attr("class","fa fa-map-marker fa-2x");
+								$('#'+id).prepend("<p>No se ha podido geolocalizar su posición</p>");
+							  }
+							  
 							}
 				}
 			  
