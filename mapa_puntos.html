@@ -38,9 +38,7 @@
 			$("#marker").attr("class","fa fa-spinner fa-pulse fa-2x");
 			
 			$('#'+id).gmap3({
-			
 			  getgeoloc:{
-			  
 				callback : function(latLng){
 							$("#marker").attr("class","fa fa-map-marker fa-2x");
 							
@@ -67,6 +65,16 @@
 							  
 							}
 				}
+				
+				/*
+				 geoloc: {
+				  getCurrentPosition: {
+					maximumAge: 20000,
+					timeout: 5000
+				  }
+				},
+				
+				*/
 			  
 			});
 			
