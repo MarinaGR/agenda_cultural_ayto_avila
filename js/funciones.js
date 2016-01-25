@@ -216,21 +216,23 @@ function get_date_to_api(fecha) {
 
 function get_program(container) {
 		
-	/*NAVIDAD 2015*/
-	var totalPaginas=15;
-	var fiestas_title="NAVIDAD 2015";
-	var carpetaPrograma="ProgramaNavidad2015";
+	/*CARNAVALES 2016*/
+	var totalPaginas=6;
+	var fiestas_title="CARNAVALES 2016";
+	var carpetaPrograma="ProgramaCarnavales2016";
 	
 	//Histórico
-	var array_url=new Array();array_url.push({nombre:"Muestra de Teatro 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/folleto-muestra-teatro-2015.pdf"});
+	var array_url=new Array();
+	array_url.push({nombre:"Navidad 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/programaNavidad2015.pdf"});
+	array_url.push({nombre:"Muestra de Teatro 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/folleto-muestra-teatro-2015.pdf"});
 	array_url.push({nombre:"Fiestas Octubre 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/FiestasOctubre2015.pdf"});	
 
 	//Actual
-	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/programaNavidad2015.pdf";
+	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/programaCarnaval2016.pdf";
 	
 	var cadena="";
 	
-	cadena+="<p>Actividades especialmente dirigidas a los más pequeños.</p>";
+	cadena+="<p></p>";
 				
 	cadena+="<div class='swip_me'>Desliza el dedo sobre las páginas para ver el programa completo</div>";
 			
