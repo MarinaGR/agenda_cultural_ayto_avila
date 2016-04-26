@@ -2,9 +2,9 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
 		xmlns:gap   = "http://phonegap.com/ns/1.0"
 		id          = "com.ovnyline.appaytoavila"
-		version     = "1.0.8" >
+		version     = "1.0.9" >
 		
-	<!-- v1.0.8: Programa Carnaval 2016 -->
+	<!-- v1.0.9: Programa Fiestas San Segundo 2016 -->
 
     <name>Agenda Cultural Ayto. Ávila</name>
 
