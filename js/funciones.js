@@ -216,20 +216,21 @@ function get_date_to_api(fecha) {
 
 function get_program(container) {
 		
-	/*SAN SEGUNDO 2016*/
-	var totalPaginas=8;
-	var fiestas_title="SAN SEGUNDO 2016";
-	var carpetaPrograma="ProgramaSanSegundo2016";
+	/*VERANO 2016*/
+	var totalPaginas=13;
+	var fiestas_title="VERANO 2016";
+	var carpetaPrograma="Verano2016";
 	
 	//Histórico
 	var array_url=new Array();
+	array_url.push({nombre:"San Segundo 2016",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/programaSanSegundo2016.pdf"});
 	array_url.push({nombre:"Carnavales 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/programaCarnaval2016.pdf"});
 	array_url.push({nombre:"Navidad 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/programaNavidad2015.pdf"});
 	array_url.push({nombre:"Muestra de Teatro 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/folleto-muestra-teatro-2015.pdf"});
 	array_url.push({nombre:"Fiestas Octubre 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/FiestasOctubre2015.pdf"});	
 
 	//Actual
-	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/programaSanSegundo2016.pdf";
+	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/verano2016.pdf";
 	
 	var cadena="";
 	
