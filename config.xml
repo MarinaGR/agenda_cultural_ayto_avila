@@ -43,6 +43,7 @@
 	<gap:plugin name="cordova-plugin-inappbrowser" source="npm" version="1.4.0" />
 	<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" version="5.1.1" />	
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" spec="1.2.2" />
+	<gap:plugin name="pinch-zoom" source="npm" spec="0.2.1" />
 
 	<!-- Ocultar barra ios, a partir de ios7-->
 	<gap:plugin name="de.appplant.cordova.plugin.hidden-statusbar-overlay" source="pgb" version="1.2.0" />
