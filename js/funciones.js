@@ -217,7 +217,7 @@ function get_date_to_api(fecha) {
 function get_program(container) {
 		
 	/*VERANO 2016*/
-	var totalPaginas=13;
+	var totalPaginas=27;
 	var fiestas_title="VERANO 2016";
 	var carpetaPrograma="Verano2016";
 	
