@@ -21,38 +21,8 @@
 		//document.addEventListener("deviceready", function() {
 			get_program("contenido");			
 		});
-		
-		var pinchZoom = require('pinch-zoom');
-		var el = document.querySelector('.wrapper');
-		var pzoom = pinchZoom(el, {
-									  draggable: true,
-									  maxScale: 4
-								  });
 
-		</script>	
-
-		<style>
-		#viewport {
-		  width: 100vw;
-		  height: 100vh;
-		  position: relative;
-		  background-color: #000;
-		  overflow: hidden;
-		}
-		.wrapper {
-		  position: absolute;
-		  left: 0;
-		  right: 0;
-		  top: 50%;
-		  margin-top: -80px;
-		}
-		.wrapper img {
-		  width: 100%;
-		  display: block;
-		  height: auto;
-		}
-		</style>
-
+		</script>		
 	</head>
 
 	<body class="ov_body_01" onload="onBodyLoad()">
@@ -72,14 +42,9 @@
 			<div class="titulo_seccion">
 				PROGRAMA
 			</div>
-			
-			<div id="viewport">
-				<div class="contenido wrapper" id="contenido">		
+			<div class="contenido" id="contenido">					
 						
-				
-				</div>
 			</div>
-			
 			<div class="contenido" id="historico">					
 						
 			</div>
