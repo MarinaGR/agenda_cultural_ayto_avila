@@ -216,13 +216,14 @@ function get_date_to_api(fecha) {
 
 function get_program(container) {
 		
-	/*VERANO 2016*/
-	var totalPaginas=27;
-	var fiestas_title="VERANO 2016";
-	var carpetaPrograma="Verano2016";
+	/*Santa Teresa 2016*/
+	var totalPaginas=23;
+	var fiestas_title="SANTA TERESA 2016";
+	var carpetaPrograma="ProgramaOctubre2016";
 	
 	//Histórico
 	var array_url=new Array();
+	array_url.push({nombre:"Verano 2016",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/verano2016.pdf"});
 	array_url.push({nombre:"San Segundo 2016",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/programaSanSegundo2016.pdf"});
 	array_url.push({nombre:"Carnavales 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/programaCarnaval2016.pdf"});
 	array_url.push({nombre:"Navidad 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/programaNavidad2015.pdf"});
@@ -230,7 +231,7 @@ function get_program(container) {
 	array_url.push({nombre:"Fiestas Octubre 2015",url:"http://www.hoopale.com/AGENDACULTURAL/programaPDF/FiestasOctubre2015.pdf"});	
 
 	//Actual
-	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/verano2016.pdf";
+	var url="http://www.hoopale.com/AGENDACULTURAL/programaPDF/ProgramaOctubre2016.pdf";
 	
 	var cadena="";
 	
