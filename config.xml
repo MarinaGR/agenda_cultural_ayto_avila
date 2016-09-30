@@ -2,6 +2,7 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
 		xmlns:gap   = "http://phonegap.com/ns/1.0"
 		id          = "com.ovnyline.appaytoavila"
+		versionCode = "1800" 
 		version     = "1.1.1" >
 		
 	<!-- v1.1.0: Cambio de versión cli-5.2. Programa Fiestas Verano 2016 -->
