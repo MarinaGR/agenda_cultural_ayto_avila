@@ -13,16 +13,51 @@
 		<script src="./js/jquery.js"></script>
 		<script src="./js/jqueryui.js"></script>
 		<script src="./js/jquery.ui.touch-punch.min.js"></script>
+		<script src="./js/iscroll-zoom.js"></script>
 		<script src="./js/funciones.js"></script>
 		<script src="./cordova.js"></script>
 		
 		<script>
+		var myScroll;
+		
 		$(document).ready(function() {
 		//document.addEventListener("deviceready", function() {
 			get_program("contenido");			
 		});
+		
+		function loaded_DOM() {
+			myScroll = new IScroll('.wrapper', {
+				zoom: true,
+				zoomStart: 1,
+				zoomMin: 1,
+				zoomMax: 2,
+				/*mouseWheel: true,
+				wheelAction: 'zoom',*/
+				scrollX: true,
+				scrollY: true
+			});			
+		}
+		
+		$(window).load(function() {	
+			setTimeout(function () { myScroll.refresh();  }, 50); 						
+			loaded_DOM();	
+			
+		});	
 
-		</script>		
+		</script>
+
+		<style>
+			/*.wrapper {
+				position: absolute;
+				z-index: 1;
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				overflow: hidden;
+			}*/
+		</style>	
+		
 	</head>
 
 	<body class="ov_body_01" onload="onBodyLoad()">
@@ -42,9 +77,11 @@
 			<div class="titulo_seccion">
 				PROGRAMA
 			</div>
-			<div class="contenido" id="contenido">					
-						
+			
+			<div class="contenido wrapper" id="contenido">					
+					
 			</div>
+			
 			<div class="contenido" id="historico">					
 						
 			</div>
