@@ -12,52 +12,35 @@
 		
 		<script src="./js/jquery.js"></script>
 		<script src="./js/jqueryui.js"></script>
-		<script src="./js/jquery.ui.touch-punch.min.js"></script>
-		<script src="./js/funciones.js"></script>
-		<script src="./cordova.js"></script>
-		
-		<script>
-		$(document).ready(function() {
-		//document.addEventListener("deviceready", function() {
-			get_program("contenido");			
-		});
-
-		</script>		
+		<script src="./js/jquery.ui.touch-punch.min.js"></script>		
 	</head>
+    
+    <script>
+        var height = $(window).height();
+        
+        jQuery(document).ready(function() {
+            $('iframe').css('height', height * 1 | 0);
+        });
+        $( window ).resize(function() {
+            $('iframe').css('height', height * 1 | 0);
+        });
+    </script>
+    
+    <style>
+        .ov_body_01{
+             overflow: hidden;
+        }
+        .progiframe{
+            overflow:hidden;
+            height:100%;
+            width:100%;
+        }
+    </style>
 
 	<body class="ov_body_01" onload="onBodyLoad()">
-		<div id="cortina"> </div>
-		
-		<!-- Ads -->
-		<div class="contenedor_ads">
-			<img src="./images/logos/logo_cultura.png" alt="Ávila" />
-		</div>
-		<!-- Ads -->
-		
-		<div id="contenedor" class="contenedor">
-				
-			<div class="pre_titulo_sec" id="fiestas_title">
-			
-			</div>
-			<div class="titulo_seccion">
-				PROGRAMA
-			</div>
-			<div class="contenido" id="contenido">					
-						
-			</div>
-			<div class="contenido" id="historico">					
-						
-			</div>
-		</div>
-		
-		<script src="./js/swiper.min.js"></script>
-		
-		<div id="menu">			
-			<span onclick="go_to_page('menu')"><i class="fa fa-arrow-circle-left fa-2x"> </i></span>
-			<span onclick="go_to_page('menu')"><i class="fa fa-bars fa-2x"> </i></span>
-			<span><img style="vertical-align:bottom" src="./images/logos/AVcultura.png" /></span>
-		</div>	
-						
+		<!--<div id="cortina"> </div>-->
+        <iframe class="progiframe" src="http://www.hoopale.com/AGENDACULTURAL/programas/programa.html" frameborder="0" height="100%" width="100%"></iframe>
+        <!--http://www.hoopale.com/AGENDACULTURAL/programas/"+name+'.html-->	
 	</body>
 	
 </html>
